@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Your Worries</title>
+    <link rel="stylesheet" href="styley.css">
+    <script src="scripty.js" defer></script>
+</head>
+<body>
+
+    <!-- Identity Disclaimer Popup -->
+    <div id="identity-popup" class="popup">
+        <div class="popup-content">
+            <p>Your identity will remain completely anonymous. The teacher will not know your name.<br>
+            <br>
+            <b>NO STUDY RELATED QUARRY<b>
+            </p>
+            <button onclick="closePopup()">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Clear Your Worries Form -->
+    <div class="container">
+        <h2>Clear Your Worries</h2>
+        <p>Ask your question to a specific teacher. Your identity will not be revealed.</p>
+
+        <form action="https://formsubmit.co/sirfpadhnahai.okay@gmail.com" method="POST">
+            
+            <label for="teacher">Enter Teacher's Name:</label>
+            <input type="text" id="teacher" name="teacher" placeholder="E.g., Mr. Soni" required>
+            
+            <label for="question">Your Question:</label>
+            <textarea id="question" name="question" placeholder="Write your question here..." required></textarea>
+
+            <label for="contact">Your Email / WhatsApp Number (Optional):</label>
+            <input type="text" id="contact" name="contact" placeholder="Enter your email or phone">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+            </html>
