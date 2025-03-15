@@ -28,3 +28,26 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 
 hiddenElements.forEach(el => observer.observe(el));
+// 🚀 Get Elements
+const popup = document.getElementById("audioPopup");
+const overlay = document.querySelector(".popup-overlay");
+const closeButton = document.querySelector(".close-btn");
+const body = document.body;
+const audio = document.getElementById("adminAudio");
+const mentors = document.querySelectorAll(".mentor");
+
+// 🔥 Show Popup on Load
+window.onload = function () {
+    popup.classList.add("show");
+    overlay.classList.add("show");
+    body.classList.add("noscroll");
+    audio.play();
+};
+
+// ❌ Close Popup
+closeButton.addEventListener("click", () => {
+    popup.classList.remove("show");
+    overlay.classList.remove("show");
+    body.classList.remove("noscroll");
+    audio.pause();
+});
