@@ -8,7 +8,119 @@ body {
     color: white;
     overflow-x: hidden;
 }
+/* 🔥 General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+}
 
+/* 🌟 Blur Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out;
+    z-index: 9998;
+}
+
+/* 🎵 Audio Popup */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 20px cyan;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    z-index: 9999;
+}
+
+/* ✨ Show Popup */
+.popup.show, .popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ❌ Disable Scrolling */
+body.noscroll {
+    overflow: hidden;
+}
+
+/* 🎵 Close Button */
+.close-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px red;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    background: darkred;
+    box-shadow: 0px 0px 20px darkred;
+}
+
+/* 🌟 Mentors Section */
+.main-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.mentor {
+    margin: 20px;
+    padding: 15px;
+    border: 2px solid cyan;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px cyan;
+    transition: 0.3s;
+}
+
+.mentor:hover {
+    box-shadow: 0px 0px 30px cyan;
+}
+
+.mentor img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid cyan;
+    box-shadow: 0px 0px 10px cyan;
+    transition: 0.3s;
+}
+
+.mentor:hover img {
+    box-shadow: 0px 0px 20px cyan;
+}
+
+/* 📱 Responsive Design */
+@media screen and (max-width: 600px) {
+    .mentor img {
+        width: 120px;
+        height: 120px;
+    }
+}
 /* Particle Background */
 #particles-js {
     position: fixed;
