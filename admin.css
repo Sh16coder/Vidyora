@@ -87,7 +87,6 @@ body {
 .main-content {
     flex: 1;
     background: linear-gradient(135deg, #121212, #1a1a1a);
-    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
