@@ -1,56 +1,39 @@
-// Display current date
-document.getElementById("date").innerText = new Date().toDateString();
+document.addEventListener("DOMContentLoaded", function() {
+    const hiddenElements = document.querySelectorAll(".hidden");
 
-// Particle Background Animation
-particlesJS.load('particles-js', 'particles.json', function() {
-    console.log('Particles loaded!');
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    hiddenElements.forEach(el => observer.observe(el));
 });
 
-// Hover Effects
-document.querySelector('.thought-card').addEventListener('mouseover', function() {
-    this.style.transform = "scale(1.1)";
+// Particle.js Background
+particlesJS("particles-js", {
+    particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#00ffcc" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#00ffcc", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out" }
+    }
 });
 
-document.querySelector('.thought-card').addEventListener('mouseleave', function() {
-    this.style.transform = "scale(1)";
-});
-
-// Button Click Effect
-document.querySelector('.glitch-btn').addEventListener('click', function() {
-    this.innerText = "🚀 BLASTING OFF!";
-    this.style.boxShadow = "0px 0px 50px red";
-    setTimeout(() => {
-        this.innerText = "🔥 NEXT LEVEL 🔥";
-        this.style.boxShadow = "0px 0px 15px cyan";
-    }, 2000);
-});
-// 🚀 Get Elements
-const popup = document.getElementById("audioPopup");
-const overlay = document.querySelector(".popup-overlay");
-const closeButton = document.querySelector(".close-btn");
-const body = document.body;
-const audio = document.getElementById("adminAudio");
-
-// 🔥 Show Popup on Load
-window.onload = function () {
-    popup.classList.add("show");
-    overlay.classList.add("show");
-    body.classList.add("noscroll");
-    audio.play();  // Auto-play audio
-};
-
-// ❌ Close Popup
-closeButton.addEventListener("click", () => {
-    popup.classList.remove("show");
-    overlay.classList.remove("show");
-    body.classList.remove("noscroll");
-    audio.pause();  // Stop audio
-});
-// Disable scrolling when the popup is active
-document.body.classList.add("no-scroll");
-
-// Function to Close the Disclaimer Popup
+// Disclaimer Popup
 function closePopup() {
-    document.getElementById('disclaimerPopup').style.display = 'none';
-    document.body.classList.remove("no-scroll");
+    document.getElementById("disclaimerPopup").classList.remove("active");
 }
+
+// Show Popup on Load
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        document.getElementById("disclaimerPopup").classList.add("active");
+    }, 1000);
+});
