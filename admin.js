@@ -46,3 +46,11 @@ closeButton.addEventListener("click", () => {
     body.classList.remove("noscroll");
     audio.pause();  // Stop audio
 });
+// Disable scrolling when the popup is active
+document.body.classList.add("no-scroll");
+
+// Function to Close the Disclaimer Popup
+function closePopup() {
+    document.getElementById('disclaimerPopup').style.display = 'none';
+    document.body.classList.remove("no-scroll");
+}
