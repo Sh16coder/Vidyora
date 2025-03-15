@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="mentorship.css">
 </head>
 <body>
+      <!-- 🔥 Popup Background (For Blur Effect) -->
+    <div class="popup-overlay"></div>
+
+    <!-- 🎵 Audio Popup -->
+    <div class="popup" id="audioPopup">
+        <h2>📢 Message from Admin</h2>
+        <p>Welcome! Please listen this before going further.</p>
+        <audio id="adminAudio" controls>
+            <source src="admin.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <br><br>
+        <button class="close-btn">Close</button>
+    </div>
     <!-- Particle Background -->
     <div id="particles-js"></div>
 
