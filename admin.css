@@ -5,13 +5,12 @@ body {
     background: #050505;
     margin: 0;
     padding: 0;
-    height: auto;
-    min-height: 100vh;
+    min-height: 100vh; /* Allows body to expand */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden; /* Hide horizontal scroll */
-    overflow-y: auto; /* Allow vertical scroll */
+    flex-direction: column;
+    overflow-x: hidden; /* Allow scrolling */
 }
 
 /* Particle Background */
@@ -25,11 +24,13 @@ body {
 /* Container */
 .container {
     display: flex;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
     width: 90%;
     max-width: 1100px;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0px 5px 30px rgba(0, 255, 255, 0.8);
+    min-height: auto; /* Allows it to expand */
 }
 
 /* Sidebar */
@@ -42,11 +43,6 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 4px 0px 20px rgba(0, 255, 255, 0.3);
-    position: sticky;
-    top: 0;
-    height: 100vh; /* Full height */
-    overflow-y: auto; /* Enable scrolling */
-    
 }
 
 /* Rotating Image Effect */
@@ -84,16 +80,17 @@ body {
     100% { text-shadow: -2px -2px 5px cyan, 2px 2px 5px magenta; }
 }
 
+/* Main Content */
 .main-content {
     flex: 1;
     background: linear-gradient(135deg, #121212, #1a1a1a);
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto; /* Enable scrolling */
-    min-height: 100vh; /* Limit height */
-    padding-bottom: 100px
+    min-height: auto; /* Allows it to grow */
 }
+
 /* Thought Card */
 .thought-card {
     background: rgba(0, 0, 0, 0.9);
@@ -106,6 +103,7 @@ body {
     box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.5);
     transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
     animation: neonBorder 3s infinite alternate;
+    margin-bottom: 20px; /* Adds spacing for mobile scrolling */
 }
 
 @keyframes neonBorder {
@@ -136,6 +134,10 @@ body {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Enables scrolling on mobile */
+    }
+
     .container {
         flex-direction: column;
         width: 95%;
