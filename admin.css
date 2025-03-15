@@ -5,7 +5,8 @@ body {
     background: #050505;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,6 +42,11 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 4px 0px 20px rgba(0, 255, 255, 0.3);
+    position: sticky;
+    top: 0;
+    height: 100vh; /* Full height */
+    overflow-y: auto; /* Enable scrolling */
+    
 }
 
 /* Rotating Image Effect */
@@ -86,7 +92,8 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-y: auto; /* Enable scrolling */
-    max-height: 100vh; /* Limit height */
+    min-height: 100vh; /* Limit height */
+    padding-bottom: 100px
 }
 /* Thought Card */
 .thought-card {
