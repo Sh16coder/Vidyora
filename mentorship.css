@@ -230,3 +230,58 @@ header {
     border: 2px solid cyan;
     box-shadow: 0px 0px 15px cyan;
 }
+/* 🌌 Space Theme */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: url('stars.gif') repeat;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.comet {
+    position: fixed;
+    top: 10%;
+    left: -10%;
+    width: 50px;
+    height: 10px;
+    background: white;
+    box-shadow: 0px 0px 15px cyan;
+    animation: comet-move 4s linear infinite;
+}
+
+@keyframes comet-move {
+    0% { left: -10%; top: 10%; }
+    100% { left: 110%; top: 80%; }
+}
+
+/* 🚀 Blur Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out;
+    z-index: 9998;
+}
+/* 🌀 Floating Science Symbols */
+.floating-symbols span {
+    position: absolute;
+    font-size: 24px;
+    color: cyan;
+    font-weight: bold;
+    opacity: 0.8;
+    animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
