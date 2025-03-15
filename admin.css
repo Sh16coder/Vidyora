@@ -152,3 +152,93 @@ body {
         width: 95%;
     }
 }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Disable Scrolling when Popup is Active */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Fullscreen Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Popup Box */
+.popup {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    border: 2px solid cyan;
+    box-shadow: 0px 0px 20px cyan;
+    animation: fadeInZoom 0.6s ease-out;
+}
+
+/* Disclaimer Heading */
+.popup h2 {
+    color: cyan;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 0px 0px 10px cyan;
+}
+
+/* Disclaimer Text */
+.popup p {
+    color: white;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.close-btn {
+    background: black;
+    color: cyan;
+    border: 2px solid cyan;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 15px cyan;
+    text-transform: uppercase;
+}
+
+.close-btn:hover {
+    background: cyan;
+    color: black;
+    box-shadow: 0px 0px 30px cyan;
+}
+
+/* Fade-In & Zoom Animation */
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
