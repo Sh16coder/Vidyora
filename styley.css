@@ -6,16 +6,31 @@ body {
     text-align: center;
     margin: 0;
     padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Particle Background */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 /* Container */
 .container {
     background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     margin: 50px auto;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 1s ease-in-out;
 }
 
 /* Form Styling */
@@ -28,37 +43,67 @@ label {
     font-weight: bold;
     margin: 10px 0 5px;
     text-align: left;
+    color: #444;
 }
 
 input, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 2px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
     font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    outline: none;
 }
 
 textarea {
     resize: none;
-    height: 100px;
+    height: 120px;
 }
 
 /* Button Styling */
 button {
-    background: #4CAF50;
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
     color: white;
-    padding: 10px;
+    padding: 12px;
     font-size: 18px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
 button:hover {
-    background: #388E3C;
+    background: linear-gradient(135deg, #388E3C, #4CAF50);
     transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+}
+
+/* Button Glow Effect */
+button::after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -100%;
+    left: -100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+button:hover::after {
+    top: 100%;
+    left: 100%;
 }
 
 /* Popup Styling */
@@ -68,25 +113,52 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .popup-content {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.3s ease-in-out;
 }
 
 .popup-content button {
-    background: #ff4d4d;
-    margin-top: 10px;
+    background: linear-gradient(135deg, #ff4d4d, #e60000);
+    margin-top: 15px;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
 }
 
 .popup-content button:hover {
-    background: #e60000;
+    background: linear-gradient(135deg, #e60000, #ff4d4d);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
