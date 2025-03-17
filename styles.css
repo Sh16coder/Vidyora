@@ -11,14 +11,14 @@ body {
     color: #fff;
     text-align: center;
     padding: 20px;
-    overflow: hidden;
+    /* Removed overflow: hidden to enable scrolling */
     position: relative;
     animation: fadeIn 2s ease-in-out;
 }
 
 /* Particle Canvas */
 #particles-js {
-    position: absolute;
+    position: fixed; /* Changed to fixed to keep particles in the background */
     top: 0;
     left: 0;
     width: 100%;
@@ -47,7 +47,7 @@ header {
     height: 50px;
     width: auto;
     filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7));
-    animation: spin 5s infinite linear;
+    /* Removed spin animation */
 }
 
 /* Offer Section */
@@ -205,15 +205,6 @@ footer {
     }
     to {
         box-shadow: 0 0 50px rgba(0, 255, 255, 0.8);
-    }
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
     }
 }
 
