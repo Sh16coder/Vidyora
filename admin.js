@@ -54,6 +54,3 @@ function closePopup() {
     document.getElementById('disclaimerPopup').style.display = 'none';  
     document.body.classList.remove("no-scroll");  
 }  
-  
-
-Thats js code give complete code after adding everything
