@@ -17,6 +17,9 @@
             color: white;
             overflow: hidden;
             height: 100vh;
+            /* Prevent portrait mode scrolling */
+            position: fixed;
+            width: 100%;
         }
         
         #header {
@@ -33,15 +36,26 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            padding-top: 60px; /* Space for header */
+            padding-top: 60px;
+            /* Force landscape layout */
+            transform: rotate(0deg);
         }
         
         #player-container {
-            flex-grow: 1;
+            /* Force 16:9 aspect ratio */
             position: relative;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            max-height: 100vh;
+            max-width: 177.78vh; /* 16:9 inverse */
+            margin: auto;
+            overflow: hidden;
         }
         
         #player {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background-color: black;
@@ -104,7 +118,7 @@
     </div>
 
     <script>
-        // YouTube live stream ID from your link https://youtu.be/8UxkoQMLVzI
+        // YouTube live stream ID
         const YOUTUBE_LIVE_ID = 'm8OA_b4hIps';
         
         // Load YouTube IFrame API
@@ -127,7 +141,9 @@
                     'controls': 1,
                     'rel': 0,
                     'modestbranding': 1,
-                    'fs': 1 // Enable fullscreen button
+                    'fs': 1,
+                    'loop': 1,
+                    'playlist': YOUTUBE_LIVE_ID
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -137,25 +153,52 @@
         }
         
         function onPlayerReady(event) {
-            // Auto enter fullscreen
-            enterFullscreen();
-            
             // Start timer
             startTimer();
+            
+            // Force landscape orientation
+            forceLandscape();
+            
+            // Attempt fullscreen
+            setTimeout(enterFullscreen, 500);
         }
         
         function onPlayerStateChange(event) {
-            // You can add handling for player state changes if needed
+            if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo();
+            }
+        }
+        
+        function forceLandscape() {
+            // CSS already forces landscape layout
+            // Additional JavaScript locking for supported devices
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape')
+                    .catch(err => console.log("Orientation lock not supported:", err));
+            }
+            
+            // Fallback for non-supported browsers
+            const isPortrait = window.innerHeight > window.innerWidth;
+            if (isPortrait) {
+                document.body.style.transform = 'rotate(90deg)';
+                document.body.style.width = '100vh';
+                document.body.style.height = '100vw';
+                document.body.style.position = 'fixed';
+                document.body.style.top = '0';
+                document.body.style.left = '0';
+            }
         }
         
         function enterFullscreen() {
             const elem = document.documentElement;
             
             if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.requestFullscreen().catch(err => {
+                    console.log("Fullscreen error:", err);
+                });
+            } else if (elem.webkitRequestFullscreen) {
                 elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
+            } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
             }
             
@@ -165,9 +208,9 @@
         function exitFullscreen() {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
+            } else if (document.webkitExitFullscreen) {
                 document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
+            } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
             }
             
@@ -202,11 +245,9 @@
             alert('Settings would go here');
         });
         
-        // Fullscreen change event
-        document.addEventListener('fullscreenchange', function() {
-            if (!document.fullscreenElement) {
-                document.body.classList.remove('fullscreen');
-            }
+        // Handle orientation changes
+        window.addEventListener('resize', function() {
+            forceLandscape();
         });
     </script>
 </body>
