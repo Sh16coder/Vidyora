@@ -413,3 +413,73 @@ messageInput.addEventListener('keypress', (e) => {
 window.addEventListener('load', () => {
     document.getElementById('login-email').focus();
 });
+// Get DOM elements
+const peerIdInput = document.getElementById('peer-id-input');
+const connectBtn = document.getElementById('connect-btn');
+
+// Connect to peer handler
+connectBtn.addEventListener('click', () => {
+    const peerId = peerIdInput.value.trim();
+    if (!peerId) {
+        addSystemMessage("Please enter a Peer ID");
+        return;
+    }
+    
+    if (peerId === peer.id) {
+        addSystemMessage("Cannot connect to yourself");
+        return;
+    }
+    
+    // Check if already connected
+    if (activeConnections[peerId]) {
+        addSystemMessage("Already connected to this peer");
+        return;
+    }
+    
+    // Establish connection
+    const conn = peer.connect(peerId);
+    setupConnection(conn);
+    
+    peerIdInput.value = "";
+    addSystemMessage(`Connecting to ${peerId}...`);
+});
+
+// Modify setupConnection to show success message
+function setupConnection(conn) {
+    conn.on('open', () => {
+        activeConnections[conn.peer] = conn;
+        updateUserList();
+        addSystemMessage(`Connected to ${conn.peer.split('-')[1] || 'peer'}`);
+        
+        conn.send({
+            type: 'user-join',
+            user: currentUsername,
+            timestamp: new Date().toISOString()
+        });
+    });
+    
+    // ... rest of your existing connection code ...
+}
+// Get elements
+const peerIdDisplay = document.getElementById('peer-id-display');
+const copyIdBtn = document.getElementById('copy-id-btn');
+
+// Update when peer is ready
+peer.on('open', (id) => {
+    peerIdDisplay.textContent = id;
+});
+
+// Copy ID function
+copyIdBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(peer.id)
+        .then(() => {
+            const originalText = copyIdBtn.innerHTML;
+            copyIdBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                copyIdBtn.innerHTML = originalText;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+});
