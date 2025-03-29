@@ -11,12 +11,28 @@
             --secondary: #a29bfe;
             --dark: #2d3436;
             --light: #f5f6fa;
-            --success: #00b894;
-            --danger: #d63031;
-            --warning: #fdcb6e;
             --glass: rgba(255, 255, 255, 0.2);
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             --border-glass: 1px solid rgba(255, 255, 255, 0.3);
+            
+            /* Light mode colors */
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --header-bg: rgba(0, 0, 0, 0.1);
+            --user-msg-bg: var(--primary);
+            --peer-msg-bg: white;
+            --system-msg-bg: rgba(255, 255, 255, 0.2);
+            --text-color: var(--dark);
+            --input-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        .dark-mode {
+            --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            --header-bg: rgba(0, 0, 0, 0.3);
+            --user-msg-bg: var(--primary);
+            --peer-msg-bg: #34495e;
+            --system-msg-bg: rgba(0, 0, 0, 0.3);
+            --text-color: white;
+            --input-bg: rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -28,13 +44,13 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-gradient);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            color: var(--dark);
+            color: var(--text-color);
         }
 
         .container {
@@ -51,7 +67,7 @@
 
         .header {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -70,6 +86,16 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Login Section */
@@ -95,14 +121,10 @@
             padding: 12px 15px;
             border: none;
             border-radius: 50px;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--input-bg);
             font-size: 1rem;
             outline: none;
-        }
-
-        input:focus {
-            background: white;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            color: var(--text-color);
         }
 
         button {
@@ -124,15 +146,11 @@
             transform: translateY(-2px);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         /* Chat Section */
         #chat-section {
             display: none;
-            height: 500px;
             flex-direction: column;
+            height: 500px;
         }
 
         #chat-box {
@@ -150,6 +168,7 @@
             border-radius: 18px;
             position: relative;
             animation: fadeIn 0.3s ease;
+            color: var(--text-color);
         }
 
         @keyframes fadeIn {
@@ -159,35 +178,29 @@
 
         .message.user {
             align-self: flex-end;
-            background: var(--primary);
+            background: var(--user-msg-bg);
             color: white;
             border-bottom-right-radius: 4px;
         }
 
         .message.peer {
             align-self: flex-start;
-            background: white;
+            background: var(--peer-msg-bg);
             border-bottom-left-radius: 4px;
         }
 
         .message.system {
             align-self: center;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--system-msg-bg);
             color: white;
             font-size: 0.9rem;
             padding: 8px 16px;
             border-radius: 50px;
         }
 
-        .message .sender {
-            font-weight: 600;
-            margin-bottom: 4px;
-            font-size: 0.8rem;
-        }
-
         .chat-controls {
             padding: 15px;
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
             display: flex;
             gap: 10px;
         }
@@ -197,31 +210,18 @@
             padding: 12px 20px;
             border-radius: 50px;
             border: none;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        #send-btn {
-            padding: 12px;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: var(--input-bg);
         }
 
         /* User List */
         #user-list {
             padding: 15px;
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
             color: white;
         }
 
         #user-list h3 {
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         #users {
@@ -238,36 +238,17 @@
             font-size: 0.9rem;
         }
 
-        /* Peer Connection Section */
+        /* Peer Connection */
         .peer-connect {
             padding: 15px;
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
             display: flex;
             gap: 10px;
         }
 
-        /* Dark Mode */
-        body.dark {
-            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
-        }
-
-        body.dark .container {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        body.dark .message.peer {
-            background: #34495e;
-            color: white;
-        }
-
-        /* Responsive */
         @media (max-width: 600px) {
             .container {
                 border-radius: 10px;
-            }
-            
-            .header h1 {
-                font-size: 1.4rem;
             }
             
             .input-group {
@@ -288,9 +269,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-comments"></i>CHAT WITH MATES</h1>
+            <h1><i class="fas fa-comments"></i> Goated Student Chat</h1>
             <button class="theme-toggle" id="theme-toggle">
-                <i class="fas fa-moon"></i>
+                <i class="fas fa-moon" id="theme-icon"></i>
             </button>
         </div>
 
@@ -312,7 +293,7 @@
             <div class="chat-controls">
                 <input type="text" id="message-input" placeholder="Type something fire...">
                 <button id="send-btn">
-                    <i class="fas fa-paper-plane"></i>
+                    <i class="fas fa-paper-plane"></i> Send
                 </button>
             </div>
             
@@ -335,21 +316,160 @@
     
     <!-- Main Script -->
     <script>
-        // (Same JavaScript as before, but with dark mode toggle)
-        
-        // Dark Mode Toggle
+        let peer;
+        let currentUsername;
+        let activeConnections = {};
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const chatSection = document.getElementById('chat-section');
+        const usernameInput = document.getElementById('username');
+        const loginBtn = document.getElementById('login-btn');
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const peerIdInput = document.getElementById('peer-id-input');
+        const connectBtn = document.getElementById('connect-btn');
+        const usersList = document.getElementById('users');
         const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Theme Toggle
         themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
             } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
             }
         });
 
-        // Rest of your PeerJS code remains the same...
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Initialize PeerJS when user logs in
+        loginBtn.addEventListener('click', () => {
+            currentUsername = usernameInput.value.trim();
+            if (!currentUsername) return alert("Please enter a username!");
+
+            // Create a Peer with a random ID
+            peer = new Peer(currentUsername + "-" + Math.floor(Math.random() * 1000));
+
+            peer.on('open', (id) => {
+                addSystemMessage(`You joined with ID: ${id}`);
+                loginSection.style.display = 'none';
+                chatSection.style.display = 'flex';
+            });
+
+            // Handle incoming connections
+            peer.on('connection', (conn) => {
+                setupConnection(conn);
+            });
+
+            peer.on('error', (err) => {
+                console.error("PeerJS Error:", err);
+                addSystemMessage("Connection error: " + err.message);
+            });
+        });
+
+        // Connect to another peer manually
+        connectBtn.addEventListener('click', () => {
+            const peerId = peerIdInput.value.trim();
+            if (!peerId) return alert("Enter a Peer ID!");
+            
+            const conn = peer.connect(peerId);
+            setupConnection(conn);
+            peerIdInput.value = '';
+        });
+
+        // Send message to all connected peers
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message || !currentUsername) return;
+
+            addMessage(currentUsername, message, true);
+            messageInput.value = '';
+
+            // Broadcast to all connected peers
+            Object.values(activeConnections).forEach(conn => {
+                conn.send({
+                    type: 'message',
+                    user: currentUsername,
+                    text: message
+                });
+            });
+        }
+
+        // Set up a new connection
+        function setupConnection(conn) {
+            conn.on('open', () => {
+                activeConnections[conn.peer] = conn;
+                updateUserList();
+                
+                // Send initial user data
+                conn.send({
+                    type: 'user-join',
+                    user: currentUsername
+                });
+            });
+
+            conn.on('data', (data) => {
+                if (data.type === 'message') {
+                    addMessage(data.user, data.text, false);
+                } else if (data.type === 'user-join') {
+                    addSystemMessage(`${data.user} joined the chat`);
+                    updateUserList();
+                }
+            });
+
+            conn.on('close', () => {
+                delete activeConnections[conn.peer];
+                updateUserList();
+                addSystemMessage(`Peer disconnected: ${conn.peer.split('-')[0]}`);
+            });
+
+            conn.on('error', (err) => {
+                console.error("Connection error:", err);
+                addSystemMessage("Connection error with peer");
+            });
+        }
+
+        // Update the list of connected users
+        function updateUserList() {
+            usersList.innerHTML = '';
+            Object.keys(activeConnections).forEach(peerId => {
+                const li = document.createElement('li');
+                li.textContent = peerId.split('-')[0];
+                usersList.appendChild(li);
+            });
+        }
+
+        // Add a message to the chat box
+        function addMessage(user, text, isCurrentUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isCurrentUser ? 'user' : 'peer'}`;
+            messageDiv.innerHTML = `<strong>${user}:</strong> ${text}`;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function addSystemMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message system';
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
     </script>
 </body>
 </html>
