@@ -15,9 +15,17 @@ const auth = firebase.auth();
 // DOM Elements
 const loginScreen = document.getElementById('auth-screen');
 const appContainer = document.getElementById('app-container');
-const usernameInput = document.getElementById('login-email');
+const loginEmail = document.getElementById('login-email');
+const loginPassword = document.getElementById('login-password');
 const loginBtn = document.getElementById('login-user-btn');
+const registerName = document.getElementById('register-name');
+const registerEmail = document.getElementById('register-email');
+const registerPassword = document.getElementById('register-password');
 const registerBtn = document.getElementById('register-user-btn');
+const loginTab = document.getElementById('login-tab');
+const registerTab = document.getElementById('register-tab');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
 const displayUsername = document.getElementById('display-username');
 const userAvatar = document.getElementById('user-avatar');
 const chatBox = document.getElementById('chat-box');
@@ -36,37 +44,67 @@ const callRequestModal = document.getElementById('call-request');
 const acceptCallBtn = document.getElementById('accept-call');
 const rejectCallBtn = document.getElementById('reject-call');
 const callerNameDisplay = document.getElementById('caller-name');
-const loginTab = document.getElementById('login-tab');
-const registerTab = document.getElementById('register-tab');
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
+const peerIdInput = document.getElementById('peer-id-input');
+const connectBtn = document.getElementById('connect-btn');
+const peerIdDisplay = document.getElementById('peer-id-display');
+const copyIdBtn = document.getElementById('copy-id-btn');
+const screenShareBtn = document.getElementById('screen-share-btn');
+const muteMicBtn = document.getElementById('mute-mic-btn');
+const disableCamBtn = document.getElementById('disable-cam-btn');
+const videoQualitySelect = document.getElementById('video-quality');
+const connectionQuality = document.getElementById('connection-quality');
+const pingDisplay = document.getElementById('ping-display');
 
 // App State
 let peer;
 let currentUsername = '';
 let activeConnections = {};
 let localStream;
+let screenStream;
 let videoCall;
 let incomingCall = null;
+let lastPingTime = Date.now();
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-// Auth State Listener
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        // User is logged in
-        currentUsername = user.displayName || user.email.split('@')[0];
-        displayUsername.textContent = currentUsername;
-        userAvatar.textContent = currentUsername.charAt(0).toUpperCase();
-        
-        // Initialize PeerJS with user's UID for unique identification
-        initializePeer(user.uid);
-        
-        // Hide auth screen, show app
-        loginScreen.style.display = 'none';
-        appContainer.style.display = 'flex';
+// Mobile adjustments
+if (isMobile) {
+    document.body.classList.add('mobile');
+    videoQualitySelect.value = 'sd';
+}
+
+// Viewport height fix
+function setAppHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    if (appContainer) {
+        appContainer.style.height = window.innerHeight + 'px';
+    }
+}
+setAppHeight();
+window.addEventListener('resize', setAppHeight);
+window.addEventListener('orientationchange', setAppHeight);
+
+// Android keyboard fix
+if (/Android/.test(navigator.userAgent)) {
+    document.addEventListener('focusin', () => {
+        window.scrollTo(0, 0);
+    });
+}
+
+// Theme Management
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeIcon.classList.replace('fa-moon', 'fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
     } else {
-        // No user logged in
-        loginScreen.style.display = 'flex';
-        appContainer.style.display = 'none';
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
     }
 });
 
@@ -85,10 +123,30 @@ registerTab.addEventListener('click', () => {
     registerTab.classList.add('active');
 });
 
+// Auth State Listener
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        currentUsername = user.displayName || user.email.split('@')[0];
+        displayUsername.textContent = currentUsername;
+        userAvatar.textContent = currentUsername.charAt(0).toUpperCase();
+        initializePeer(user.uid);
+        loginScreen.style.display = 'none';
+        appContainer.style.display = 'flex';
+    } else {
+        loginScreen.style.display = 'flex';
+        appContainer.style.display = 'none';
+    }
+});
+
 // Login Handler
 loginBtn.addEventListener('click', () => {
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+    
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
     
     auth.signInWithEmailAndPassword(email, password)
         .catch((error) => {
@@ -98,9 +156,14 @@ loginBtn.addEventListener('click', () => {
 
 // Registration Handler
 registerBtn.addEventListener('click', () => {
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
+    const name = registerName.value.trim();
+    const email = registerEmail.value.trim();
+    const password = registerPassword.value.trim();
+    
+    if (!name || !email || !password) {
+        alert('Please fill all fields');
+        return;
+    }
     
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -113,40 +176,21 @@ registerBtn.addEventListener('click', () => {
         });
 });
 
-// Theme Toggle
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        themeIcon.classList.replace('fa-sun', 'fa-moon');
-        localStorage.setItem('theme', 'light');
-    }
-});
-
-// Initialize theme from localStorage
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeIcon.classList.replace('fa-moon', 'fa-sun');
-}
-
-// Initialize PeerJS connection
+// PeerJS Initialization
 function initializePeer(userId) {
     peer = new Peer(`vidyora-${userId.substring(0, 8)}-${Math.floor(Math.random() * 1000)}`);
     
     peer.on('open', (id) => {
+        peerIdDisplay.textContent = id;
         addSystemMessage(`Welcome, ${currentUsername}! Your ID: ${id}`);
+        monitorConnection();
     });
     
-    // Handle incoming connections
     peer.on('connection', (conn) => {
         setupConnection(conn);
     });
     
-    // Handle incoming calls
     peer.on('call', (call) => {
-        // Show call request instead of auto-answering
         const callerId = call.peer;
         const callerName = callerId.split('-')[1] || 'Unknown';
         showCallRequest(callerName, call);
@@ -158,14 +202,11 @@ function initializePeer(userId) {
     });
 }
 
-// Set up a data connection
+// Connection Management
 function setupConnection(conn) {
     conn.on('open', () => {
-        // Add to active connections
         activeConnections[conn.peer] = conn;
         updateUserList();
-        
-        // Send our user info
         conn.send({
             type: 'user-join',
             user: currentUsername,
@@ -187,18 +228,15 @@ function setupConnection(conn) {
     });
 }
 
-// Handle incoming data
 function handleIncomingData(data, conn) {
     switch (data.type) {
         case 'message':
             addMessage(data.user, data.text, false, data.timestamp);
             break;
-            
         case 'user-join':
             addSystemMessage(`${data.user} joined the chat`);
             updateUserList();
             break;
-            
         case 'video-offer':
             if (data.status) {
                 addSystemMessage(`${data.user} is starting a video call`);
@@ -208,10 +246,26 @@ function handleIncomingData(data, conn) {
                 videoContainer.classList.remove('active');
             }
             break;
+        case 'ping':
+            conn.send({
+                type: 'pong',
+                timestamp: data.timestamp
+            });
+            break;
+        case 'pong':
+            const ping = Date.now() - data.timestamp;
+            pingDisplay.textContent = `Ping: ${ping}ms`;
+            updateConnectionQuality(ping);
+            break;
+        case 'typing':
+            // Could add typing indicator UI here
+            break;
+        case 'file':
+            handleIncomingFile(data.file);
+            break;
     }
 }
 
-// Handle connection close
 function handleConnectionClose(conn) {
     if (activeConnections[conn.peer]) {
         addSystemMessage(`${conn.peer.split('-')[1]} disconnected`);
@@ -220,7 +274,6 @@ function handleConnectionClose(conn) {
     }
 }
 
-// Update user list
 function updateUserList() {
     usersList.innerHTML = '';
     const uniqueUsers = new Set();
@@ -244,42 +297,41 @@ function updateUserList() {
     onlineCount.textContent = uniqueUsers.size;
 }
 
-// Send message handler
-function sendMessage() {
-    const message = messageInput.value.trim();
-    if (!message || !currentUsername) return;
-    
-    const timestamp = new Date().toISOString();
-    addMessage(currentUsername, message, true, timestamp);
-    messageInput.value = '';
-    messageInput.focus();
-    
-    // Broadcast to all connected peers
-    Object.values(activeConnections).forEach(conn => {
-        conn.send({
-            type: 'message',
-            user: currentUsername,
-            text: message,
-            timestamp: timestamp
-        });
-    });
-}
-
-// Start video chat
-startVideoBtn.addEventListener('click', async () => {
+// Video Chat Functions
+async function startVideoChat() {
     try {
-        // Get user media
-        localStream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+        const constraints = {
+            video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                frameRate: { ideal: 30 }
+            },
             audio: true
-        });
+        };
         
+        // Adjust constraints based on quality setting
+        switch(videoQualitySelect.value) {
+            case 'hd':
+                constraints.video.width.ideal = 1920;
+                constraints.video.height.ideal = 1080;
+                break;
+            case 'sd':
+                constraints.video.width.ideal = 1280;
+                constraints.video.height.ideal = 720;
+                break;
+            case 'low':
+                constraints.video.width.ideal = 640;
+                constraints.video.height.ideal = 480;
+                constraints.video.frameRate.ideal = 15;
+                break;
+        }
+        
+        localStream = await navigator.mediaDevices.getUserMedia(constraints);
         localVideo.srcObject = localStream;
         videoContainer.classList.add('active');
         startVideoBtn.disabled = true;
         endVideoBtn.disabled = false;
         
-        // Notify peers video is available
         Object.values(activeConnections).forEach(conn => {
             conn.send({
                 type: 'video-offer',
@@ -287,7 +339,6 @@ startVideoBtn.addEventListener('click', async () => {
                 user: currentUsername
             });
             
-            // Initiate call
             const call = peer.call(conn.peer, localStream);
             call.on('stream', (remoteStream) => {
                 remoteVideo.srcObject = remoteStream;
@@ -299,30 +350,23 @@ startVideoBtn.addEventListener('click', async () => {
         console.error("Media error:", err);
         addSystemMessage("Could not access camera/microphone");
     }
-});
-
-// End video chat
-endVideoBtn.addEventListener('click', () => {
-    stopVideoCall();
-});
+}
 
 function stopVideoCall() {
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
-        localStream = null;
-    }
-    if (videoCall) {
-        videoCall.close();
-        videoCall = null;
+        localVideo.srcObject = null;
     }
     
-    localVideo.srcObject = null;
-    remoteVideo.srcObject = null;
+    if (videoCall) {
+        videoCall.close();
+        remoteVideo.srcObject = null;
+    }
+    
     videoContainer.classList.remove('active');
     startVideoBtn.disabled = false;
     endVideoBtn.disabled = true;
     
-    // Notify peers video ended
     Object.values(activeConnections).forEach(conn => {
         conn.send({
             type: 'video-offer',
@@ -331,6 +375,93 @@ function stopVideoCall() {
         });
     });
 }
+
+// Screen Sharing
+screenShareBtn.addEventListener('click', async () => {
+    try {
+        screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: true
+        });
+        
+        const screenTrack = screenStream.getVideoTracks()[0];
+        Object.values(activeConnections).forEach(conn => {
+            const call = peer.call(conn.peer, screenStream);
+            call.on('stream', stream => {
+                remoteVideo.srcObject = stream;
+            });
+        });
+        
+        screenTrack.onended = stopScreenShare;
+    } catch (err) {
+        console.error("Screen share failed:", err);
+    }
+});
+
+function stopScreenShare() {
+    if (screenStream) {
+        screenStream.getTracks().forEach(track => track.stop());
+        if (localStream) {
+            Object.values(activeConnections).forEach(conn => {
+                const call = peer.call(conn.peer, localStream);
+                call.on('stream', stream => {
+                    remoteVideo.srcObject = stream;
+                });
+            });
+        }
+    }
+}
+
+// Media Controls
+muteMicBtn.addEventListener('click', () => {
+    if (localStream) {
+        const audioTrack = localStream.getAudioTracks()[0];
+        audioTrack.enabled = !audioTrack.enabled;
+        muteMicBtn.innerHTML = audioTrack.enabled ? 
+            '<i class="fas fa-microphone"></i>' : 
+            '<i class="fas fa-microphone-slash"></i>';
+    }
+});
+
+disableCamBtn.addEventListener('click', () => {
+    if (localStream) {
+        const videoTrack = localStream.getVideoTracks()[0];
+        videoTrack.enabled = !videoTrack.enabled;
+        disableCamBtn.innerHTML = videoTrack.enabled ? 
+            '<i class="fas fa-video"></i>' : 
+            '<i class="fas fa-video-slash"></i>';
+    }
+});
+
+videoQualitySelect.addEventListener('change', () => {
+    if (!localStream) return;
+    
+    const videoTrack = localStream.getVideoTracks()[0];
+    const constraints = {
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+        frameRate: { ideal: 30 }
+    };
+    
+    switch(videoQualitySelect.value) {
+        case 'hd':
+            constraints.width.ideal = 1920;
+            constraints.height.ideal = 1080;
+            break;
+        case 'sd':
+            constraints.width.ideal = 1280;
+            constraints.height.ideal = 720;
+            break;
+        case 'low':
+            constraints.width.ideal = 640;
+            constraints.height.ideal = 480;
+            constraints.frameRate.ideal = 15;
+            break;
+    }
+    
+    videoTrack.applyConstraints(constraints)
+        .catch(err => console.error("Error adjusting quality:", err));
+});
 
 // Call Request System
 function showCallRequest(callerName, call) {
@@ -342,29 +473,18 @@ function showCallRequest(callerName, call) {
 acceptCallBtn.addEventListener('click', async () => {
     if (incomingCall) {
         try {
-            // Get user media if not already available
             if (!localStream) {
-                localStream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    audio: true
-                });
-                localVideo.srcObject = localStream;
+                await startVideoChat();
             }
-            
-            videoContainer.classList.add('active');
-            startVideoBtn.disabled = true;
-            endVideoBtn.disabled = false;
-            
             incomingCall.answer(localStream);
             incomingCall.on('stream', (remoteStream) => {
                 remoteVideo.srcObject = remoteStream;
+                videoContainer.classList.add('active');
             });
-            
             callRequestModal.style.display = 'none';
-            addSystemMessage(`You accepted the video call from ${callerNameDisplay.textContent.split(' ')[0]}`);
         } catch (err) {
             console.error("Error answering call:", err);
-            addSystemMessage("Failed to start video call");
+            callRequestModal.style.display = 'none';
         }
     }
 });
@@ -373,51 +493,11 @@ rejectCallBtn.addEventListener('click', () => {
     if (incomingCall) {
         incomingCall.close();
         callRequestModal.style.display = 'none';
-        addSystemMessage(`You rejected the video call from ${callerNameDisplay.textContent.split(' ')[0]}`);
+        addSystemMessage(`You rejected the video call`);
     }
 });
 
-// Add message to chat
-function addMessage(user, text, isCurrentUser, timestamp) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${isCurrentUser ? 'user' : 'peer'}`;
-    
-    const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    messageDiv.innerHTML = `
-        ${!isCurrentUser ? `<span class="sender">${user}</span>` : ''}
-        ${text}
-        <span class="timestamp">${time}</span>
-    `;
-    
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Add system message
-function addSystemMessage(text) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message system';
-    messageDiv.textContent = text;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Event listeners
-sendBtn.addEventListener('click', sendMessage);
-messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-});
-
-// Auto-focus email input on load
-window.addEventListener('load', () => {
-    document.getElementById('login-email').focus();
-});
-// Get DOM elements
-const peerIdInput = document.getElementById('peer-id-input');
-const connectBtn = document.getElementById('connect-btn');
-
-// Connect to peer handler
+// Peer Connection
 connectBtn.addEventListener('click', () => {
     const peerId = peerIdInput.value.trim();
     if (!peerId) {
@@ -430,46 +510,17 @@ connectBtn.addEventListener('click', () => {
         return;
     }
     
-    // Check if already connected
     if (activeConnections[peerId]) {
         addSystemMessage("Already connected to this peer");
         return;
     }
     
-    // Establish connection
     const conn = peer.connect(peerId);
     setupConnection(conn);
-    
     peerIdInput.value = "";
-    addSystemMessage(`Connecting to ${peerId}...`);
 });
 
-// Modify setupConnection to show success message
-function setupConnection(conn) {
-    conn.on('open', () => {
-        activeConnections[conn.peer] = conn;
-        updateUserList();
-        addSystemMessage(`Connected to ${conn.peer.split('-')[1] || 'peer'}`);
-        
-        conn.send({
-            type: 'user-join',
-            user: currentUsername,
-            timestamp: new Date().toISOString()
-        });
-    });
-    
-    // ... rest of your existing connection code ...
-}
-// Get elements
-const peerIdDisplay = document.getElementById('peer-id-display');
-const copyIdBtn = document.getElementById('copy-id-btn');
-
-// Update when peer is ready
-peer.on('open', (id) => {
-    peerIdDisplay.textContent = id;
-});
-
-// Copy ID function
+// Copy ID Function
 copyIdBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(peer.id)
         .then(() => {
@@ -482,4 +533,125 @@ copyIdBtn.addEventListener('click', () => {
         .catch(err => {
             console.error('Failed to copy: ', err);
         });
+});
+
+// Message Handling
+function sendMessage() {
+    const message = messageInput.value.trim();
+    if (!message || !currentUsername) return;
+    
+    const timestamp = new Date().toISOString();
+    addMessage(currentUsername, message, true, timestamp);
+    messageInput.value = '';
+    
+    Object.values(activeConnections).forEach(conn => {
+        conn.send({
+            type: 'message',
+            user: currentUsername,
+            text: message,
+            timestamp: timestamp
+        });
+    });
+}
+
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
+
+// Typing Indicator
+messageInput.addEventListener('input', () => {
+    Object.values(activeConnections).forEach(conn => {
+        conn.send({
+            type: 'typing',
+            isTyping: messageInput.value.length > 0
+        });
+    });
+});
+
+// File Sharing (Basic implementation)
+function handleIncomingFile(fileData) {
+    const fileType = fileData.type.split('/')[0];
+    let message;
+    
+    if (fileType === 'image') {
+        message = `<a href="${fileData.data}" download="${fileData.name}">
+            <img src="${fileData.data}" alt="${fileData.name}" style="max-width: 200px; border-radius: 10px;">
+        </a>`;
+    } else {
+        message = `<a href="${fileData.data}" download="${fileData.name}">
+            <i class="fas fa-file-download"></i> ${fileData.name} (${formatFileSize(fileData.size)})
+        </a>`;
+    }
+    
+    addMessage(fileData.user, message, false, new Date().toISOString());
+}
+
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' bytes';
+    else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    else return (bytes / 1048576).toFixed(1) + ' MB';
+}
+
+// Connection Monitoring
+function monitorConnection() {
+    setInterval(() => {
+        lastPingTime = Date.now();
+        Object.values(activeConnections).forEach(conn => {
+            conn.send({
+                type: 'ping',
+                timestamp: lastPingTime
+            });
+        });
+    }, 5000);
+}
+
+function updateConnectionQuality(ping) {
+    if (ping < 100) {
+        connectionQuality.textContent = "🟢 Excellent";
+        connectionQuality.style.color = "#00b894";
+    } else if (ping < 300) {
+        connectionQuality.textContent = "🟡 Good";
+        connectionQuality.style.color = "#fdcb6e";
+    } else {
+        connectionQuality.textContent = "🔴 Poor";
+        connectionQuality.style.color = "#d63031";
+    }
+}
+
+// Message Display Functions
+function addMessage(user, text, isCurrentUser, timestamp) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isCurrentUser ? 'user' : 'peer'}`;
+    
+    const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+messageDiv.innerHTML = `
+        ${!isCurrentUser ? `<span class="sender">${user}</span>` : ''}
+        ${text}
+        <span class="timestamp">${time}</span>
+    `;
+    
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function addSystemMessage(text) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message system';
+    messageDiv.textContent = text;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Auto-focus email input on load
+window.addEventListener('load', () => {
+    loginEmail.focus();
+    
+    // Connection timeout warning
+    setTimeout(() => {
+        if (Object.keys(activeConnections).length === 0) {
+            addSystemMessage("No peers connected. Share your ID with someone!");
+        }
+    }, 15000);
 });
