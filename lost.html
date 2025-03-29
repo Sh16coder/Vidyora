@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidyora Lost & Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="lost.css">
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1><i class="fas fa-search"></i> Vidyora Lost & Found</h1>
+            <p>Report and reclaim lost items in our school community</p>
+        </div>
+        
+        <div class="form-toggle">
+            <button id="lostBtn" class="toggle-btn active">
+                <i class="fas fa-question-circle"></i> I Lost Something
+            </button>
+            <button id="foundBtn" class="toggle-btn">
+                <i class="fas fa-check-circle"></i> I Found Something
+            </button>
+        </div>
+        
+        <div class="form-container" id="reportForm">
+            <form id="itemForm">
+                <input type="hidden" id="itemType" value="lost">
+                
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" class="form-control" required placeholder="e.g. Water bottle, Math textbook, Wallet">
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemDescription">Description</label>
+                    <textarea id="itemDescription" class="form-control" required placeholder="Describe the item (color, brand, distinguishing features)"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" class="form-control" required placeholder="Where did you lose/find it?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact">Your Contact Information</label>
+                    <input type="text" id="contact" class="form-control" required placeholder="Email or phone number">
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Report
+                </button>
+            </form>
+        </div>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search items...">
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Items</button>
+            <button class="filter-btn" data-filter="lost">Lost</button>
+            <button class="filter-btn" data-filter="found">Found</button>
+            <button class="filter-btn" data-filter="unresolved">Unresolved</button>
+            <button class="filter-btn" data-filter="resolved">Resolved</button>
+        </div>
+        
+        <div id="itemsContainer">
+            <div class="items-grid" id="itemsGrid">
+                <div class="loader" id="loader"></div>
+            </div>
+            
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+    
+    <!-- Admin Panel Button -->
+    <div class="admin-panel">
+        <button class="admin-btn" id="adminBtn">
+            <i class="fas fa-lock"></i>
+        </button>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div id="notificationMessage"></div>
+    </div>
+    
+    <!-- Admin Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Admin Dashboard</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalItems">0</div>
+                        <div class="stat-label">Total Items</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="lostItems">0</div>
+                        <div class="stat-label">Lost Items</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="foundItems">0</div>
+                        <div class="stat-label">Found Items</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="resolvedItems">0</div>
+                        <div class="stat-label">Resolved</div>
+                    </div>
+                </div>
+                
+                <h4>Quick Actions</h4>
+                <div class="admin-actions">
+                    <button class="admin-btn-lg export-btn" id="exportBtn">
+                        <i class="fas fa-file-export"></i> Export Data
+                    </button>
+                    <button class="admin-btn-lg cleanup-btn" id="cleanupBtn">
+                        <i class="fas fa-trash"></i> Cleanup Old Items
+                    </button>
+                    <button class="admin-btn-lg notification-btn" id="globalNotifyBtn">
+                        <i class="fas fa-bell"></i> Send Notification
+                    </button>
+                </div>
+                
+                <h4 style="margin-top: 2rem;">Recent Submissions</h4>
+                <div class="items-grid" id="adminItemsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+    <script src="lost.js"></script>
+</body>
+      </html>
