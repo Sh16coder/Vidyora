@@ -123,31 +123,6 @@ registerTab.addEventListener('click', () => {
     registerTab.classList.add('active');
 });
 
-// Cleanup resources function
-function cleanupResources() {
-    // Clean up all connections
-    Object.values(activeConnections).forEach(conn => {
-        conn.close();
-    });
-    activeConnections = {};
-    
-    // Clean up calls
-    Object.values(activeCalls).forEach(call => {
-        call.close();
-    });
-    activeCalls = {};
-    
-    // Clean up media streams
-    stopVideoCall();
-    stopScreenShare();
-    
-    // Clean up peer
-    if (peer) {
-        peer.destroy();
-        peer = null;
-    }
-}
-
 // Auth State Listener
 auth.onAuthStateChanged((user) => {
     if (user) {
@@ -158,7 +133,6 @@ auth.onAuthStateChanged((user) => {
         loginScreen.style.display = 'none';
         appContainer.style.display = 'flex';
     } else {
-        cleanupResources();
         loginScreen.style.display = 'flex';
         appContainer.style.display = 'none';
     }
@@ -204,25 +178,17 @@ registerBtn.addEventListener('click', () => {
 
 // PeerJS Initialization
 function initializePeer(userId) {
-    try {
-        peer = new Peer(`vidyora-${userId.substring(0, 8)}-${Math.floor(Math.random() * 1000)}`, {
-            host: '0.peerjs.com',
-            port: 443,
-            secure: true,
-            path: '/',
-            debug: 3,
-            config: {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' },
-                    { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }
-                ]
-            }
-        });
-    } catch (err) {
-        console.error('Failed to create Peer instance:', err);
-        addSystemMessage('Failed to initialize connection service. Please refresh the page.');
-        return;
-    }
+    // Create more reliable peer ID
+    peer = new Peer(`vidyora-${userId.substring(0, 8)}-${Date.now().toString(36)}`, {
+        debug: 3,
+        config: {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' }
+            ]
+        }
+    });
     
     peer.on('open', (id) => {
         peerIdDisplay.textContent = id;
@@ -237,20 +203,26 @@ function initializePeer(userId) {
     peer.on('call', (call) => {
         const callerId = call.peer;
         const callerName = callerId.split('-')[1] || 'Unknown';
-        
-        // Reject if already in a call
-        if (Object.keys(activeCalls).length > 0) {
-            call.close();
-            addSystemMessage(`Rejected call from ${callerName} (already in a call)`);
-            return;
-        }
-        
         showCallRequest(callerName, call);
     });
     
     peer.on('error', (err) => {
         console.error('PeerJS error:', err);
         addSystemMessage(`Connection error: ${err.message}`);
+        
+        // Attempt to reconnect if peer is disconnected
+        if (err.type === 'disconnected') {
+            setTimeout(() => {
+                initializePeer(userId);
+            }, 2000);
+        }
+    });
+    
+    peer.on('disconnected', () => {
+        addSystemMessage('Connection lost. Reconnecting...');
+        setTimeout(() => {
+            peer.reconnect();
+        }, 2000);
     });
 }
 
@@ -294,8 +266,14 @@ function handleIncomingData(data, conn) {
                 addSystemMessage(`${data.user} is starting a video call`);
             } else {
                 addSystemMessage(`${data.user} ended the video call`);
-                remoteVideo.srcObject = null;
-                videoContainer.classList.remove('active');
+                if (activeCalls[conn.peer]) {
+                    activeCalls[conn.peer].close();
+                    delete activeCalls[conn.peer];
+                }
+                if (Object.keys(activeCalls).length === 0) {
+                    remoteVideo.srcObject = null;
+                    videoContainer.classList.remove('active');
+                }
             }
             break;
         case 'ping':
@@ -320,15 +298,23 @@ function handleIncomingData(data, conn) {
 
 function handleConnectionClose(conn) {
     if (activeConnections[conn.peer]) {
-        // Remove all event listeners
-        conn.off('open');
-        conn.off('data');
-        conn.off('close');
-        conn.off('error');
-        
-        addSystemMessage(`${conn.peer.split('-')[1]} disconnected`);
+        const username = conn.peer.split('-')[1] || 'Unknown';
+        addSystemMessage(`${username} disconnected`);
         delete activeConnections[conn.peer];
+        
+        // Close any active calls with this peer
+        if (activeCalls[conn.peer]) {
+            activeCalls[conn.peer].close();
+            delete activeCalls[conn.peer];
+        }
+        
         updateUserList();
+        
+        // Hide video container if no active calls remain
+        if (Object.keys(activeCalls).length === 0) {
+            remoteVideo.srcObject = null;
+            videoContainer.classList.remove('active');
+        }
     }
 }
 
@@ -354,26 +340,21 @@ function updateUserList() {
     
     onlineCount.textContent = uniqueUsers.size;
 }
-
 // Video Chat Functions
 async function startVideoChat() {
     try {
-        // Check if devices are available
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const hasVideo = devices.some(device => device.kind === 'videoinput');
-        const hasAudio = devices.some(device => device.kind === 'audioinput');
-        
-        if (!hasVideo || !hasAudio) {
-            throw new Error('Required media devices not found');
-        }
-        
         const constraints = {
             video: {
                 width: { ideal: 1280 },
                 height: { ideal: 720 },
-                frameRate: { ideal: 30 }
+                frameRate: { ideal: 30 },
+                facingMode: 'user'
             },
-            audio: true
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+            }
         };
         
         // Adjust constraints based on quality setting
@@ -393,12 +374,22 @@ async function startVideoChat() {
                 break;
         }
         
+        // Stop any existing stream
+        if (localStream) {
+            localStream.getTracks().forEach(track => track.stop());
+        }
+        
         localStream = await navigator.mediaDevices.getUserMedia(constraints);
         localVideo.srcObject = localStream;
         videoContainer.classList.add('active');
         startVideoBtn.disabled = true;
         endVideoBtn.disabled = false;
         
+        // Update media control buttons
+        muteMicBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+        disableCamBtn.innerHTML = '<i class="fas fa-video"></i>';
+        
+        // Notify all connections and initiate calls
         Object.values(activeConnections).forEach(conn => {
             conn.send({
                 type: 'video-offer',
@@ -409,55 +400,49 @@ async function startVideoChat() {
             const call = peer.call(conn.peer, localStream);
             call.on('stream', (remoteStream) => {
                 remoteVideo.srcObject = remoteStream;
+                activeCalls[conn.peer] = call;
             });
             
             call.on('close', () => {
-                delete activeCalls[call.peer];
-                remoteVideo.srcObject = null;
-                videoContainer.classList.remove('active');
+                if (activeCalls[conn.peer]) {
+                    delete activeCalls[conn.peer];
+                }
+                if (Object.keys(activeCalls).length === 0) {
+                    remoteVideo.srcObject = null;
+                    videoContainer.classList.remove('active');
+                }
             });
             
-            activeCalls[conn.peer] = call;
+            call.on('error', (err) => {
+                console.error('Call error:', err);
+                if (activeCalls[conn.peer]) {
+                    delete activeCalls[conn.peer];
+                }
+            });
         });
         
     } catch (err) {
         console.error("Media error:", err);
-        let errorMsg = "Could not access camera/microphone";
-        
-        if (err.name === 'NotAllowedError') {
-            errorMsg = "Permission denied. Please allow camera/microphone access.";
-        } else if (err.name === 'NotFoundError') {
-            errorMsg = "No media devices found.";
-        }
-        
-        addSystemMessage(errorMsg);
-        
-        // Reset UI state
+        addSystemMessage("Could not access camera/microphone: " + err.message);
         startVideoBtn.disabled = false;
         endVideoBtn.disabled = true;
     }
 }
 
 function stopVideoCall() {
-    // Clean up all active calls
+    // Stop all local tracks
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localVideo.srcObject = null;
+    }
+    
+    // Close all active calls
     Object.values(activeCalls).forEach(call => {
         call.close();
     });
     activeCalls = {};
     
-    // Clean up local streams
-    if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
-        localVideo.srcObject = null;
-        localStream = null;
-    }
-    
-    remoteVideo.srcObject = null;
-    videoContainer.classList.remove('active');
-    startVideoBtn.disabled = false;
-    endVideoBtn.disabled = true;
-    
-    // Notify peers
+    // Notify all connections
     Object.values(activeConnections).forEach(conn => {
         conn.send({
             type: 'video-offer',
@@ -465,66 +450,100 @@ function stopVideoCall() {
             user: currentUsername
         });
     });
+    
+    videoContainer.classList.remove('active');
+    startVideoBtn.disabled = false;
+    endVideoBtn.disabled = true;
 }
 
 // Screen Sharing
 screenShareBtn.addEventListener('click', async () => {
     try {
+        // Stop any existing screen share
+        if (screenStream) {
+            screenStream.getTracks().forEach(track => track.stop());
+        }
+        
         screenStream = await navigator.mediaDevices.getDisplayMedia({
-            video: true,
-            audio: true
+            video: {
+                cursor: 'always',
+                displaySurface: 'monitor'
+            },
+            audio: false
         });
         
+        // Replace video track in all active calls
         const screenTrack = screenStream.getVideoTracks()[0];
-        Object.values(activeConnections).forEach(conn => {
-            const call = peer.call(conn.peer, screenStream);
-            call.on('stream', stream => {
-                remoteVideo.srcObject = stream;
-            });
-            activeCalls[conn.peer] = call;
+        Object.values(activeCalls).forEach(call => {
+            const sender = call.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
+            if (sender) {
+                sender.replaceTrack(screenTrack);
+            }
         });
         
-        screenTrack.onended = stopScreenShare;
+        // Update UI
+        screenShareBtn.innerHTML = '<i class="fas fa-times"></i>';
+        screenShareBtn.style.backgroundColor = '#d63031';
+        
+        // Handle when screen sharing is stopped
+        screenTrack.onended = () => {
+            stopScreenShare();
+        };
+        
     } catch (err) {
         console.error("Screen share failed:", err);
-        addSystemMessage("Screen sharing failed or was canceled");
+        addSystemMessage("Screen sharing failed: " + err.message);
     }
 });
 
 function stopScreenShare() {
     if (screenStream) {
         screenStream.getTracks().forEach(track => track.stop());
-        if (localStream) {
-            Object.values(activeConnections).forEach(conn => {
-                const call = peer.call(conn.peer, localStream);
-                call.on('stream', stream => {
-                    remoteVideo.srcObject = stream;
-                });
-                activeCalls[conn.peer] = call;
-            });
-        }
         screenStream = null;
     }
+    
+    // Restore camera if available
+    if (localStream) {
+        const videoTrack = localStream.getVideoTracks()[0];
+        if (videoTrack) {
+            Object.values(activeCalls).forEach(call => {
+                const sender = call.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
+                if (sender) {
+                    sender.replaceTrack(videoTrack);
+                }
+            });
+        }
+    }
+    
+    // Update UI
+    screenShareBtn.innerHTML = '<i class="fas fa-desktop"></i>';
+    screenShareBtn.style.backgroundColor = '';
 }
 
 // Media Controls
 muteMicBtn.addEventListener('click', () => {
     if (localStream) {
         const audioTrack = localStream.getAudioTracks()[0];
-        audioTrack.enabled = !audioTrack.enabled;
-        muteMicBtn.innerHTML = audioTrack.enabled ? 
-            '<i class="fas fa-microphone"></i>' : 
-            '<i class="fas fa-microphone-slash"></i>';
+        if (audioTrack) {
+            audioTrack.enabled = !audioTrack.enabled;
+            muteMicBtn.innerHTML = audioTrack.enabled ? 
+                '<i class="fas fa-microphone"></i>' : 
+                '<i class="fas fa-microphone-slash"></i>';
+            muteMicBtn.style.backgroundColor = audioTrack.enabled ? '' : '#d63031';
+        }
     }
 });
 
 disableCamBtn.addEventListener('click', () => {
     if (localStream) {
         const videoTrack = localStream.getVideoTracks()[0];
-        videoTrack.enabled = !videoTrack.enabled;
-        disableCamBtn.innerHTML = videoTrack.enabled ? 
-            '<i class="fas fa-video"></i>' : 
-            '<i class="fas fa-video-slash"></i>';
+        if (videoTrack) {
+            videoTrack.enabled = !videoTrack.enabled;
+            disableCamBtn.innerHTML = videoTrack.enabled ? 
+                '<i class="fas fa-video"></i>' : 
+                '<i class="fas fa-video-slash"></i>';
+            disableCamBtn.style.backgroundColor = videoTrack.enabled ? '' : '#d63031';
+        }
     }
 });
 
@@ -532,6 +551,8 @@ videoQualitySelect.addEventListener('change', () => {
     if (!localStream) return;
     
     const videoTrack = localStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
     const constraints = {
         width: { ideal: 1280 },
         height: { ideal: 720 },
@@ -555,7 +576,13 @@ videoQualitySelect.addEventListener('change', () => {
     }
     
     videoTrack.applyConstraints(constraints)
-        .catch(err => console.error("Error adjusting quality:", err));
+        .then(() => {
+            addSystemMessage(`Video quality set to ${videoQualitySelect.value.toUpperCase()}`);
+        })
+        .catch(err => {
+            console.error("Error adjusting quality:", err);
+            addSystemMessage("Failed to adjust video quality");
+        });
 });
 
 // Call Request System
@@ -563,6 +590,13 @@ function showCallRequest(callerName, call) {
     incomingCall = call;
     callerNameDisplay.textContent = `${callerName} wants to video chat`;
     callRequestModal.style.display = 'block';
+    
+    // Auto-reject after 30 seconds if no response
+    setTimeout(() => {
+        if (callRequestModal.style.display === 'block') {
+            rejectCallBtn.click();
+        }
+    }, 30000);
 }
 
 acceptCallBtn.addEventListener('click', async () => {
@@ -570,26 +604,33 @@ acceptCallBtn.addEventListener('click', async () => {
         try {
             if (!localStream) {
                 await startVideoChat();
+            } else {
+                videoContainer.classList.add('active');
             }
-            incomingCall.answer(localStream);
-            activeCalls[incomingCall.peer] = incomingCall;
             
+            incomingCall.answer(localStream);
             incomingCall.on('stream', (remoteStream) => {
                 remoteVideo.srcObject = remoteStream;
-                videoContainer.classList.add('active');
+                activeCalls[incomingCall.peer] = incomingCall;
             });
             
             incomingCall.on('close', () => {
-                delete activeCalls[incomingCall.peer];
-                remoteVideo.srcObject = null;
-                videoContainer.classList.remove('active');
+                if (activeCalls[incomingCall.peer]) {
+                    delete activeCalls[incomingCall.peer];
+                }
+                if (Object.keys(activeCalls).length === 0) {
+                    remoteVideo.srcObject = null;
+                    videoContainer.classList.remove('active');
+                }
             });
             
             callRequestModal.style.display = 'none';
             incomingCall = null;
+            
         } catch (err) {
             console.error("Error answering call:", err);
             callRequestModal.style.display = 'none';
+            addSystemMessage("Failed to answer call: " + err.message);
         }
     }
 });
@@ -599,6 +640,7 @@ rejectCallBtn.addEventListener('click', () => {
         incomingCall.close();
         callRequestModal.style.display = 'none';
         addSystemMessage(`You rejected the video call`);
+        incomingCall = null;
     }
 });
 
@@ -623,7 +665,19 @@ connectBtn.addEventListener('click', () => {
     const conn = peer.connect(peerId);
     setupConnection(conn);
     peerIdInput.value = "";
+    
+    // Add to recent connections
+    addRecentConnection(peerId);
 });
+
+// Recent connections storage
+function addRecentConnection(peerId) {
+    let recent = JSON.parse(localStorage.getItem('recentConnections') || '[]');
+    recent = recent.filter(id => id !== peerId); // Remove if already exists
+    recent.unshift(peerId); // Add to beginning
+    recent = recent.slice(0, 5); // Keep only last 5
+    localStorage.setItem('recentConnections', JSON.stringify(recent));
+}
 
 // Copy ID Function
 copyIdBtn.addEventListener('click', () => {
@@ -631,27 +685,27 @@ copyIdBtn.addEventListener('click', () => {
         .then(() => {
             const originalText = copyIdBtn.innerHTML;
             copyIdBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyIdBtn.classList.add('pulse');
             setTimeout(() => {
                 copyIdBtn.innerHTML = originalText;
+                copyIdBtn.classList.remove('pulse');
             }, 2000);
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
+            addSystemMessage("Failed to copy ID to clipboard");
         });
 });
-
 // Message Handling
 function sendMessage() {
-    let message = messageInput.value.trim();
+    const message = messageInput.value.trim();
     if (!message || !currentUsername) return;
-    
-    // Basic sanitization
-    message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     
     const timestamp = new Date().toISOString();
     addMessage(currentUsername, message, true, timestamp);
     messageInput.value = '';
-  Object.values(activeConnections).forEach(conn => {
+    
+    Object.values(activeConnections).forEach(conn => {
         conn.send({
             type: 'message',
             user: currentUsername,
@@ -680,7 +734,8 @@ messageInput.addEventListener('input', () => {
 function handleIncomingFile(fileData) {
     const fileType = fileData.type.split('/')[0];
     let message;
-  if (fileType === 'image') {
+    
+    if (fileType === 'image') {
         message = `<a href="${fileData.data}" download="${fileData.name}">
             <img src="${fileData.data}" alt="${fileData.name}" style="max-width: 200px; border-radius: 10px;">
         </a>`;
@@ -705,7 +760,7 @@ function monitorConnection() {
         lastPingTime = Date.now();
         Object.values(activeConnections).forEach(conn => {
             conn.send({
-              type: 'ping',
+                type: 'ping',
                 timestamp: lastPingTime
             });
         });
@@ -750,9 +805,99 @@ function addSystemMessage(text) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Event Listeners for Video Controls
+startVideoBtn.addEventListener('click', startVideoChat);
+endVideoBtn.addEventListener('click', stopVideoCall);
+
+// File Upload Handler (Basic implementation)
+document.getElementById('file-input').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+        addSystemMessage("File too large (max 10MB)");
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const fileData = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: event.target.result
+        };
+        
+        // Send to all active connections
+        Object.values(activeConnections).forEach(conn => {
+            conn.send({
+                type: 'file',
+                file: fileData,
+                user: currentUsername,
+                timestamp: new Date().toISOString()
+            });
+        });
+        
+        // Show in local chat
+        handleIncomingFile({
+            ...fileData,
+            user: currentUsername
+        });
+    };
+    reader.readAsDataURL(file);
+});
+
+// Connection Status Monitoring
+function checkConnectionStatus() {
+    setInterval(() => {
+        if (peer && peer.disconnected) {
+            addSystemMessage("Connection lost. Attempting to reconnect...");
+            peer.reconnect();
+        }
+    }, 10000);
+}
+
+// Bandwidth Monitoring
+function monitorBandwidth() {
+    if (!peer || !localStream) return;
+    
+    setInterval(() => {
+        if (Object.keys(activeCalls).length > 0) {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.getSettings().then(settings => {
+                    const bandwidthInfo = `Resolution: ${settings.width}x${settings.height} | FPS: ${settings.frameRate}`;
+                    addSystemMessage(bandwidthInfo);
+                });
+            }
+        }
+    }, 30000);
+}
+
+// Auto-scroll chat to bottom
+function setupChatAutoScroll() {
+    const observer = new MutationObserver(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+    
+    observer.observe(chatBox, {
+        childList: true,
+        subtree: true
+    });
+}
+
+// Initialize connection monitoring
+function initConnectionMonitoring() {
+    monitorConnection();
+    checkConnectionStatus();
+    monitorBandwidth();
+}
+
 // Auto-focus email input on load
 window.addEventListener('load', () => {
     loginEmail.focus();
+    setupChatAutoScroll();
+    initConnectionMonitoring();
     
     // Connection timeout warning
     setTimeout(() => {
@@ -761,3 +906,118 @@ window.addEventListener('load', () => {
         }
     }, 15000);
 });
+
+// Keyboard Shortcuts
+document.addEventListener('keydown', (e) => {
+    // Focus message input when '/' is pressed
+    if (e.key === '/' && document.activeElement !== messageInput) {
+        e.preventDefault();
+        messageInput.focus();
+    }
+    
+    // Start/stop video call with Ctrl+V (Cmd+V on Mac)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+        e.preventDefault();
+        if (startVideoBtn.disabled) {
+            stopVideoCall();
+        } else {
+            startVideoChat();
+        }
+    }
+});
+
+// Notification System
+function showNotification(title, message) {
+    if (Notification.permission === "granted") {
+        new Notification(title, { body: message });
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification(title, { body: message });
+            }
+        });
+    }
+}
+
+// Handle browser visibility changes
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        // Reduce bandwidth when tab is inactive
+        if (localStream) {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = false;
+            }
+        }
+    } else {
+        // Restore when tab becomes active again
+        if (localStream) {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = true;
+            }
+        }
+    }
+});
+
+// Error Handling
+window.addEventListener('error', (event) => {
+    console.error("Global error:", event.error);
+    addSystemMessage("An error occurred. Please refresh the page.");
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    // Close all connections and streams
+    Object.values(activeConnections).forEach(conn => conn.close());
+    Object.values(activeCalls).forEach(call => call.close());
+    
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+    }
+    
+    if (screenStream) {
+        screenStream.getTracks().forEach(track => track.stop());
+    }
+});
+
+// Utility Functions
+function getRandomColor() {
+    const colors = ['#6c5ce7', '#00b894', '#0984e3', '#e84393', '#fd79a8', '#fdcb6e'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function formatTime(date) {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function() {
+        const context = this;
+        const args = arguments;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function() {
+                if ((Date.now() - lastRan) >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+}
+
+// Initialize user avatar color
+function initUserAvatar() {
+    if (userAvatar) {
+        userAvatar.style.backgroundColor = getRandomColor();
+    }
+}
+
+// Initialize the app
+initUserAvatar();
