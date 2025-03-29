@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 Vidyora - Secure P2P Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🔥 Vidyora Ultimate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="c.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Firebase Auth Screens -->
+    <!-- Auth Screen -->
     <div class="login-screen" id="auth-screen">
         <div class="auth-container floating">
             <div class="auth-tabs">
@@ -38,11 +38,11 @@
     <!-- Call Request Modal -->
     <div class="call-request" id="call-request">
         <h3 id="caller-name">User wants to video chat</h3>
-        <div class="video-controls" style="justify-content: center; margin-top: 20px;">
+        <div class="video-controls">
             <button class="video-btn" id="accept-call">
                 <i class="fas fa-check"></i> Accept
             </button>
-            <button class="video-btn" style="background: #d63031;" id="reject-call">
+            <button class="video-btn" id="reject-call" style="background: #d63031;">
                 <i class="fas fa-times"></i> Reject
             </button>
         </div>
@@ -63,6 +63,12 @@
             </div>
         </div>
 
+        <!-- Connection Status -->
+        <div class="connection-status">
+            <span id="connection-quality">🔴 Connecting...</span>
+            <span id="ping-display">Ping: --</span>
+        </div>
+
         <!-- Main Content -->
         <div class="content">
             <!-- Sidebar -->
@@ -75,29 +81,26 @@
                     </div>
                 </div>
 
-                <div class="online-count">
-                    <div class="online-dot"></div>
-                    <span id="online-count">0</span> online
+                <div class="your-peer-id">
+                    <h3><i class="fas fa-id-card"></i> Your ID</h3>
+                    <div class="peer-id-display" id="peer-id-display">Connecting...</div>
+                    <button class="copy-btn" id="copy-id-btn">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                </div>
+
+                <div class="connect-form">
+                    <h3><i class="fas fa-link"></i> Connect to Peer</h3>
+                    <input type="text" id="peer-id-input" placeholder="Enter Peer ID">
+                    <button class="connect-btn" id="connect-btn">
+                        <i class="fas fa-plug"></i> Connect
+                    </button>
                 </div>
 
                 <div class="user-list">
                     <h3><i class="fas fa-users"></i> Active Users</h3>
                     <ul class="users" id="users"></ul>
                 </div>
-            </div>
-            <div class="connect-form">
-    <h3><i class="fas fa-link"></i> Connect to Peer</h3>
-    <input type="text" id="peer-id-input" placeholder="Enter Peer ID">
-    <button class="connect-btn" id="connect-btn">
-        <i class="fas fa-plug"></i> Connect
-    </button>
-            </div>
-            <div class="your-peer-id">
-    <h3><i class="fas fa-id-card"></i> Your ID</h3>
-    <div class="peer-id-display" id="peer-id-display">Not connected</div>
-    <button class="copy-btn" id="copy-id-btn">
-        <i class="far fa-copy"></i> Copy
-    </button>
             </div>
 
             <!-- Chat Area -->
@@ -117,21 +120,38 @@
                 <!-- Chat Box -->
                 <div class="chat-box" id="chat-box"></div>
 
-                <!-- Controls -->
+                <!-- Media Controls -->
+                <div class="media-controls">
+                    <button id="screen-share-btn" title="Share Screen">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button id="mute-mic-btn" title="Mute Mic">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="disable-cam-btn" title="Disable Camera">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <select id="video-quality">
+                        <option value="hd">HD</option>
+                        <option value="sd" selected>SD</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <!-- Message Controls -->
                 <div class="controls">
+                    <div class="message-controls">
+                        <input type="text" id="message-input" placeholder="Type your message...">
+                        <button class="action-btn" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                     <div class="video-controls">
                         <button class="video-btn" id="start-video">
                             <i class="fas fa-video"></i> Start Video
                         </button>
                         <button class="video-btn" id="end-video" disabled>
                             <i class="fas fa-video-slash"></i> End Video
-                        </button>
-                    </div>
-                    
-                    <div class="message-controls">
-                        <input type="text" id="message-input" placeholder="Type your message...">
-                        <button class="action-btn" id="send-btn">
-                            <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
                 </div>
@@ -145,6 +165,6 @@
     <!-- PeerJS Library -->
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <!-- Main App Script -->
-    <script src="c.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
