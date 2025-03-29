@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Vidyora - Secure P2P Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="c.css">
+</head>
+<body>
+    <!-- Firebase Auth Screens -->
+    <div class="login-screen" id="auth-screen">
+        <div class="auth-container floating">
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">Login</div>
+                <div class="auth-tab" id="register-tab">Register</div>
+            </div>
+            
+            <div id="login-form">
+                <input type="email" id="login-email" class="login-input" placeholder="Email">
+                <input type="password" id="login-password" class="login-input" placeholder="Password">
+                <button class="login-btn" id="login-user-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </div>
+            
+            <div id="register-form" style="display: none;">
+                <input type="text" id="register-name" class="login-input" placeholder="Display Name">
+                <input type="email" id="register-email" class="login-input" placeholder="Email">
+                <input type="password" id="register-password" class="login-input" placeholder="Password">
+                <button class="login-btn" id="register-user-btn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Request Modal -->
+    <div class="call-request" id="call-request">
+        <h3 id="caller-name">User wants to video chat</h3>
+        <div class="video-controls" style="justify-content: center; margin-top: 20px;">
+            <button class="video-btn" id="accept-call">
+                <i class="fas fa-check"></i> Accept
+            </button>
+            <button class="video-btn" style="background: #d63031;" id="reject-call">
+                <i class="fas fa-times"></i> Reject
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="container" id="app-container" style="display: none;">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-comments logo-icon"></i>
+                <h1>Vidyora</h1>
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <div class="user-info">
+                        <div class="username" id="display-username">User</div>
+                        <div class="user-status">Online</div>
+                    </div>
+                </div>
+
+                <div class="online-count">
+                    <div class="online-dot"></div>
+                    <span id="online-count">0</span> online
+                </div>
+
+                <div class="user-list">
+                    <h3><i class="fas fa-users"></i> Active Users</h3>
+                    <ul class="users" id="users"></ul>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <!-- Video Container -->
+                <div class="video-container" id="video-container">
+                    <div class="video-box">
+                        <video id="local-video" autoplay muted playsinline></video>
+                        <span class="video-label">You</span>
+                    </div>
+                    <div class="video-box">
+                        <video id="remote-video" autoplay playsinline></video>
+                        <span class="video-label">Peer</span>
+                    </div>
+                </div>
+
+                <!-- Chat Box -->
+                <div class="chat-box" id="chat-box"></div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <div class="video-controls">
+                        <button class="video-btn" id="start-video">
+                            <i class="fas fa-video"></i> Start Video
+                        </button>
+                        <button class="video-btn" id="end-video" disabled>
+                            <i class="fas fa-video-slash"></i> End Video
+                        </button>
+                    </div>
+                    
+                    <div class="message-controls">
+                        <input type="text" id="message-input" placeholder="Type your message...">
+                        <button class="action-btn" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <!-- PeerJS Library -->
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <!-- Main App Script -->
+    <script src="c.js"></script>
+</body>
+</html>
