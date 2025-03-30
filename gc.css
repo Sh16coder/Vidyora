@@ -354,3 +354,46 @@ body {
         font-size: 1.8rem;
     }
 }
+/* Remove all Google-related styles and add these */
+.email-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.email-auth input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--gray);
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.email-auth input:focus {
+    border-color: var(--info);
+}
+
+.email {
+    background: var(--info);
+    color: white;
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.3);
+}
+
+.email:hover {
+    background: #0877c9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(9, 132, 227, 0.4);
+}
+
+.secondary {
+    background: white;
+    color: var(--info);
+    border: 2px solid var(--info);
+}
+
+.secondary:hover {
+    background: var(--light);
+}
