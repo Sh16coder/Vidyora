@@ -1,6 +1,4 @@
 // Firebase configuration (replace with your own)
-// Initialize Firebase
-// Firebase configuration - keep your existing config
 const firebaseConfig = {
   apiKey: "AIzaSyBQ2aQZdBhMk6-0hL1JOq05sJfVKtYfmhU",
   authDomain: "group-chat-b2a3c.firebaseapp.com",
@@ -19,15 +17,15 @@ const database = firebase.database();
 // DOM Elements
 const loginScreen = document.getElementById('login-screen');
 const chatScreen = document.getElementById('chat-screen');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const emailLoginBtn = document.getElementById('email-login');
+const emailSignupBtn = document.getElementById('email-signup');
 const chatMessages = document.getElementById('chat-messages');
 const messageInput = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
 const onlineCount = document.getElementById('online-count');
 const signOutBtn = document.getElementById('sign-out-btn');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const emailLoginBtn = document.getElementById('email-login');
-const emailSignupBtn = document.getElementById('email-signup');
 
 // Global variables
 let currentUser = null;
@@ -40,7 +38,7 @@ function init() {
         if (user) {
             currentUser = {
                 id: user.uid,
-                name: user.email.split('@')[0], // Use email prefix as username
+                name: user.displayName || user.email.split('@')[0],
                 email: user.email
             };
             enterChat();
@@ -86,6 +84,12 @@ function signUpWithEmail() {
     setAuthButtonsDisabled(true);
     
     auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Set display name (using email prefix)
+            return userCredential.user.updateProfile({
+                displayName: email.split('@')[0]
+            });
+        })
         .then(() => {
             // Clear inputs after successful signup
             emailInput.value = '';
@@ -150,99 +154,13 @@ function showAuthError(error) {
     alert(message);
 }
 
-// Rest of your existing chat functions (enterChat, sendMessage, loadMessages, etc.)
-// ... keep all these functions exactly the same as in your original code ...
-
-// Initialize the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
-// DOM Elements
-const loginScreen = document.getElementById('login-screen');
-const chatScreen = document.getElementById('chat-screen');
-const usernameInput = document.getElementById('username');
-const googleLoginBtn = document.getElementById('google-login');
-const guestLoginBtn = document.getElementById('guest-login');
-const chatMessages = document.getElementById('chat-messages');
-const messageInput = document.getElementById('message-input');
-const sendBtn = document.getElementById('send-btn');
-const onlineCount = document.getElementById('online-count');
-const signOutBtn = document.getElementById('sign-out-btn');
-
-// Global variables
-let currentUser = null;
-let usersOnline = {};
-
-// Initialize the app
-function init() {
-    // Check auth state
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            // User is signed in with Google
-            currentUser = {
-                id: user.uid,
-                name: user.displayName || "Google User",
-                isGuest: false,
-                photoURL: user.photoURL || null
-            };
-            enterChat();
-        } else {
-            // No user is signed in
-            loginScreen.classList.remove('hidden');
-            chatScreen.classList.add('hidden');
-        }
-    });
-
-    // Event listeners
-    googleLoginBtn.addEventListener('click', signInWithGoogle);
-    guestLoginBtn.addEventListener('click', signInAsGuest);
-    sendBtn.addEventListener('click', sendMessage);
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    signOutBtn.addEventListener('click', signOut);
-}
-
-// Google Sign-In
-function signInWithGoogle() {
-    auth.signInWithPopup(provider)
-        .catch((error) => {
-            console.error("Google sign-in error:", error);
-            alert("Google sign-in failed. Please try again or use guest mode.");
-        });
-}
-
-// Guest Sign-In
-function signInAsGuest() {
-    const username = usernameInput.value.trim();
-    
-    if (username.length < 3) {
-        alert('Username must be at least 3 characters');
-        return;
-    }
-    
-    if (username.length > 20) {
-        alert('Username must be less than 20 characters');
-        return;
-    }
-    
-    currentUser = {
-        id: 'guest_' + Math.random().toString(36).substr(2, 9),
-        name: username,
-        isGuest: true,
-        photoURL: null
-    };
-    
-    enterChat();
-}
-
 // Enter the chat
 function enterChat() {
     // Add user to online list
     const userRef = database.ref('online/' + currentUser.id);
     userRef.set({
         name: currentUser.name,
-        isGuest: currentUser.isGuest,
+        email: currentUser.email,
         timestamp: firebase.database.ServerValue.TIMESTAMP
     });
     
@@ -261,15 +179,13 @@ function enterChat() {
 
 // Sign out
 function signOut() {
-    if (currentUser && !currentUser.isGuest) {
-        auth.signOut();
-    } else {
-        // For guests, just go back to login screen
-        database.ref('online/' + currentUser.id).remove();
-        currentUser = null;
-        loginScreen.classList.remove('hidden');
-        chatScreen.classList.add('hidden');
-    }
+    auth.signOut()
+        .then(() => {
+            database.ref('online/' + currentUser.id).remove();
+        })
+        .catch((error) => {
+            console.error("Sign out error:", error);
+        });
 }
 
 // Send message
@@ -284,7 +200,7 @@ function sendMessage() {
         userName: currentUser.name,
         text: message,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
-        isGuest: currentUser.isGuest
+        email: currentUser.email
     });
     
     // Clear input
@@ -348,5 +264,4 @@ function scrollToBottom() {
 }
 
 // Initialize the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
 document.addEventListener('DOMContentLoaded', init);
