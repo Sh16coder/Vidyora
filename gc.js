@@ -1,5 +1,6 @@
 // Firebase configuration (replace with your own)
 const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBQ2aQZdBhMk6-0hL1JOq05sJfVKtYfmhU",
   authDomain: "group-chat-b2a3c.firebaseapp.com",
   databaseURL: "https://group-chat-b2a3c-default-rtdb.firebaseio.com",
