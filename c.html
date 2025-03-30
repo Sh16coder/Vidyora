@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🔥 Vidyora Ultimate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Video Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="c.css">
 </head>
@@ -54,7 +54,7 @@
         <div class="header">
             <div class="logo">
                 <i class="fas fa-comments logo-icon"></i>
-                <h1>Vidyora</h1>
+                <h1>P2P Video Chat</h1>
             </div>
             <div class="header-controls">
                 <button class="theme-toggle" id="theme-toggle">
@@ -68,8 +68,7 @@
             <span id="connection-quality">🔴 Connecting...</span>
             <span id="ping-display">Ping: --</span>
         </div>
-
-        <!-- Main Content -->
+            <!-- Main Content -->
         <div class="content">
             <!-- Sidebar -->
             <div class="sidebar">
@@ -131,11 +130,9 @@
                     <button id="disable-cam-btn" title="Disable Camera">
                         <i class="fas fa-video"></i>
                     </button>
-                    <select id="video-quality">
-                        <option value="hd">HD</option>
-                        <option value="sd" selected>SD</option>
-                        <option value="low">Low</option>
-                    </select>
+                    <button id="record-btn" title="Record Call">
+                        <i class="fas fa-circle"></i>
+                    </button>
                 </div>
 
                 <!-- Message Controls -->
@@ -144,6 +141,11 @@
                         <input type="text" id="message-input" placeholder="Type your message...">
                         <button class="action-btn" id="send-btn">
                             <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <button class="action-btn" id="emoji-btn">😀</button>
+                        <input type="file" id="file-input" style="display:none">
+                        <button class="action-btn" id="file-btn" title="Send File">
+                            <i class="fas fa-paperclip"></i>
                         </button>
                     </div>
                     <div class="video-controls">
@@ -158,50 +160,16 @@
             </div>
         </div>
     </div>
-    <!-- Floating Tawk.to Widget Button -->
-    <!-- HTML: Add a chat button anywhere -->
 
+    <!-- Emoji Picker -->
+    <div id="emoji-picker-container" style="display:none;"></div>
 
-    <div id="tawkto-chat-btn">
-  <button id="tawkto-chat-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    </svg>
-    <span>Live Chat</span>
-  </button>
-    </div>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-    <!-- PeerJS Library -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-    <!-- Main App Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="c.js"></script>
-
-
-<!-- JavaScript -->
-<script>
-  document.getElementById('tawkto-chat-btn').addEventListener('click', function() {
-    if (window.Tawk_API) {
-      Tawk_API.maximize(); // If already loaded, just open chat
-      return;
-    }
-    
-    // Load Tawk.to script dynamically
-    var s1=document.createElement("script"), s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/67e8ca954c97571916e09ea6/default';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    
-    // Optional: Auto-open chat after loading
-    s1.onload = function() {
-      Tawk_API.onLoad = function() {
-        Tawk_API.maximize();
-      };
-    };
-  });
-</script>
 </body>
 </html>
