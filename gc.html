@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat With Mate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <div class="logo">
+                <i class="fas fa-comments"></i>
+                <h1>Chat With Mate</h1>
+            </div>
+            <p>Connect with others in real-time</p>
+            
+            <div class="auth-options">
+                <button id="google-login" class="auth-btn google">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <div class="or-divider">OR</div>
+                <input type="text" id="username" placeholder="Choose a guest name..." autocomplete="off">
+                <button id="guest-login" class="auth-btn guest">
+                    <i class="fas fa-user"></i> Continue as Guest
+                </button>
+            </div>
+            
+            <div class="features">
+                <div><i class="fas fa-bolt"></i> Realtime messages</div>
+                <div><i class="fas fa-infinity"></i> Permanent history</div>
+                <div><i class="fas fa-lock"></i> Secure connections</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen hidden">
+        <div class="chat-header">
+            <div class="header-left">
+                <i class="fas fa-comments"></i>
+                <h2>Global Chat</h2>
+            </div>
+            <div class="header-right">
+                <div id="online-count">0 online</div>
+                <button id="sign-out-btn" title="Sign out">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="chat-messages"></div>
+        
+        <div class="message-input">
+            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
