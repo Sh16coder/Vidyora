@@ -849,3 +849,59 @@ body {
   width: 20px;
   height: 20px;
 }
+/* Tawk.to Widget - Perfect Style Match */
+#tawkto-widget {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+}
+
+#tawkto-button {
+  /* Structure */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  
+  /* Visual Style (matches your .connect-btn/.video-btn) */
+  background: var(--accent); /* fd79a8 in light mode */
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  
+  /* Effects (matches your design system) */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#tawkto-button:hover {
+  background: #e84393; /* Slightly darker accent */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#tawkto-button svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+/* Dark mode adaptation */
+.dark-mode #tawkto-button {
+  background: var(--accent); /* ff7675 in dark mode */
+}
+
+.dark-mode #tawkto-button:hover {
+  background: #e84393;
+}
+
+/* Matches your button disabled states */
+#tawkto-button:disabled {
+  background: var(--text-secondary);
+  cursor: not-allowed;
+  transform: none !important;
+}
