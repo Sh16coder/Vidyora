@@ -1021,3 +1021,40 @@ function initUserAvatar() {
 
 // Initialize the app
 initUserAvatar();
+// 1. Encrypt a message
+async function encryptMessage(message, publicKey) {
+  const encoded = new TextEncoder().encode(message);
+  const encrypted = await window.crypto.subtle.encrypt(
+    { name: "RSA-OAEP" },
+    publicKey,
+    encoded
+  );
+  return encrypted;
+}
+
+// 2. Record a call
+function startRecording(stream) {
+  const recorder = new MediaRecorder(stream);
+  const chunks = [];
+  
+  recorder.ondataavailable = (e) => chunks.push(e.data);
+  recorder.onstop = async () => {
+    const blob = new Blob(chunks, { type: "video/webm" });
+    const storageRef = ref(storage, `calls/${Date.now()}.webm`);
+    await uploadBytes(storageRef, blob);
+  };
+  
+  recorder.start();
+  return recorder;
+}
+
+// 3. Save encrypted chat
+async function saveChat(messages) {
+  await setDoc(doc(db, "chats", chatId), {
+    messages: messages.map(msg => ({
+      sender: msg.sender,
+      encryptedData: msg.encrypted,
+      timestamp: new Date()
+    }))
+  });
+}
