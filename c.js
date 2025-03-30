@@ -1058,3 +1058,48 @@ async function saveChat(messages) {
     }))
   });
 }
+// Tawk.to Widget Loader
+document.addEventListener('DOMContentLoaded', function() {
+  const widgetId = 'YOUR_TAWKTO_WIDGET_ID'; // Replace with your ID
+  
+  document.getElementById('tawkto-button').addEventListener('click', function() {
+    if (window.Tawk_API) {
+      Tawk_API.maximize();
+      return;
+    }
+    
+    // Create script element
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://embed.tawk.to/${widgetId}/default`;
+    script.charset = 'UTF-8';
+    script.setAttribute('crossorigin', '*');
+    
+    // Set up API callbacks
+    script.onload = function() {
+      console.log('Tawk.to loaded');
+      Tawk_API.onLoad = function() {
+        Tawk_API.maximize();
+        // Set visitor info if available
+        if (window.userEmail) {
+          Tawk_API.setAttributes({
+            name: window.userName || 'Visitor',
+            email: window.userEmail
+          });
+        }
+      };
+    };
+    
+    document.body.appendChild(script);
+    
+    // Optional: Track click in analytics
+    if (window.gtag) {
+      gtag('event', 'tawkto_widget_click');
+    }
+  });
+});
+window.userEmail = 'user@example.com'; // Set these before script loads
+window.userName = 'John Doe';
+if (window.hasConsentedToCookies) {
+  // Attach click handler
+}
