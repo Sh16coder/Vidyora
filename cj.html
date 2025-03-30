@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🔥 Vidyora Ultimate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="c.css">
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div class="login-screen" id="auth-screen">
+        <div class="auth-container floating">
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">Login</div>
+                <div class="auth-tab" id="register-tab">Register</div>
+            </div>
+            
+            <div id="login-form">
+                <input type="email" id="login-email" class="login-input" placeholder="Email">
+                <input type="password" id="login-password" class="login-input" placeholder="Password">
+                <button class="login-btn" id="login-user-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </div>
+            
+            <div id="register-form" style="display: none;">
+                <input type="text" id="register-name" class="login-input" placeholder="Display Name">
+                <input type="email" id="register-email" class="login-input" placeholder="Email">
+                <input type="password" id="register-password" class="login-input" placeholder="Password">
+                <button class="login-btn" id="register-user-btn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Request Modal -->
+    <div class="call-request" id="call-request">
+        <h3 id="caller-name">User wants to video chat</h3>
+        <div class="video-controls">
+            <button class="video-btn" id="accept-call">
+                <i class="fas fa-check"></i> Accept
+            </button>
+            <button class="video-btn" id="reject-call" style="background: #d63031;">
+                <i class="fas fa-times"></i> Reject
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="container" id="app-container" style="display: none;">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-comments logo-icon"></i>
+                <h1>Vidyora</h1>
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="connection-status">
+            <span id="connection-quality">🔴 Connecting...</span>
+            <span id="ping-display">Ping: --</span>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <div class="user-info">
+                        <div class="username" id="display-username">User</div>
+                        <div class="user-status">Online</div>
+                    </div>
+                </div>
+
+                <div class="your-peer-id">
+                    <h3><i class="fas fa-id-card"></i> Your ID</h3>
+                    <div class="peer-id-display" id="peer-id-display">Connecting...</div>
+                    <button class="copy-btn" id="copy-id-btn">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                </div>
+
+                <div class="connect-form">
+                    <h3><i class="fas fa-link"></i> Connect to Peer</h3>
+                    <input type="text" id="peer-id-input" placeholder="Enter Peer ID">
+                    <button class="connect-btn" id="connect-btn">
+                        <i class="fas fa-plug"></i> Connect
+                    </button>
+                </div>
+
+                <div class="user-list">
+                    <h3><i class="fas fa-users"></i> Active Users</h3>
+                    <ul class="users" id="users"></ul>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <!-- Video Container -->
+                <div class="video-container" id="video-container">
+                    <div class="video-box">
+                        <video id="local-video" autoplay muted playsinline></video>
+                        <span class="video-label">You</span>
+                    </div>
+                    <div class="video-box">
+                        <video id="remote-video" autoplay playsinline></video>
+                        <span class="video-label">Peer</span>
+                    </div>
+                </div>
+
+                <!-- Chat Box -->
+                <div class="chat-box" id="chat-box"></div>
+
+                <!-- Media Controls -->
+                <div class="media-controls">
+                    <button id="screen-share-btn" title="Share Screen">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button id="mute-mic-btn" title="Mute Mic">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="disable-cam-btn" title="Disable Camera">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <select id="video-quality">
+                        <option value="hd">HD</option>
+                        <option value="sd" selected>SD</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <!-- Message Controls -->
+                <div class="controls">
+                    <div class="message-controls">
+                        <input type="text" id="message-input" placeholder="Type your message...">
+                        <button class="action-btn" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="video-controls">
+                        <button class="video-btn" id="start-video">
+                            <i class="fas fa-video"></i> Start Video
+                        </button>
+                        <button class="video-btn" id="end-video" disabled>
+                            <i class="fas fa-video-slash"></i> End Video
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Floating Tawk.to Widget Button -->
+    <!-- HTML: Add a chat button anywhere -->
+
+
+    <div id="tawkto-chat-btn">
+  <button id="tawkto-chat-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span>Live Chat</span>
+  </button>
+    </div>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <!-- PeerJS Library -->
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <!-- Main App Script -->
+    <script src="c.js"></script>
+
+
+<!-- JavaScript -->
+<script>
+  document.getElementById('tawkto-chat-btn').addEventListener('click', function() {
+    if (window.Tawk_API) {
+      Tawk_API.maximize(); // If already loaded, just open chat
+      return;
+    }
+    
+    // Load Tawk.to script dynamically
+    var s1=document.createElement("script"), s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67e8ca954c97571916e09ea6/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    
+    // Optional: Auto-open chat after loading
+    s1.onload = function() {
+      Tawk_API.onLoad = function() {
+        Tawk_API.maximize();
+      };
+    };
+  });
+</script>
+</body>
+</html>
