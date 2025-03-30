@@ -12,33 +12,19 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="login-screen" class="screen">
-        <div class="login-container">
-            <div class="logo">
-                <i class="fas fa-comments"></i>
-                <h1>Group Chat</h1>
-            </div>
-            <p>Connect with others in real-time</p>
-            
-            <div class="auth-options">
-                <button id="google-login" class="auth-btn google">
-                    <i class="fab fa-google"></i> Continue with Google
-                </button>
-                <div class="or-divider">OR</div>
-                <input type="text" id="username" placeholder="Choose a guest name..." autocomplete="off">
-                <button id="guest-login" class="auth-btn guest">
-                    <i class="fas fa-user"></i> Continue as Guest
-                </button>
-            </div>
-            
-            <div class="features">
-                <div><i class="fas fa-bolt"></i> Realtime messages</div>
-                <div><i class="fas fa-infinity"></i> Permanent history</div>
-                <div><i class="fas fa-lock"></i> Secure connections</div>
-            </div>
-        </div>
+    <!-- Replace the entire auth-options div with this simplified version -->
+<div class="auth-options">
+    <div class="email-auth">
+        <input type="email" id="email" placeholder="Email" autocomplete="off" required>
+        <input type="password" id="password" placeholder="Password" autocomplete="off" required>
+        <button id="email-login" class="auth-btn email">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <button id="email-signup" class="auth-btn email secondary">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
     </div>
+</div>
 
     <!-- Chat Screen -->
     <div id="chat-screen" class="screen hidden">
