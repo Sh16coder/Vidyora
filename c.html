@@ -159,14 +159,8 @@
         </div>
     </div>
     <!-- Floating Tawk.to Widget Button -->
-<div id="tawkto-widget">
-  <button id="tawkto-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    </svg>
-    <span>Chat with us</span>
-  </button>
-</div>
+    <!-- HTML: Add a chat button anywhere -->
+<button id="tawkto-chat-btn">Chat with Us</button>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
@@ -175,5 +169,31 @@
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <!-- Main App Script -->
     <script src="c.js"></script>
+
+
+<!-- JavaScript -->
+<script>
+  document.getElementById('tawkto-chat-btn').addEventListener('click', function() {
+    if (window.Tawk_API) {
+      Tawk_API.maximize(); // If already loaded, just open chat
+      return;
+    }
+    
+    // Load Tawk.to script dynamically
+    var s1=document.createElement("script"), s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67e8ca954c97571916e09ea6/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    
+    // Optional: Auto-open chat after loading
+    s1.onload = function() {
+      Tawk_API.onLoad = function() {
+        Tawk_API.maximize();
+      };
+    };
+  });
+</script>
 </body>
 </html>
