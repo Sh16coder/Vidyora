@@ -1060,7 +1060,7 @@ async function saveChat(messages) {
 }
 // Tawk.to Widget Loader
 document.addEventListener('DOMContentLoaded', function() {
-  const widgetId = 'YOUR_TAWKTO_WIDGET_ID'; // Replace with your ID
+  const widgetId = '67e8ca954c97571916e09ea6'; // Replace with your ID
   
   document.getElementById('tawkto-button').addEventListener('click', function() {
     if (window.Tawk_API) {
