@@ -817,14 +817,14 @@ body {
     font-size: 0.8rem;
     }
 /* Tawk.to Widget Styles */
-#tawkto-widget {
+#tawkto-chat-btn {
   position: fixed;
   bottom: 30px;
   right: 30px;
   z-index: 9999;
 }
 
-#tawkto-button {
+#tawkto-chat-btn {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -839,25 +839,25 @@ body {
   transition: all 0.3s ease;
 }
 
-#tawkto-button:hover {
+#tawkto-chat-btn:hover {
   background: #3e8e41;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-#tawkto-button svg {
+#tawkto-chat-btn svg {
   width: 20px;
   height: 20px;
 }
 /* Tawk.to Widget - Perfect Style Match */
-#tawkto-widget {
+#tawkto-chat-btn {
   position: fixed;
   bottom: 30px;
   right: 30px;
   z-index: 9999;
 }
 
-#tawkto-button {
+#tawkto-chat-btn {
   /* Structure */
   display: flex;
   align-items: center;
@@ -878,29 +878,29 @@ body {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-#tawkto-button:hover {
+#tawkto-chat-btn:hover {
   background: #e84393; /* Slightly darker accent */
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-#tawkto-button svg {
+#tawkto-chat-btn svg {
   width: 18px;
   height: 18px;
   transition: transform 0.2s ease;
 }
 
 /* Dark mode adaptation */
-.dark-mode #tawkto-button {
+.dark-mode #tawkto-chat-btn {
   background: var(--accent); /* ff7675 in dark mode */
 }
 
-.dark-mode #tawkto-button:hover {
+.dark-mode #tawkto-chat-btn:hover {
   background: #e84393;
 }
 
 /* Matches your button disabled states */
-#tawkto-button:disabled {
+#tawkto-chat-btn:disabled {
   background: var(--text-secondary);
   cursor: not-allowed;
   transform: none !important;
