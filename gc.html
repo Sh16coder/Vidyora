@@ -3,52 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Nexus Chat | Login</title>
     <link rel="stylesheet" href="gc.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Replace the entire auth-options div with this simplified version -->
-<div class="auth-options">
-    <div class="email-auth">
-        <input type="email" id="email" placeholder="Email" autocomplete="off" required>
-        <input type="password" id="password" placeholder="Password" autocomplete="off" required>
-        <button id="email-login" class="auth-btn email">
-            <i class="fas fa-sign-in-alt"></i> Sign In
-        </button>
-        <button id="email-signup" class="auth-btn email secondary">
-            <i class="fas fa-user-plus"></i> Create Account
-        </button>
-    </div>
-</div>
-
-    <!-- Chat Screen -->
-    <div id="chat-screen" class="screen hidden">
-        <div class="chat-header">
-            <div class="header-left">
-                <i class="fas fa-comments"></i>
-                <h2>Global Chat</h2>
-            </div>
-            <div class="header-right">
-                <div id="online-count">0 online</div>
-                <button id="sign-out-btn" title="Sign out">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
+    <div class="galaxy-bg">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        
+        <div class="auth-container">
+            <div class="holographic-card">
+                <div class="holo-header">
+                    <div class="logo">
+                        <svg viewBox="0 0 100 100" class="logo-svg">
+                            <path d="M50 10 L90 50 L50 90 L10 50 Z" class="logo-path"></path>
+                            <circle cx="50" cy="50" r="30" class="logo-circle"></circle>
+                        </svg>
+                        <h1>NEXUS CHAT</h1>
+                    </div>
+                    <p class="tagline">Connect across the multiverse</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">ACCESS</button>
+                    <button class="tab-btn" data-tab="register">REGISTER</button>
+                </div>
+                
+                <form id="loginForm" class="auth-form active">
+                    <div class="input-field">
+                        <input type="email" id="loginEmail" required>
+                        <label>Quantum ID</label>
+                        <span class="focus-border"></span>
+                        <div class="particles"></div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <input type="password" id="loginPassword" required>
+                        <label>Encryption Key</label>
+                        <span class="focus-border"></span>
+                        <div class="particles"></div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">
+                        <span>INITIATE CONNECTION</span>
+                        <div class="hover-effect"></div>
+                    </button>
+                </form>
+                
+                <form id="registerForm" class="auth-form">
+                    <div class="input-field">
+                        <input type="email" id="registerEmail" required>
+                        <label>Quantum ID</label>
+                        <span class="focus-border"></span>
+                        <div class="particles"></div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <input type="password" id="registerPassword" required>
+                        <label>Encryption Key</label>
+                        <span class="focus-border"></span>
+                        <div class="particles"></div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <input type="password" id="confirmPassword" required>
+                        <label>Confirm Key</label>
+                        <span class="focus-border"></span>
+                        <div class="particles"></div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">
+                        <span>CREATE NEXUS</span>
+                        <div class="hover-effect"></div>
+                    </button>
+                </form>
+                
+                <div class="status-message"></div>
             </div>
         </div>
         
-        <div id="chat-messages"></div>
-        
-        <div class="message-input">
-            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
-            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
-        </div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
     </div>
-
+    
+    <script src="firebase-config.js"></script>
     <script src="gc.js"></script>
 </body>
 </html>
