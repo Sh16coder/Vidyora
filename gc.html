@@ -979,7 +979,28 @@ if (!firebase.apps.length) {
         appId: "1:652138733251:web:c482f131b177a8b5f78c76"
     });
 }
+function initializeDatabase() {
+    // Create default paths if they don't exist
+    const paths = ['messages', 'groups', 'users'];
+    paths.forEach(path => {
+        firebase.database().ref(path).once('value').then(snapshot => {
+            if (!snapshot.exists()) {
+                firebase.database().ref(path).set({ initialized: true });
+            }
+        });
+    });
 
+    // Create default group
+    firebase.database().ref('groups/general').once('value').then(snapshot => {
+        if (!snapshot.exists()) {
+            firebase.database().ref('groups/general').set({
+                name: 'General Chat',
+                createdAt: firebase.database.ServerValue.TIMESTAMP,
+                lastMessage: 'Welcome to the chat!'
+            });
+        }
+    });
+}
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
