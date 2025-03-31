@@ -18,7 +18,7 @@ const usernameInitial = document.getElementById('usernameInitial');
 const hamburger = document.querySelector('.hamburger');
 const sidebar = document.querySelector('.sidebar');
 
-// Tab Switching
+// Tab Switching (for gc.html)
 if (tabBtns) {
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -42,29 +42,29 @@ if (tabBtns) {
 // Auth State Listener
 auth.onAuthStateChanged(user => {
     if (user) {
-        // User is signed in
-        if (window.location.pathname.includes('index.html')) {
+        // Redirect from gc.html to chat.html
+        if (window.location.pathname.includes('gc.html')) {
             window.location.href = 'chat.html';
         }
         
-        // Set user initial
+        // Set user initial (for chat.html)
         if (usernameInitial) {
             usernameInitial.textContent = user.email.charAt(0).toUpperCase();
         }
         
-        // Load messages
+        // Load messages (for chat.html)
         if (messageContainer) {
             loadMessages();
         }
     } else {
-        // No user is signed in
-        if (!window.location.pathname.includes('index.html')) {
-            window.location.href = 'index.html';
+        // Redirect to gc.html if not authenticated
+        if (!window.location.pathname.includes('gc.html')) {
+            window.location.href = 'gc.html';
         }
     }
 });
 
-// Login Function
+// Login Function (for gc.html)
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -74,14 +74,13 @@ if (loginForm) {
         
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            // Success handled by auth state listener
         } catch (error) {
             showStatusMessage(error.message, 'error');
         }
     });
 }
 
-// Register Function
+// Register Function (for gc.html)
 if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -105,14 +104,13 @@ if (registerForm) {
     });
 }
 
-// Logout Function
+// Chat Page Functions (for chat.html)
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
         auth.signOut();
     });
 }
 
-// Send Message Function
 if (sendBtn) {
     sendBtn.addEventListener('click', sendMessage);
     messageInput.addEventListener('keypress', (e) => {
@@ -135,7 +133,6 @@ async function sendMessage() {
             sender: user.email,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
-        
         messageInput.value = '';
     } catch (error) {
         console.error('Error sending message:', error);
@@ -147,13 +144,9 @@ function loadMessages() {
         .orderBy('timestamp')
         .onSnapshot(snapshot => {
             messageContainer.innerHTML = '';
-            
             snapshot.forEach(doc => {
-                const message = doc.data();
-                displayMessage(message);
+                displayMessage(doc.data());
             });
-            
-            // Scroll to bottom
             messageContainer.scrollTop = messageContainer.scrollHeight;
         });
 }
@@ -163,42 +156,32 @@ function displayMessage(message) {
     const isCurrentUser = message.sender === user.email;
     
     const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message');
-    messageDiv.classList.add(isCurrentUser ? 'sent' : 'received');
+    messageDiv.classList.add('message', isCurrentUser ? 'sent' : 'received');
     
-    const messageText = document.createElement('div');
-    messageText.textContent = message.text;
+    messageDiv.innerHTML = `
+        <div>${message.text}</div>
+        <span class="message-time">
+            ${message.timestamp ? message.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Just now'}
+        </span>
+    `;
     
-    const messageTime = document.createElement('span');
-    messageTime.classList.add('message-time');
-    
-    if (message.timestamp) {
-        const date = message.timestamp.toDate();
-        messageTime.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } else {
-        messageTime.textContent = 'Just now';
-    }
-    
-    messageDiv.appendChild(messageText);
-    messageDiv.appendChild(messageTime);
     messageContainer.appendChild(messageDiv);
-    
-    // Scroll to bottom
     messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 function showStatusMessage(text, type) {
+    if (!statusMessage) return;
+    
     statusMessage.textContent = text;
-    statusMessage.className = 'status-message';
-    statusMessage.classList.add(type);
+    statusMessage.className = 'status-message ' + type;
     
     setTimeout(() => {
-        statusMessage.classList.remove(type);
         statusMessage.textContent = '';
+        statusMessage.className = 'status-message';
     }, 5000);
 }
 
-// Mobile Menu Toggle
+// Mobile Menu (for chat.html)
 if (hamburger) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
