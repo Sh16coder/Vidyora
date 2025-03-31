@@ -1,139 +1,117 @@
-// Firebase Configuration (will be in firebase-config.js)
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-// DOM Elements
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const tabBtns = document.querySelectorAll('.tab-btn');
-const authForms = document.querySelectorAll('.auth-form');
-const statusMessage = document.querySelector('.status-message');
-const logoutBtn = document.getElementById('logoutBtn');
-const messageInput = document.getElementById('messageInput');
-const sendBtn = document.getElementById('sendBtn');
-const messageContainer = document.getElementById('messageContainer');
-const usernameInitial = document.getElementById('usernameInitial');
-const hamburger = document.querySelector('.hamburger');
-const sidebar = document.querySelector('.sidebar');
-
-// Tab Switching (for gc.html)
-if (tabBtns) {
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tab = btn.getAttribute('data-tab');
-            
-            // Update active tab
-            tabBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Show corresponding form
-            authForms.forEach(form => {
-                form.classList.remove('active');
-                if (form.id === `${tab}Form`) {
-                    form.classList.add('active');
-                }
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab Switching Functionality
+    function setupTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const authForms = document.querySelectorAll('.auth-form');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tab = this.dataset.tab;
+                
+                // Update active tab
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update active form
+                authForms.forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tab}Form`).classList.add('active');
             });
         });
-    });
-}
-
-// Auth State Listener
-auth.onAuthStateChanged(user => {
-    if (user) {
-        // Redirect from gc.html to chat.html
-        if (window.location.pathname.includes('gc.html')) {
-            window.location.href = 'chat.html';
-        }
-        
-        // Set user initial (for chat.html)
-        if (usernameInitial) {
-            usernameInitial.textContent = user.email.charAt(0).toUpperCase();
-        }
-        
-        // Load messages (for chat.html)
-        if (messageContainer) {
-            loadMessages();
-        }
-    } else {
-        // Redirect to gc.html if not authenticated
-        if (!window.location.pathname.includes('gc.html')) {
-            window.location.href = 'gc.html';
-        }
     }
+
+    // Authentication State Listener
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            if (window.location.pathname.includes('gc.html')) {
+                window.location.href = 'chat.html';
+            }
+            if (document.getElementById('usernameInitial')) {
+                document.getElementById('usernameInitial').textContent = user.email.charAt(0).toUpperCase();
+            }
+            if (document.getElementById('messageContainer')) {
+                loadMessages();
+            }
+        } else {
+            if (!window.location.pathname.includes('gc.html')) {
+                window.location.href = 'gc.html';
+            }
+        }
+    });
+
+    // Login Function
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (error) {
+                showStatusMessage(error.message, 'error');
+            }
+        });
+    }
+
+    // Register Function
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showStatusMessage('Passwords do not match', 'error');
+                return;
+            }
+            
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                await userCredential.user.sendEmailVerification();
+                showStatusMessage('Verification email sent!', 'success');
+            } catch (error) {
+                showStatusMessage(error.message, 'error');
+            }
+        });
+    }
+
+    // Chat Functions
+    if (document.getElementById('logoutBtn')) {
+        document.getElementById('logoutBtn').addEventListener('click', () => auth.signOut());
+    }
+
+    if (document.getElementById('sendBtn')) {
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    }
+
+    // Initialize tabs
+    setupTabs();
 });
 
-// Login Function (for gc.html)
-if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-        
-        try {
-            await auth.signInWithEmailAndPassword(email, password);
-        } catch (error) {
-            showStatusMessage(error.message, 'error');
-        }
-    });
-}
-
-// Register Function (for gc.html)
-if (registerForm) {
-    registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        if (password !== confirmPassword) {
-            showStatusMessage('Passwords do not match', 'error');
-            return;
-        }
-        
-        try {
-            await auth.createUserWithEmailAndPassword(email, password);
-            await auth.currentUser.sendEmailVerification();
-            showStatusMessage('Verification email sent. Please check your inbox.', 'success');
-        } catch (error) {
-            showStatusMessage(error.message, 'error');
-        }
-    });
-}
-
-// Chat Page Functions (for chat.html)
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-        auth.signOut();
-    });
-}
-
-if (sendBtn) {
-    sendBtn.addEventListener('click', sendMessage);
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-}
-
+// Message Functions
 async function sendMessage() {
-    const messageText = messageInput.value.trim();
-    if (messageText === '') return;
-    
-    const user = auth.currentUser;
-    if (!user) return;
+    const messageText = document.getElementById('messageInput').value.trim();
+    if (!messageText || !auth.currentUser) return;
     
     try {
         await db.collection('messages').add({
             text: messageText,
-            sender: user.email,
+            sender: auth.currentUser.email,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
-        messageInput.value = '';
+        document.getElementById('messageInput').value = '';
     } catch (error) {
         console.error('Error sending message:', error);
     }
@@ -143,48 +121,34 @@ function loadMessages() {
     db.collection('messages')
         .orderBy('timestamp')
         .onSnapshot(snapshot => {
-            messageContainer.innerHTML = '';
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = '';
+            
             snapshot.forEach(doc => {
-                displayMessage(doc.data());
+                const message = doc.data();
+                const isCurrentUser = message.sender === auth.currentUser.email;
+                const time = message.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || 'Now';
+                
+                container.innerHTML += `
+                    <div class="message ${isCurrentUser ? 'sent' : 'received'}">
+                        <div>${message.text}</div>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
             });
-            messageContainer.scrollTop = messageContainer.scrollHeight;
+            container.scrollTop = container.scrollHeight;
         });
 }
 
-function displayMessage(message) {
-    const user = auth.currentUser;
-    const isCurrentUser = message.sender === user.email;
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', isCurrentUser ? 'sent' : 'received');
-    
-    messageDiv.innerHTML = `
-        <div>${message.text}</div>
-        <span class="message-time">
-            ${message.timestamp ? message.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Just now'}
-        </span>
-    `;
-    
-    messageContainer.appendChild(messageDiv);
-    messageContainer.scrollTop = messageContainer.scrollHeight;
-}
-
 function showStatusMessage(text, type) {
-    if (!statusMessage) return;
+    const element = document.querySelector('.status-message');
+    if (!element) return;
     
-    statusMessage.textContent = text;
-    statusMessage.className = 'status-message ' + type;
+    element.textContent = text;
+    element.className = `status-message ${type}`;
     
     setTimeout(() => {
-        statusMessage.textContent = '';
-        statusMessage.className = 'status-message';
+        element.textContent = '';
+        element.className = 'status-message';
     }, 5000);
-}
-
-// Mobile Menu (for chat.html)
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        sidebar.classList.toggle('active');
-    });
-}
+            }
