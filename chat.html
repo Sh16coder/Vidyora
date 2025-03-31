@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Chat | Channel</title>
+    <link rel="stylesheet" href="gc.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="galaxy-bg">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="header-left">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <h1>QUANTUM CHANNEL</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-avatar">
+                        <div class="avatar-glow"></div>
+                        <span id="usernameInitial">U</span>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn">
+                        <span>DISCONNECT</span>
+                        <div class="hover-effect"></div>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>ACTIVE NEXUS</h3>
+                    <div class="connection-status">
+                        <div class="pulse-dot"></div>
+                        <span>ONLINE</span>
+                    </div>
+                </div>
+                <div class="user-list">
+                    <div class="user-item active">
+                        <div class="user-avatar small">
+                            <span>U</span>
+                        </div>
+                        <span class="user-name">You</span>
+                        <div class="status-indicator"></div>
+                    </div>
+                    <!-- Users will be added here dynamically -->
+                </div>
+            </div>
+            
+            <main class="chat-main">
+                <div class="message-container" id="messageContainer">
+                    <!-- Messages will appear here -->
+                </div>
+                
+                <div class="message-input">
+                    <div class="input-wrapper">
+                        <input type="text" id="messageInput" placeholder="Transmit message through the quantum field...">
+                        <button id="sendBtn">
+                            <svg viewBox="0 0 24 24" class="send-icon">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-effects">
+                        <div class="particle-stream"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+    </div>
+    
+    <script src="firebase-config.js"></script>
+    <script src="gc.js"></script>
+</body>
+</html>
