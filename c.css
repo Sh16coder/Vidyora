@@ -33,12 +33,62 @@
     --message-peer: #34495e;
     --message-system: rgba(0, 0, 0, 0.3);
 }
+/* === Video Container === */
+.video-container {
+    display: none;
+    padding: 15px;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: var(--card-border);
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent video boxes from wrapping */
+    scroll-snap-type: x mandatory; /* Snap scrolling to each video */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
 
+.video-container.active {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping on mobile */
+}
+
+.video-box {
+    flex: 0 0 auto; /* Don't grow or shrink */
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: #000;
+    width: calc(100% - 15px); /* Full width minus gap on mobile */
+    height: 200px;
+    scroll-snap-align: start; /* Snap to start of each video */
+}
+
+/* For larger screens */
+@media (min-width: 769px) {
+    .video-container {
+        flex-wrap: wrap; /* Allow normal flex behavior on desktop */
+        overflow-x: visible; /* No horizontal scroll on desktop */
+        white-space: normal;
+    }
+    
+    .video-box {
+        flex: 1; /* Return to normal flex behavior */
+        width: auto;
+        height: auto;
+    }
+}
+
+/* Adjust media controls position on mobile */
+@media (max-width: 768px) {
+    .media-controls {
+        bottom: 180px; /* Give more space for scrolling */
+    }
+}
 /* === Base Styles === */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
     transition: background 0.5s ease, color 0.3s ease, transform 0.2s ease;
 }
 
