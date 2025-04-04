@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             role: "development and design",
             roleDisplay: "CREATOR",
             contribution: "Building the whole website, creating different pages and integrating ai , mentor.",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+            image: "",
             social: {
                 twitter: "#",
                 github: "#",
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             role: "content, toppers notes",
             roleDisplay: "Toppers Notes",
             contribution: "given her toppers notes which help her to get 95% in 10th and 94% in 11th",
-            image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+            image: "",
             social: {
                 medium: "#",
                 twitter: "#",
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             role: "testing, blog writer",
             roleDisplay: "blog writer",
             contribution: "blog writer wrote in the column our mistakes your learning.",
-            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+            image: "",
             social: {
                 twitter: "#",
                 github: "#"
