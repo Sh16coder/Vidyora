@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             name: "ADMIN",
             role: "development and design",
-            roleDisplay: "Frontend Architect",
+            roleDisplay: "CREATOR",
             contribution: "Building the whole website, creating different pages and integrating ai , mentor.",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
             social: {
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             name: "Aditya Chaturvedi",
             role: "MENTOR",
-            roleDisplay: "UX Visionary",
+            roleDisplay: "Mentor",
             contribution: "Creating beautiful user interfaces with Figma and Adobe XD. Leads user research and testing to improve experience flows and accessibility.",
-            image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+            image: "astro.webp",
             social: {
                 dribbble: "#",
                 behance: "#",
@@ -134,10 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         {
-            name: "Michael Chen",
-            role: "content",
-            roleDisplay: "Content Strategist",
-            contribution: "Writing engaging content and optimizing for SEO. Develops content frameworks and maintains brand voice across all platforms.",
+            name: "Ayushi",
+            role: "content, toppers notes",
+            roleDisplay: "Toppers Notes",
+            contribution: "given her toppers notes which help her to get 95% in 10th and 94% in 11th",
             image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
             social: {
                 medium: "#",
@@ -146,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         {
-            name: "Emily Rodriguez",
-            role: "testing",
-            roleDisplay: "QA Engineer",
-            contribution: "Implementing automated testing with Cypress and Jest. Ensures bug-free releases through rigorous manual and automated testing protocols.",
+            name: "Shivraj Singh Bansal",
+            role: "testing, blog writer",
+            roleDisplay: "blog writer",
+            contribution: "blog writer wrote in the column our mistakes your learning.",
             image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
             social: {
                 twitter: "#",
@@ -157,51 +157,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         {
-            name: "David Kim",
-            role: "development",
-            roleDisplay: "Backend Wizard",
-            contribution: "Building scalable server infrastructure with Node.js and Django. Designs efficient database architectures and secure API endpoints.",
-            image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+            name: "Yuvraj singh bansal",
+            role: "blog writer",
+            roleDisplay: "Blog writer",
+            contribution: "blog writer wrote in the column our mistakes your learning.",
+            image: "",
             social: {
                 github: "#",
                 stackoverflow: "#",
                 linkedin: "#"
             }
         },
-        {
-            name: "Jessica Lee",
-            role: "management",
-            roleDisplay: "Project Director",
-            contribution: "Coordinating team efforts using Agile methodologies. Ensures project milestones are met while maintaining work-life balance for the team.",
-            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#"
-            }
-        },
-        {
-            name: "Raj Patel",
-            role: "design",
-            roleDisplay: "UI Designer",
-            contribution: "Creating pixel-perfect interfaces and design systems. Specializes in micro-interactions and motion design to enhance user engagement.",
-            image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-            social: {
-                dribbble: "#",
-                instagram: "#",
-                twitter: "#"
-            }
-        },
-        {
-            name: "Olivia Martinez",
-            role: "content",
-            roleDisplay: "Technical Writer",
-            contribution: "Creating comprehensive documentation and tutorials. Makes complex technical concepts accessible to all audience levels.",
-            image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-            social: {
-                medium: "#",
-                github: "#"
-            }
-        }
+
     ];
 
     const container = document.getElementById('collaboratorsContainer');
