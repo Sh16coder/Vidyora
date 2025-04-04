@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Team | Website Collaborators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="col.css">
+</head>
+<body>
+    <div class="particles-container" id="particles-js"></div>
+    
+    <div class="content-wrapper">
+        <header class="glowing-header">
+            <h1 class="title-gradient">Our Dream Team</h1>
+            <p class="subtitle-shine">The brilliant minds behind this project</p>
+            <div class="header-decoration"></div>
+        </header>
+
+        <div class="controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search collaborators..." class="search-box neumorphic-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="select-wrapper">
+                <select id="roleFilter" class="filter-dropdown neumorphic-select">
+                    <option value="all">All Roles</option>
+                    <option value="design">Design</option>
+                    <option value="development">Development</option>
+                    <option value="content">Content</option>
+                    <option value="testing">Testing</option>
+                    <option value="management">Management</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="collaborators-grid" id="collaboratorsContainer">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+
+        <div class="floating-cta">
+            <button class="cta-button pulse">
+                <span>Join Our Team</span>
+                <div class="arrow-wrapper">
+                    <div class="arrow"></div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="col.js"></script>
+</body>
+</html>
