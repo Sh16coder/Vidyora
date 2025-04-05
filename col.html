@@ -3,53 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream Team | Website Collaborators</title>
+    <title>⚡ THE PANTHEON | Legendary Collaborators</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="col.css">
 </head>
 <body>
-    <div class="particles-container" id="particles-js"></div>
+    <!-- Quantum Background Elements -->
+    <div class="quantum-bg"></div>
+    <div class="neural-network"></div>
     
-    <div class="content-wrapper">
-        <header class="glowing-header">
-            <h1 class="title-gradient">Our Dream Team</h1>
-            <p class="subtitle-shine">The brilliant minds behind this project</p>
-            <div class="header-decoration"></div>
+    <!-- Main Container -->
+    <div class="pantheon-container">
+        <!-- Holographic Header -->
+        <header class="pantheon-header">
+            <h1 class="title-matrix">THE <span class="title-flicker">PANTHEON</span></h1>
+            <p class="subtitle-digital">Legends Who Shape Reality</p>
+            <div class="header-aura"></div>
         </header>
 
-        <div class="controls">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search collaborators..." class="search-box neumorphic-input">
-                <i class="fas fa-search search-icon"></i>
+        <!-- AI-Powered Controls -->
+        <div class="quantum-controls">
+            <div class="ai-search-container">
+                <input type="text" id="searchInput" placeholder="Query the collective..." class="ai-search-field">
+                <i class="fas fa-search ai-search-icon"></i>
+                <div class="search-pulse"></div>
             </div>
-            <div class="select-wrapper">
-                <select id="roleFilter" class="filter-dropdown neumorphic-select">
-                    <option value="all">All Roles</option>
-                    <option value="design">Design</option>
-                    <option value="development">Development</option>
-                    <option value="content">Content</option>
-                    <option value="testing">Testing</option>
-                    <option value="management">Management</option>
+            
+            <div class="hologram-select">
+                <select id="roleFilter" class="quantum-dropdown">
+                    <option value="all">ALL ARCHONS</option>
+                    <option value="design">DESIGN ORACLES</option>
+                    <option value="dev">CODE ARCHITECTS</option>
+                    <option value="content">WORD WEAVERS</option>
+                    <option value="testing">REALITY TESTERS</option>
+                    <option value="management">DIMENSION CURATORS</option>
                 </select>
+                <div class="select-aura"></div>
             </div>
         </div>
 
-        <div class="collaborators-grid" id="collaboratorsContainer">
-            <!-- Cards will be inserted here by JavaScript -->
+        <!-- The Pantheon Grid -->
+        <div class="pantheon-grid" id="pantheonGrid">
+            <!-- Cards will be dynamically inserted here -->
         </div>
 
-        <div class="floating-cta">
-            <button class="cta-button pulse">
-                <span>Join Our Team</span>
-                <div class="arrow-wrapper">
-                    <div class="arrow"></div>
-                </div>
+        <!-- Singularity CTA -->
+        <div class="singularity-cta">
+            <button class="cta-portal">
+                <span>ASCEND TO THE PANTHEON</span>
+                <div class="portal-effect"></div>
             </button>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Audio Elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-positive-interface-beep-218.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="col.js"></script>
 </body>
 </html>
