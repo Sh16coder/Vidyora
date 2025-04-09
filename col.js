@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             role: "admin",
             roleDisplay: "CREATOR",
             contribution: "A Very Old Average kid of our school helping students from the problems i faced",
-            image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,1",
+            image: "images/collaborators/admin.webp",
             social: {
                 behance: "#",
                 dribbble: "#",
