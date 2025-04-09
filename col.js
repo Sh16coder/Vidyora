@@ -53,8 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 linkedin: "#",
                 twitter: "#"
             }
-        }
-    ];
+        },
         {
             name: "Ayushi",
             role: "notes",
@@ -88,8 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 linkedin: "#",
                 twitter: "#"
             }
-        }
-    ];
+        },
         {
             name: "Aditya",
             role: "mentor",
