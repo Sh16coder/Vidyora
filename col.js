@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load collaborators data
     const collaborators = [
         {
-            name: "NOVA PRIME",
-            role: "design",
-            roleDisplay: "DESIGN ORACLE",
-            contribution: "Architect of visual realities. Crafts interfaces that bend perception and redefine user experience.",
+            name: "Admin",
+            role: "Creator",
+            roleDisplay: "DEVELOPER",
+            contribution: "A Very Old Average kid of our school helping students from the problems i faced",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,1",
             social: {
                 behance: "#",
@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         {
-            name: "QUANTUM VECTOR",
-            role: "dev",
-            roleDisplay: "CODE ARCHITECT",
-            contribution: "Weaver of quantum algorithms. Builds systems that operate across multiple dimensions simultaneously.",
+            name: "Shaurya",
+            role: "assembler",
+            roleDisplay: "DEVELOPER",
+            contribution: "Assembling avangers for admin . just eating 5 star and doing nothing",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,2",
             social: {
                 github: "#",
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         {
-            name: "SYNTAX OVERLORD",
+            name: "Nova",
             role: "dev",
-            roleDisplay: "FRONTEND SHAMAN",
+            roleDisplay: "",
             contribution: "Channeler of browser spirits. Conjures responsive incantations that work across all planes of existence.",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,3",
             social: {
