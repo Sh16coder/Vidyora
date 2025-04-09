@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const collaborators = [
         {
             name: "Admin",
-            role: "Creator",
-            roleDisplay: "DEVELOPER",
+            role: "admin",
+            roleDisplay: "CREATOR",
             contribution: "A Very Old Average kid of our school helping students from the problems i faced",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,1",
             social: {
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             name: "Shaurya",
-            role: "assembler",
-            roleDisplay: "DEVELOPER",
+            role: "admin",
+            roleDisplay: "Assembler",
             contribution: "Assembling avangers for admin . just eating 5 star and doing nothing",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,2",
             social: {
@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             name: "Nova",
-            role: "dev",
-            roleDisplay: "",
-            contribution: "Channeler of browser spirits. Conjures responsive incantations that work across all planes of existence.",
+            role: "admin",
+            roleDisplay: "Pro Assembler",
+            contribution: "Nova ain't my real name ofcourse, Helping many #12th grader too, helping admin and shaurya",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,3",
             social: {
                 github: "#",
@@ -44,10 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         {
-            name: "NEURAL GHOST",
-            role: "content",
-            roleDisplay: "WORD WEAVER",
-            contribution: "Manipulator of semantic fields. Crafts narratives that implant directly into the cerebral cortex.",
+            name: "Shivraj",
+            role: "blog",
+            roleDisplay: "Blog writet",
+            contribution: "...(••)...",
+            image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
+            social: {
+                linkedin: "#",
+                twitter: "#"
+            }
+        }
+    ];
+        {
+            name: "Ayushi",
+            role: "notes",
+            roleDisplay: "Notes Master",
+            contribution: "providing the notes that helped me to ace school exams.",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,4",
             social: {
                 medium: "#",
@@ -56,21 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         {
-            name: "BUG EXTERMINATOR",
-            role: "testing",
-            roleDisplay: "REALITY TESTER",
-            contribution: "Hunter of dimensional anomalies. Ensures all code operates flawlessly across 11 spacetime dimensions.",
+            name: "Jyotiraditya",
+            role: "notes",
+            roleDisplay: "Hindi Notes Master",
+            contribution: "providing goated hindi notes.",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,5",
             social: {
                 github: "#",
                 twitter: "#"
             }
         },
-        {
-            name: "TIME BENDER",
-            role: "management",
-            roleDisplay: "DIMENSION CURATOR",
-            contribution: "Master of temporal logistics. Coordinates team efforts across multiple timelines simultaneously.",
+                                  {
+            name: "Yuvraj",
+            role: "blog",
+            roleDisplay: "The blog writer",
+            contribution: "...(••)...",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
             social: {
                 linkedin: "#",
@@ -78,6 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     ];
+        {
+            name: "Aditya",
+            role: "mentor",
+            roleDisplay: "The Astro",
+            contribution: "JUST DO IT, MENTOR.",
+            image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
+            social: {
+                linkedin: "#",
+                twitter: "#"
+            }
+        }
+    ];
+       
 
     // Render initial collaborators
     renderPantheon(collaborators);
