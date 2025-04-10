@@ -21,6 +21,10 @@
             <p class="subtitle-digital">Legends Who Shape Reality</p>
             <div class="header-aura"></div>
         </header>
+<!-- Toggle Button -->
+<button class="theme-toggle">Toggle Mode</button>
+
+<!-- Toggle Script -->
 
         <!-- AI-Powered Controls -->
         <div class="quantum-controls">
@@ -63,6 +67,11 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+  document.querySelector('.theme-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+  });
+    </script>
     <script src="col.js"></script>
 </body>
 </html>
