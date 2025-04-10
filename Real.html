@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova's NEET Diary ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #a18eff;
+            --accent: #ffd166;
+            --light: #fff9fb;
+            --dark: #2b2d42;
+            --success: #06d6a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+            z-index: 10;
+        }
+
+        .header-content {
+            transform: translateZ(20px);
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateZ(30px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: translateZ(30px) scale(1.05);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            transform: translateZ(10px);
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateZ(10px) scale(1.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            transform-style: preserve-3d;
+        }
+
+        /* Blog Post Cards */
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(161, 142, 255, 0.1);
+            transition: all 0.4s ease;
+            transform: translateZ(0);
+            position: relative;
+        }
+
+        .post-card:hover {
+            transform: translateZ(10px);
+            box-shadow: 0 15px 35px rgba(161, 142, 255, 0.2);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-date {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .post-date i {
+            margin-right: 0.5rem;
+        }
+
+        .post-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .post-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        .read-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        /* Study Tracker */
+        .study-tracker {
+            background: linear-gradient(135deg, #f6d5f7, #fbe9d7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(251, 233, 215, 0.5);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .study-tracker::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: 0;
+        }
+
+        .study-tracker-content {
+            position: relative;
+            z-index: 1;
+            transform: translateZ(20px);
+        }
+
+        .tracker-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tracker-title i {
+            color: var(--primary);
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .tracker-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Motivational Quote */
+        .motivation {
+            background: linear-gradient(135deg, var(--secondary), #6a5acd);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(106, 90, 205, 0.3);
+        }
+
+        .motivation::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-family="Arial" font-size="20" fill="rgba(255,255,255,0.05)">✨</text></svg>');
+            opacity: 0.3;
+        }
+
+        .quote-icon {
+            font-size: 2rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Floating Elements */
+        .floating {
+            position: fixed;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .floating-1 {
+            top: 20%;
+            left: 5%;
+            font-size: 2rem;
+            color: rgba(255, 107, 157, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-2 {
+            bottom: 15%;
+            right: 5%;
+            font-size: 1.5rem;
+            color: rgba(161, 142, 255, 0.3);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .floating-3 {
+            top: 50%;
+            right: 10%;
+            font-size: 1.8rem;
+            color: rgba(255, 209, 102, 0.3);
+            animation: float 7s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateZ(0); }
+            50% { transform: translateY(-20px) translateZ(10px); }
+            100% { transform: translateY(0) translateZ(0); }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .header-content {
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 2rem;
+            }
+
+            .profile-pic {
+                margin: 0;
+                width: 120px;
+                height: 120px;
+            }
+
+            .header-text {
+                flex: 1;
+            }
+
+            .post-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .post-card {
+                margin-bottom: 0;
+            }
+
+            .study-tracker {
+                padding: 2rem;
+            }
+
+            .tracker-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .post-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .header-content {
+                gap: 3rem;
+            }
+
+            .profile-pic {
+                width: 150px;
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Special Topper Elements */
+        .topper-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transform: rotate(15deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffd166"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>') no-repeat;
+            width: 15px;
+            height: 15px;
+            background-size: contain;
+            animation: sparkle 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+
+        /* Add random sparkles */
+        .post-card:hover .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        /* Bookmark */
+        .bookmark {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 30px;
+            height: 50px;
+            background: var(--primary);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+            z-index: 1;
+        }
+
+        /* Sticker */
+        .sticker {
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            width: 60px;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23ff6b9d"/><text x="50" y="60" font-family="Arial" font-size="40" fill="white" text-anchor="middle">♥</text></svg>') no-repeat;
+            background-size: contain;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating floating-1">✏️</div>
+    <div class="floating floating-2">📚</div>
+    <div class="floating floating-3">🔬</div>
+
+    <header>
+        <div class="header-content">
+            <img src="Nova.webp" alt="Nova" class="profile-pic">
+            <div class="header-text">
+                <h1>Nova's NEET Diary ✨</h1>
+                <p class="tagline">17 • NEET Aspirant • Future Doctor • Study Enthusiast</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Study Tracker -->
+        <div class="study-tracker">
+            <div class="topper-badge">TOPPER MODE</div>
+            <div class="study-tracker-content">
+                <h2 class="tracker-title"><i class="fas fa-chart-line"></i> My Study Stats</h2>
+                <div class="tracker-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Study Days</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">5.2h</div>
+                        <div class="stat-label">Daily Avg</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Mock Test</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">To-Do's</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivational Quote -->
+        <div class="motivation">
+            <div class="quote-icon">"</div>
+            <p class="quote-text">The secret of getting ahead is getting started. The secret of getting started is breaking your complex overwhelming tasks into small manageable tasks, and then starting on the first one.</p>
+            <p class="quote-author">— Mark Twain</p>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div class="post-grid">
+            <!-- Post 1 -->
+            <div class="post-card">
+                <div class="bookmark"></div>
+                <div class="sticker"></div>
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Study Setup" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> June 15, 2023</div>
+                    <h3 class="post-title">My Perfect Study Setup for NEET Prep</h3>
+                    <p class="post-excerpt">After months of experimenting, I've finally created my ideal study space that keeps me focused for hours. Here's what works for me...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+                <!-- Sparkles will be added via JavaScript -->
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post-card">
+                <div class="topper-badge">PRO TIP</div>
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Study Schedule" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> June 8, 2023</div>
+                    <h3 class="post-title">How I Manage 8 Hours of Study Daily</h3>
+                    <p class="post-excerpt">Balancing school and NEET prep seemed impossible until I developed this schedule that actually works without burning me out...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Biology Notes" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> June 1, 2023</div>
+                    <h3 class="post-title">My Color-Coded Biology Notes Method</h3>
+                    <p class="post-excerpt">After failing to remember complex diagrams, I created this note-taking system that boosted my retention by 70%. Here's how...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Post 4 -->
+            <div class="post-card">
+                <div class="topper-badge">HOT</div>
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Exam Stress" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> May 25, 2023</div>
+                    <h3 class="post-title">Dealing with Pre-NEET Anxiety</h3>
+                    <p class="post-excerpt">I almost quit due to stress until I discovered these 5 techniques that completely changed my mindset. Sharing what worked for me...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Post 5 -->
+            <div class="post-card">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Study Group" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> May 18, 2023</div>
+                    <h3 class="post-title">Why I Started a Virtual Study Group</h3>
+                    <p class="post-excerpt">Studying alone was lonely until we formed this online group that keeps us all accountable and motivated. Here's our structure...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+      </div>
+
+            <!-- Post 6 -->
+            <div class="post-card">
+                <div class="topper-badge">NEW</div>
+                <img src="https://images.unsplash.com/photo-1588072432904-843af37f03ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Mock Tests" class="post-image">
+                <div class="post-content">
+                    <div class="post-date"><i class="far fa-calendar"></i> May 10, 2023</div>
+                    <h3 class="post-title">From 450 to 650: My Mock Test Strategy</h3>
+                    <p class="post-excerpt">After plateauing at 450, I changed my approach to mock tests and saw dramatic improvement. Here's exactly what I did differently...</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Study Tips</a>
+            <a href="#">Resources</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="copyright">© 2023 Nova's NEET Diary. All rights reserved. ✨</p>
+    </footer>
+
+    <script>
+        // Add sparkle effects randomly to post cards
+        document.querySelectorAll('.post-card').forEach(card => {
+            // Add 3-5 sparkles to each card
+            const sparkleCount = Math.floor(Math.random() * 3) + 3;
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Random position
+                const left = Math.random() * 90 + 5; // 5-95%
+                const top = Math.random() * 90 + 5; // 5-95%
+                
+                sparkle.style.left = `${left}%`;
+                sparkle.style.top = `${top}%`;
+                
+                // Random delay
+                sparkle.style.animationDelay = `${Math.random() * 2}s`;
+                
+                card.appendChild(sparkle);
+            }
+            // Add hover effect
+            card.addEventListener('mouseenter', () => {
+                const sparkles = card.querySelectorAll('.sparkle');
+                sparkles.forEach(sparkle => {
+                    sparkle.style.animation = 'sparkle 2s ease-in-out infinite';
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const sparkles = card.querySelectorAll('.sparkle');
+                sparkles.forEach(sparkle => {
+                    sparkle.style.animation = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+        
