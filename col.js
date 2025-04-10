@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Aditya",
             role: "mentor",
             roleDisplay: "The Astro",
-            contribution: "JUST DO IT, MENTOR.",
+            contribution: "CONQUER IT.. ✨️✨️, MENTOR.",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
             social: {
                 linkedin: "#",
