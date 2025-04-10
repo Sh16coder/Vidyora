@@ -1,0 +1,645 @@
+/* === QUANTUM VARIABLES === */
+:root {
+    /* Cosmic Color Spectrum */
+    --void: #00010a;
+    --quantum: #00f0ff;
+    --plasma: #ff00f5;
+    --neon: #a2ff00;
+    --starlight: rgba(240, 248, 255, 0.95);
+    --hologram: #c800ff;
+    
+    /* Hyper Effects */
+    --hyper-glow: 
+        0 0 15px var(--quantum), 
+        0 0 30px var(--plasma), 
+        0 0 45px var(--hologram);
+    --matrix-fall: linear-gradient(
+        to bottom,
+        transparent,
+        var(--neon) 20%,
+        transparent 40%,
+        transparent 60%,
+        var(--quantum) 80%,
+        transparent
+    );
+}
+
+/* === UNIVERSAL RESET === */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/* === QUANTUM BODY === */
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--void);
+    color: var(--starlight);
+    overflow-x: hidden;
+    perspective: 1000px;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.03) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 245, 0.03) 0%, transparent 30%);
+}
+
+/* === QUANTUM BACKGROUND === */
+.quantum-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.02) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 245, 0.02) 0%, transparent 25%);
+    animation: quantumPulse 16s infinite alternate;
+}
+
+@keyframes quantumPulse {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+.neural-network {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -99;
+    opacity: 0.05;
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.2) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridFlow 120s linear infinite;
+}
+
+@keyframes gridFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 1000px; }
+}
+
+/* === MAIN CONTAINER === */
+.pantheon-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    position: relative;
+}
+
+/* === HOLOGRAPHIC HEADER === */
+.pantheon-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    position: relative;
+}
+
+.title-matrix {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--quantum), var(--plasma), var(--neon));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: var(--hyper-glow);
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    animation: matrixRain 8s infinite;
+}
+
+.title-flicker {
+    animation: textFlicker 3s infinite alternate;
+}
+
+@keyframes textFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: var(--hyper-glow);
+    }
+    20%, 22%, 24%, 55% {
+        opacity: 0.8;
+        text-shadow: none;
+    }
+}
+
+@keyframes matrixRain {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+}
+
+.subtitle-digital {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-image: var(--matrix-fall);
+    background-size: 100% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: digitalScan 6s linear infinite;
+}
+
+@keyframes digitalScan {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+.header-aura {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 100px;
+    background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: -1;
+    animation: auraPulse 4s infinite alternate;
+}
+
+@keyframes auraPulse {
+    0% { opacity: 0.3; width: 300px; }
+    100% { opacity: 0.7; width: 400px; }
+}
+
+/* === QUANTUM CONTROLS === */
+.quantum-controls {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 5rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+
+/* AI Search Field */
+.ai-search-container {
+    position: relative;
+    width: 500px;
+    max-width: 100%;
+}
+
+.ai-search-field {
+    width: 100%;
+    padding: 1.5rem 2rem 1.5rem 4rem;
+    background: rgba(0, 5, 15, 0.5);
+    border: 1px solid var(--quantum);
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 0 10px rgba(0, 240, 255, 0.3),
+        0 0 20px rgba(0, 240, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ai-search-field:focus {
+    outline: none;
+    border-color: var(--plasma);
+    box-shadow: 
+        inset 0 0 20px rgba(255, 0, 245, 0.5),
+        0 0 40px rgba(255, 0, 245, 0.3);
+}
+
+.ai-search-icon {
+    position: absolute;
+    left: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--quantum);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.ai-search-field:focus ~ .ai-search-icon {
+    color: var(--plasma);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.search-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 240, 255, 0.2),
+        transparent
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.ai-search-field:focus ~ .search-pulse {
+    opacity: 1;
+    animation: searchScan 3s linear infinite;
+}
+
+@keyframes searchScan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Hologram Select */
+.hologram-select {
+    position: relative;
+    min-width: 300px;
+}
+
+.quantum-dropdown {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background: rgba(0, 5, 15, 0.5);
+    border: 1px solid var(--hologram);
+    border-radius: 50px;
+    color: var(--starlight);
+    font-size: 1.1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    appearance: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 0 10px rgba(200, 0, 255, 0.3),
+        0 0 20px rgba(200, 0, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quantum-dropdown:focus {
+    outline: none;
+    border-color: var(--neon);
+    box-shadow: 
+        inset 0 0 20px rgba(162, 255, 0, 0.5),
+        0 0 40px rgba(162, 255, 0, 0.3);
+}
+
+.select-aura {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(200, 0, 255, 0.2),
+        transparent
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+    z-index: -1;
+}
+
+.quantum-dropdown:focus ~ .select-aura {
+    opacity: 0.7;
+    animation: selectPulse 3s linear infinite;
+}
+
+@keyframes selectPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* === PANTHEON GRID === */
+.pantheon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-bottom: 8rem;
+}
+
+/* ARCHON CARD - Quantum Design */
+.archon-card {
+    background: rgba(5, 0, 15, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(0, 240, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 1;
+}
+
+.archon-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--quantum), var(--plasma), var(--neon));
+    z-index: -2;
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.archon-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 240, 255, 0.03) 0%,
+        rgba(255, 0, 245, 0.03) 50%,
+        rgba(162, 255, 0, 0.03) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.archon-card:hover {
+    transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        var(--hyper-glow);
+}
+
+.archon-card:hover::before {
+    opacity: 0.7;
+    animation: borderFlow 3s linear infinite;
+}
+
+.archon-card:hover::after {
+    opacity: 0.3;
+}
+
+@keyframes borderFlow {
+    0% { filter: blur(2px); opacity: 0.7; }
+    50% { filter: blur(4px); opacity: 0.4; }
+    100% { filter: blur(2px); opacity: 0.7; }
+}
+
+.archon-image {
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.archon-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+}
+
+.archon-name {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    z-index: 1;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.archon-details {
+    padding: 2rem;
+}
+
+.archon-role {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: linear-gradient(90deg, var(--quantum), var(--plasma));
+    color: white;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.archon-contribution {
+    color: rgba(240, 248, 255, 0.8);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.archon-social {
+    display: flex;
+    gap: 15px;
+}
+
+.archon-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--starlight);
+    font-size: 1.2rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.archon-social a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--quantum), var(--plasma));
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.archon-social a:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4);
+    color: white;
+}
+
+.archon-social a:hover::before {
+    opacity: 1;
+}
+
+.archon-social i {
+    position: relative;
+    z-index: 1;
+}
+
+/* === SINGULARITY CTA === */
+.singularity-cta {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 100;
+}
+
+.cta-portal {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    background: linear-gradient(45deg, var(--quantum), var(--hologram));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 
+        0 10px 40px rgba(0, 240, 255, 0.3),
+        0 0 20px rgba(200, 0, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+.cta-portal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.cta-portal:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 50px rgba(0, 240, 255, 0.5),
+        0 0 30px rgba(200, 0, 255, 0.5);
+}
+
+.cta-portal:hover::before {
+    transform: translateX(100%);
+}
+
+.portal-effect {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 60px;
+    background: linear-gradient(45deg, var(--quantum), var(--plasma), var(--hologram));
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(20px);
+    animation: portalPulse 3s infinite;
+}
+
+@keyframes portalPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.95); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1200px) {
+    .title-matrix {
+        font-size: 4rem;
+    }
+    
+    .pantheon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .pantheon-container {
+        padding: 3rem 1.5rem;
+    }
+    
+    .title-matrix {
+        font-size: 3rem;
+    }
+    
+    .subtitle-digital {
+        font-size: 1.4rem;
+    }
+    
+    .quantum-controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .ai-search-container, .hologram-select {
+        width: 100%;
+    }
+    
+    .archon-card {
+        max-width: 100%;
+    }
+    
+    .singularity-cta {
+        bottom: 2rem;
+        right: 2rem;
+    }
+    
+    .cta-portal {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-matrix {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle-digital {
+        font-size: 1.2rem;
+    }
+    
+    .pantheon-header {
+        margin-bottom: 4rem;
+    }
+    
+    .archon-image {
+        height: 220px;
+    }
+    
+    .archon-name {
+        font-size: 1.5rem;
+        bottom: 30px;
+    }
+    }
