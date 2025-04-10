@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Nova",
             role: "admin",
             roleDisplay: "Pro Assembler",
-            contribution: "Nova ain't my real name ofcourse, Helping many #12th grader too, helping admin and shaurya",
+            contribution: "Nova ain't my real name ofcourse (Not from kv either), Helping many, Self a #12th grader too, helping admin and shaurya",
             image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,3",
             social: {
                 github: "#",
