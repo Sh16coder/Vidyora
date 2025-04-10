@@ -3,276 +3,478 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Talks | Thoughts of an Student</title>
-    <link rel="stylesheet" href="nova.css">
+    <title>Nova Talks | Study & Lifestyle Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@500;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="nova.css">
 </head>
 <body>
-    <div class="loader-wrapper">
-        <div class="loader">
-            <div class="heart"></div>
+    <!-- Pastel Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="book">
+                <div class="book__pg-shadow"></div>
+                <div class="book__pg"></div>
+                <div class="book__pg book__pg--2"></div>
+                <div class="book__pg book__pg--3"></div>
+                <div class="book__pg book__pg--4"></div>
+                <div class="book__pg book__pg--5"></div>
+            </div>
+            <h2 class="preloader-text">Nova Talks</h2>
         </div>
     </div>
 
+    <!-- Floating Study Music Player -->
+    <div class="music-player">
+        <div class="music-cover">
+            <img src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="Lofi cover">
+        </div>
+        <div class="music-info">
+            <p class="music-title">Lofi Study Beats</p>
+            <div class="music-controls">
+                <button class="music-btn"><i class="fas fa-step-backward"></i></button>
+                <button class="music-btn play-btn"><i class="fas fa-play"></i></button>
+                <button class="music-btn"><i class="fas fa-step-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
     <header class="header">
         <div class="container">
             <div class="logo">
-                <span class="logo-icon">✿</span>
+                <div class="logo-icon">
+                    <i class="fas fa-pencil-alt"></i>
+                    <div class="heart-beat"></div>
+                </div>
                 <h1>Nova Talks</h1>
-                <span class="logo-sub">Musings of an Indian Student</span>
             </div>
+            
             <nav class="navbar">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#thoughts">Daily Thoughts</a></li>
-                    <li><a href="#stories">Life Stories</a></li>
-                    <li><a href="#favorites">Favorites</a></li>
-                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="#study"><i class="fas fa-book-open"></i> <span>Study</span></a></li>
+                    <li><a href="#diary"><i class="fas fa-book"></i> <span>Diary</span></a></li>
+                    <li><a href="#resources"><i class="fas fa-sticky-note"></i> <span>Resources</span></a></li>
+                    <li><a href="#about"><i class="fas fa-user"></i> <span>About</span></a></li>
                 </ul>
             </nav>
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
+        <!-- Hero Section -->
         <section id="home" class="hero">
-            <div class="hero-content">
-                <h2>Welcome to my <span class="highlight">colorful</span> world!</h2>
-                <p>Where thoughts flow freely and every day is a new adventure</p>
-                <div class="hero-buttons">
-                    <a href="#thoughts" class="btn btn-primary">Read My Thoughts</a>
-                    <a href="#about" class="btn btn-secondary">Know Me Better</a>
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Study Smarter, <span class="highlight">Not Harder</span></h2>
+                    <p class="subtitle">A 12th grader's journey through academics, life, and everything in between</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="study-hours">0</span>
+                                <span class="stat-label">Study Hours</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="notes-taken">0</span>
+                                <span class="stat-label">Notes Taken</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <a href="#study" class="btn btn-primary">
+                            <i class="fas fa-graduation-cap"></i> Study Tips
+                        </a>
+                        <a href="#diary" class="btn btn-secondary">
+                            <i class="fas fa-pen"></i> Read Diary
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <div class="polaroid">
-                    <div class="polaroid-image"></div>
-                    <div class="polaroid-caption">That's me! ✨</div>
-                </div>
-                <div class="floating-hearts">
-                    <div class="heart heart-1">❤</div>
-                    <div class="heart heart-2">❤</div>
-                    <div class="heart heart-3">❤</div>
+                
+                <div class="hero-image">
+                    <div class="study-setup">
+                        <div class="laptop"></div>
+                        <div class="notebook"></div>
+                        <div class="coffee"></div>
+                        <div class="phone"></div>
+                        <div class="pencil"></div>
+                    </div>
+                    <div class="floating-elements">
+                        <div class="floating-icon"><i class="fas fa-heart"></i></div>
+                        <div class="floating-icon"><i class="fas fa-star"></i></div>
+                        <div class="floating-icon"><i class="fas fa-music"></i></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="thoughts" class="thoughts">
+        <!-- Study Tips Section -->
+        <section id="study" class="study-tips">
             <div class="container">
-                <h2 class="section-title">My <span>Daily</span> Musings</h2>
-                <div class="thoughts-grid">
-                    <div class="thought-card">
-                        <div class="thought-date">June 15, 2023</div>
-                        <h3 class="thought-title">Why do we care so much about what others think?</h3>
-                        <p class="thought-excerpt">
-Arey yaar, sach bolu toh ye sab hum sabko hota hai. Even mujhe hota tha—still hota hai kabhi-kabhi.<br>
-
-Ek baar Class 7 mein, Annual Day dance tha. Main full josh mein thi, like outfit ready, steps on point... confidence max! Par fir ek din kisi ne bola, "Nova padhai mein acchi hai but dance mein thodi awkward hai na."
-Bas. Kya hi bolu. Uske baad mera poora vibe hi down ho gaya. Stage pe bhi, instead of enjoying, main bas ye soch rahi thi—“Log dekh rahe honge... kya soch rahe honge...”<br>
-
-Aur tab samjha ki hum itna overthink isliye karte hain kyunki hum sab ko lagta hai ki approval milna zaroori hai. School life mein har jagah comparison hota hai—marks, looks, Instagram followers, everything!
-Toh subconsciously hum bas logon ko impress karne mein lag jaate hain, instead of living freely.<br>
-
-But brooo—logon ki opinion literally weather jaise hoti hai. Aaj kuch aur, kal kuch aur. Tumhare baare mein kya socha, kabhi yaad bhi nahi rehta unko. Par hum apne dimaag mein us thought ko permanent rent pe de dete hain!<br>
-
-Ab toh scene simple hai—do your thing. Apne standards set karo. Jo pasand hai, karo. Galti hogi, log bolenge, but at least tum real rahoge.
-And trust me—jab tum khud pe proud feel karte ho, na logon ki unnecessary baatein automatically mute ho jaati hain.<br>
-
-So chill kar, kaam kar, and apni vibe high rakh!</p>
-                        <a href="#" class="thought-link">Read more <i class="fas fa-arrow-right"></i></a>
-                        <div class="thought-tags">
-                            <span class="tag">#DeepThoughts</span>
-                            <span class="tag">#TeenLife</span>
+                <div class="section-header">
+                    <h2 class="section-title">Study <span>Hacks</span></h2>
+                    <p class="section-subtitle">Tried and tested methods from a fellow student</p>
+                </div>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <div class="tip-icon" style="background-color: #FF9E9E;">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <span class="tip-category">Productivity</span>
+                        </div>
+                        <h3 class="tip-title">Pomodoro Technique</h3>
+                        <p class="tip-desc">25 minutes of focused study followed by 5 minute breaks. My go-to for long study sessions!</p>
+                        <div class="tip-meta">
+                            <span class="tip-difficulty easy">Easy</span>
+                            <span class="tip-effectiveness">92% Effective</span>
                         </div>
                     </div>
-                    <div class="thought-card">
-                        <div class="thought-date">June 12, 2023</div>
-                        <h3 class="thought-title">The magic of rainy afternoons</h3>
-                        <p class="thought-excerpt">There's something magical about rainy afternoons when you have nowhere to be. The sound of raindrops, a cup of chai, and an old Bollywood song playing in the background - these are the moments I live for...</p>
-                        <a href="#" class="thought-link">Read more <i class="fas fa-arrow-right"></i></a>
-                        <div class="thought-tags">
-                            <span class="tag">#SimpleJoys</span>
-                            <span class="tag">#RainyDay</span>
+                    
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <div class="tip-icon" style="background-color: #A0E7FF;">
+                                <i class="fas fa-highlighter"></i>
+                            </div>
+                            <span class="tip-category">Note-taking</span>
+                        </div>
+                        <h3 class="tip-title">Color Coding System</h3>
+                        <p class="tip-desc">Pink for definitions, blue for concepts, yellow for examples. Makes revision so much easier!</p>
+                        <div class="tip-meta">
+                            <span class="tip-difficulty medium">Medium</span>
+                            <span class="tip-effectiveness">88% Effective</span>
                         </div>
                     </div>
-                    <div class="thought-card">
-                        <div class="thought-date">June 8, 2023</div>
-                        <h3 class="thought-title">Dealing with academic pressure</h3>
-                        <p class="thought-excerpt">Sometimes it feels like the weight of expectations is crushing me. Between school, extracurriculars, and family responsibilities, I wonder when we're supposed to just be kids...</p>
-                        <a href="#" class="thought-link">Read more <i class="fas fa-arrow-right"></i></a>
-                        <div class="thought-tags">
-                            <span class="tag">#StudentLife</span>
-                            <span class="tag">#MentalHealth</span>
+                    
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <div class="tip-icon" style="background-color: #B5EAD7;">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <span class="tip-category">Memorization</span>
+                        </div>
+                        <h3 class="tip-title">Creative Mnemonics</h3>
+                        <p class="tip-desc">Make up silly stories or acronyms to remember complex information. Works like magic!</p>
+                        <div class="tip-meta">
+                            <span class="tip-difficulty easy">Easy</span>
+                            <span class="tip-effectiveness">95% Effective</span>
                         </div>
                     </div>
                 </div>
+                
                 <div class="view-all">
-                    <a href="#" class="btn btn-secondary">View All Thoughts</a>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-plus-circle"></i> View All Tips
+                    </a>
                 </div>
             </div>
         </section>
 
-        <section id="stories" class="stories">
+        <!-- Study Diary Section -->
+        <section id="diary" class="study-diary">
             <div class="container">
-                <h2 class="section-title">Life <span>Stories</span></h2>
-                <div class="story-tabs">
-                    <button class="tab-btn active" data-tab="school">School Days</button>
-                    <button class="tab-btn" data-tab="family">Family Tales</button>
-                    <button class="tab-btn" data-tab="friends">Friend Chronicles</button>
+                <div class="section-header">
+                    <h2 class="section-title">Study <span>Diary</span></h2>
+                    <p class="section-subtitle">Daily reflections and progress tracking</p>
                 </div>
-                <div class="story-content active" id="school">
-                    <div class="story-text">
-                        <h3>The Day I Forgot My Project</h3>
-                        <p>It was the science fair, and after weeks of preparation, I left my project at home! The panic, the tears, and then the unexpected kindness from my teacher who gave me an extra hour to run home and get it. This experience taught me...</p>
-                        <a href="#" class="btn btn-primary">Read Full Story</a>
+                
+                <div class="diary-tabs">
+                    <button class="tab-btn active" data-tab="recent">Recent</button>
+                    <button class="tab-btn" data-tab="favorites">Favorites</button>
+                    <button class="tab-btn" data-tab="challenges">Challenges</button>
+                </div>
+                
+                <div class="diary-content">
+                    <div class="diary-card">
+                        <div class="diary-date">
+                            <span class="date-day">15</span>
+                            <span class="date-month">June</span>
+                        </div>
+                        <div class="diary-main">
+                            <h3 class="diary-title">Finally Understanding Organic Chemistry!</h3>
+                            <p class="diary-excerpt">After weeks of struggling, the mechanisms finally clicked today. Made a color-coded flowchart that helped so much...</p>
+                            <div class="diary-meta">
+                                <span class="diary-mood happy">
+                                    <i class="fas fa-smile"></i> Happy
+                                </span>
+                                <span class="diary-subject">
+                                    <i class="fas fa-flask"></i> Chemistry
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="story-image">
-                        <div class="story-img-container"></div>
-                        <div class="story-dots"></div>
+                    
+                    <div class="diary-card">
+                        <div class="diary-date">
+                            <span class="date-day">12</span>
+                            <span class="date-month">June</span>
+                        </div>
+                        <div class="diary-main">
+                            <h3 class="diary-title">Physics Mock Test Disaster</h3>
+                            <p class="diary-excerpt">Scored way lower than expected. Need to work on time management and practice more numericals...</p>
+                            <div class="diary-meta">
+                                <span class="diary-mood sad">
+                                    <i class="fas fa-frown"></i> Frustrated
+                                </span>
+                                <span class="diary-subject">
+                                    <i class="fas fa-atom"></i> Physics
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card">
+                        <div class="diary-date">
+                            <span class="date-day">8</span>
+                            <span class="date-month">June</span>
+                        </div>
+                        <div class="diary-main">
+                            <h3 class="diary-title">New Biology Note-taking Method</h3>
+                            <p class="diary-excerpt">Tried the Cornell method today and it's amazing! The summary section really helps with quick revisions...</p>
+                            <div class="diary-meta">
+                                <span class="diary-mood excited">
+                                    <i class="fas fa-grin-stars"></i> Excited
+                                </span>
+                                <span class="diary-subject">
+                                    <i class="fas fa-dna"></i> Biology
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="story-content" id="family">
-                    <div class="story-text">
-                        <h3>Diwali with Dadi</h3>
-                        <p>Every Diwali, my grandmother tells us stories of how she celebrated as a child. This year, she taught me how to make her special besan laddoos, and in between stirring the mixture, she shared wisdom that no textbook could ever teach...</p>
-                        <a href="#" class="btn btn-primary">Read Full Story</a>
-                    </div>
-                    <div class="story-image">
-                        <div class="story-img-container" style="background: #FFD166;"></div>
-                        <div class="story-dots"></div>
-                    </div>
-                </div>
-                <div class="story-content" id="friends">
-                    <div class="story-text">
-                        <h3>The Friendship Test</h3>
-                        <p>When I failed my math test, I found out who my real friends were. Some disappeared, some offered to help me study, and one even shared her own failure story to make me feel better. Friendship isn't about perfection but about...</p>
-                        <a href="#" class="btn btn-primary">Read Full Story</a>
-                    </div>
-                    <div class="story-image">
-                        <div class="story-img-container" style="background: #06D6A0;"></div>
-                        <div class="story-dots"></div>
-                    </div>
+                
+                <div class="diary-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> New Entry
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-book-open"></i> View All
+                    </button>
                 </div>
             </div>
         </section>
 
-        <section id="favorites" class="favorites">
+        <!-- Study Resources Section -->
+        <section id="resources" class="study-resources">
             <div class="container">
-                <h2 class="section-title">My Current <span>Favorites</span></h2>
-                <div class="favorites-grid">
-                    <div class="favorite-card">
-                        <div class="favorite-icon" style="background-color: #FF9E9E;">
-                            <i class="fas fa-music"></i>
+                <div class="section-header">
+                    <h2 class="section-title">Study <span>Resources</span></h2>
+                    <p class="section-subtitle">My curated collection of helpful materials</p>
+                </div>
+                
+                <div class="resources-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="notes">Notes</button>
+                    <button class="category-btn" data-category="templates">Templates</button>
+                    <button class="category-btn" data-category="tools">Tools</button>
+                    <button class="category-btn" data-category="books">Books</button>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="notes">
+                        <div class="resource-icon">
+                            <i class="fas fa-file-alt"></i>
                         </div>
-                        <h3>Song</h3>
-                        <p>"Chaleya" from Jawan</p>
-                        <span class="favorite-meta">On repeat for 3 days!</span>
-                    </div>
-                    <div class="favorite-card">
-                        <div class="favorite-icon" style="background-color: #A0E7FF;">
-                            <i class="fas fa-book"></i>
+                        <h3 class="resource-title">Biology Notes</h3>
+                        <p class="resource-desc">Chapter-wise color coded notes with diagrams</p>
+                        <div class="resource-meta">
+                            <span class="resource-subject">Biology</span>
+                            <span class="resource-size">12 MB</span>
                         </div>
-                        <h3>Book</h3>
-                        <p>The Midnight Library</p>
-                        <span class="favorite-meta">Page 156/288</span>
+                        <button class="resource-download">
+                            <i class="fas fa-download"></i> Download
+                        </button>
                     </div>
-                    <div class="favorite-card">
-                        <div class="favorite-icon" style="background-color: #B5EAD7;">
-                            <i class="fas fa-utensils"></i>
+                    
+                    <div class="resource-card" data-category="templates">
+                        <div class="resource-icon">
+                            <i class="fas fa-table"></i>
                         </div>
-                        <h3>Food</h3>
-                        <p>Mom's Aloo Paratha</p>
-                        <span class="favorite-meta">With extra butter!</span>
-                    </div>
-                    <div class="favorite-card">
-                        <div class="favorite-icon" style="background-color: #FFDAC1;">
-                            <i class="fas fa-film"></i>
+                        <h3 class="resource-title">Study Planner</h3>
+                        <p class="resource-desc">Weekly study schedule template</p>
+                        <div class="resource-meta">
+                            <span class="resource-subject">Planning</span>
+                            <span class="resource-size">1 MB</span>
                         </div>
-                        <h3>Movie</h3>
-                        <p>Zindagi Na Milegi Dobara</p>
-                        <span class="favorite-meta">Watched 7 times</span>
+                        <button class="resource-download">
+                            <i class="fas fa-download"></i> Download
+                        </button>
                     </div>
+                    
+                    <div class="resource-card" data-category="tools">
+                        <div class="resource-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3 class="resource-title">Chemistry Tools</h3>
+                        <p class="resource-desc">My favorite online chemistry resources</p>
+                        <div class="resource-meta">
+                            <span class="resource-subject">Chemistry</span>
+                            <span class="resource-size">Links</span>
+                        </div>
+                        <button class="resource-download">
+                            <i class="fas fa-external-link-alt"></i> Visit
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resources-upload">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Resource
+                    </button>
                 </div>
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="about">
             <div class="container">
                 <div class="about-content">
-                    <h2 class="section-title">Hello, I'm <span>Nova</span></h2>
-                    <p>A 17-year-old Indian girl navigating the beautiful chaos of teenage life. I love rainy days, old Bollywood songs, and deep conversations that last till 2 AM.</p>
-                    <p>This blog is my little corner of the internet where I share my thoughts, stories, and everything in between. It's not perfect, just like life, and that's what makes it real.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">1.2K</span>
-                            <span class="stat-label">Cups of Chai</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">427</span>
-                            <span class="stat-label">Pages Written</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">∞</span>
-                            <span class="stat-label">Dreams</span>
-                        </div>
+                    <div class="section-header">
+                        <h2 class="section-title">About <span>Nova</span></h2>
+                        <p class="section-subtitle">The girl behind the blog</p>
                     </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-goodreads"></i></a>
+                    
+                    <div class="about-text">
+                        <p>Hey there! I'm Nova, a 17-year-old student from India currently navigating the crazy world of 12th grade while preparing for competitive exams.</p>
+                        
+                        <p>When I'm not buried in textbooks, you can find me:</p>
+                        
+                        <ul class="about-list">
+                            <li><i class="fas fa-music"></i> Listening to lofi study beats</li>
+                            <li><i class="fas fa-pen-fancy"></i> Journaling my thoughts</li>
+                            <li><i class="fas fa-coffee"></i> Drinking iced coffee (even in winter!)</li>
+                            <li><i class="fas fa-book"></i> Reading YA novels</li>
+                        </ul>
+                        
+                        <p>I started Nova Talks to document my study journey and share the tips I discover along the way. Let's learn and grow together!</p>
+                    </div>
+                    
+                    <div class="about-social">
+                        <h3>Let's Connect</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="social-link spotify">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="about-image">
-                    <div class="about-image-container">
-                        <div class="about-main-image"></div>
-                        <div class="about-dots"></div>
+                    <div class="image-frame">
+                        <div class="main-image"></div>
+                        <div class="decoration-dots"></div>
+                        <div class="polaroid-sticker">
+                            <span>Future Doctor ✨</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="motivation">
+            <div class="container">
+                <div class="quote-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="quote-text">You don't have to be perfect, you just have to be better than you were yesterday.</p>
+                    <div class="quote-author">
+                        <span>- Nova</span>
+                    </div>
+                    <div class="quote-decoration">
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-feather-alt"></i>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Nova Talks</h3>
-                    <p>Where thoughts become words</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Explore</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#thoughts">Daily Thoughts</a></li>
-                        <li><a href="#stories">Life Stories</a></li>
-                        <li><a href="#favorites">Favorites</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>Say Hello</h4>
-                    <p>novatalks@example.com</p>
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-pencil-alt"></i>
+                        <h3>Nova Talks</h3>
+                    </div>
+                    <p>A student's journey through academics, life, and everything in between.</p>
                     <div class="footer-social">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#study">Study Tips</a></li>
+                        <li><a href="#diary">Study Diary</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                    </div>
+                
+                <div class="footer-contact">
+                    <h3>Get In Touch</h3>
+                    <p><i class="fas fa-envelope"></i> hello@novatalks.com</p>
+                    <p><i class="fas fa-comment-alt"></i> Send me a message</p>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-paper-plane"></i> Contact Form
+                    </button>
+                </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Nova Talks. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> in India</p>
+                <p>&copy; 2023 Nova Talks. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i> by a sleep-deprived student</p>
             </div>
         </div>
     </footer>
 
-    <div class="floating-btn">
-        <i class="fas fa-pen-fancy"></i>
+    <!-- Quick Action Buttons -->
+    <div class="quick-actions">
+        <button class="quick-btn study-timer" aria-label="Study Timer">
+            <i class="fas fa-clock"></i>
+        </button>
+        <button class="quick-btn quick-note" aria-label="Quick Note">
+            <i class="fas fa-plus"></i>
+        </button>
     </div>
 
     <script src="nova.js"></script>
 </body>
 </html>
+  
