@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 9 Notes | Vidyora Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Particles -->
+    <div id="particles-js"></div>
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="book">
+                <div class="inner">
+                    <div class="left"></div>
+                    <div class="middle"></div>
+                    <div class="right"></div>
+                </div>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <h2>Loading Knowledge...</h2>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <a href="notes.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Classes
+            </a>
+            <div class="logo-container">
+                <div class="logo" data-text="Class 9 Notes">Class 9 Notes</div>
+                <div class="tagline">Advanced Learning Experience</div>
+            </div>
+            <div class="header-actions">
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-switch" class="theme-switch">
+                    <label for="theme-switch" class="theme-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="ball"></span>
+                    </label>
+                </div>
+                <button class="help-btn" id="help-btn">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content notes-main">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search notes...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <select id="chapter-filter">
+                        <option value="all">All Chapters</option>
+                        <option value="1">Chapter 1</option>
+                        <option value="2">Chapter 2</option>
+                        <!-- More chapters will be added dynamically -->
+                    </select>
+                </div>
+            </div>
+            
+            <div class="subject-tabs">
+                <div class="tab active" data-subject="math">
+                    <i class="fas fa-square-root-alt"></i>
+                    <span>Mathematics</span>
+                </div>
+                <div class="tab" data-subject="science">
+                    <i class="fas fa-flask"></i>
+                    <span>Science</span>
+                </div>
+                <div class="tab" data-subject="social">
+                    <i class="fas fa-globe-asia"></i>
+                    <span>Social Science</span>
+                </div>
+                <div class="tab" data-subject="english">
+                    <i class="fas fa-book"></i>
+                    <span>English</span>
+                </div>
+                <div class="tab" data-subject="hindi">
+                    <i class="fas fa-language"></i>
+                    <span>Hindi</span>
+                </div>
+            </div>
+            
+            <div class="subject-content">
+                <!-- Mathematics Content -->
+                <div class="subject-pane active" id="math">
+                    <div class="subject-header">
+                        <h2 class="subject-title">
+                            <i class="fas fa-square-root-alt"></i>
+                            Mathematics
+                        </h2>
+                        <a href="https://drive.google.com/drive/folders/YOUR_MATH_FOLDER_ID" 
+                           class="drive-folder-btn" target="_blank">
+                            <i class="fab fa-google-drive"></i> Open Drive Folder
+                        </a>
+                    </div>
+                    
+                    <div class="chapters-container">
+                        <!-- Chapter 1 -->
+                        <div class="chapter-card">
+                            <div class="chapter-header">
+                                <h3>Chapter 1: Number Systems</h3>
+                                <div class="chapter-actions">
+                                    <a href="https://drive.google.com/drive/folders/MATH_CHAPTER1_FOLDER_ID" 
+                                       class="chapter-drive-btn" target="_blank" title="Open Chapter Folder">
+                                        <i class="fab fa-google-drive"></i>
+                                    </a>
+                                    <button class="expand-btn"><i class="fas fa-chevron-down"></i></button>
+                                </div>
+                            </div>
+                            <div class="chapter-content">
+                                <div class="note-section">
+                                    <h4>Real Numbers</h4>
+                                    <p>Real numbers include all rational and irrational numbers. They can be represented on the number line...</p>
+                                    <div class="note-actions">
+                                        <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                                        <a href="https://drive.google.com/file/d/MATH_REAL_NUMBERS_FILE_ID/view" 
+                                           class="download-btn" target="_blank">
+                                            <i class="fas fa-download"></i> PDF
+                                        </a>
+                                        <a href="https://drive.google.com/file/d/MATH_REAL_NUMBERS_FILE_ID/preview" 
+                                           class="preview-btn" target="_blank">
+                                            <i class="fas fa-eye"></i> Preview
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="note-section">
+                                    <h4>Operations on Real Numbers</h4>
+                                    <p>Real numbers can be added, subtracted, multiplied and divided (except by zero)...</p>
+                                    <div class="note-actions">
+                                        <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+                                        <a href="https://drive.google.com/file/d/MATH_OPERATIONS_FILE_ID/view" 
+                                           class="download-btn" target="_blank">
+                                            <i class="fas fa-download"></i> PDF
+                                        </a>
+                                        <a href="https://drive.google.com/file/d/MATH_OPERATIONS_FILE_ID/preview" 
+                                           class="preview-btn" target="_blank">
+                                            <i class="fas fa-eye"></i> Preview
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- More chapters would follow the same pattern -->
+                    </div>
+                </div>
+                
+                <!-- Science Content -->
+                <div class="subject-pane" id="science">
+                    <div class="subject-header">
+                        <h2 class="subject-title">
+                            <i class="fas fa-flask"></i>
+                            Science
+                        </h2>
+                        <a href="https://drive.google.com/drive/folders/YOUR_SCIENCE_FOLDER_ID" 
+                           class="drive-folder-btn" target="_blank">
+                            <i class="fab fa-google-drive"></i> Open Drive Folder
+                        </a>
+                    </div>
+                    <!-- Chapter structure same as Mathematics -->
+                </div>
+                
+                <!-- Other subjects would follow same pattern -->
+            </div>
+        </main>
+        
+        <!-- Help Modal -->
+        <div class="modal" id="help-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Help & Instructions</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="help-item">
+                        <h4><i class="fas fa-folder-open"></i> Accessing Notes</h4>
+                        <p>Click on any subject tab to view available chapters. Each chapter contains downloadable PDFs and preview options.</p>
+                    </div>
+                    <div class="help-item">
+                        <h4><i class="fab fa-google-drive"></i> Google Drive Integration</h4>
+                        <p>The "Open Drive Folder" button will take you to the complete collection of notes for that subject on Google Drive.</p>
+                    </div>
+                    <div class="help-item">
+                        <h4><i class="fas fa-bookmark"></i> Bookmarking</h4>
+                        <p>Click the bookmark icon to save important notes for quick access later (saved in your browser).</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn close-modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2023 Vidyora Pro - Class 9 Notes</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div class="fab">
+        <button class="fab-main">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="fab-options">
+            <button class="fab-option" title="Quick Note">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button class="fab-option" title="Bookmarks">
+                <i class="fas fa-bookmark"></i>
+            </button>
+            <button class="fab-option" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
