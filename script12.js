@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.querySelector('.loading-screen').classList.remove('active');
-        }, 1000);
+        }, 0);
     });
     
     // Theme toggle functionality
