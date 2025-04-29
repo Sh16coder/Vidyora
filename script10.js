@@ -1,6 +1,6 @@
 // Redirect to previous page
 function goBack() {
-    window.location.href = "notes.html";
+    window.location.href = "Notes.html";
 }
 
 // Open Google Drive folder in a new tab
