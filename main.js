@@ -1,22 +1,26 @@
-// Initialize Firebase
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js';
-import { getDatabase, ref, set, get } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js';
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDnX17qdA2jHUhGuV1lwXDNd9qIlQkC7gg",
-  authDomain: "vidya-3a7b0.firebaseapp.com",
-  databaseURL: "https://vidya-3a7b0-default-rtdb.firebaseio.com",
-  projectId: "vidya-3a7b0",
-  storageBucket: "vidya-3a7b0.firebasestorage.app",
-  messagingSenderId: "259975629672",
-  appId: "1:259975629672:web:37f9ca31c7c70a971724dd"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded");
+    
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyDnX17qdA2jHUhGuV1lwXDNd9qIlQkC7gg",
+        authDomain: "vidya-3a7b0.firebaseapp.com",
+        databaseURL: "https://vidya-3a7b0-default-rtdb.firebaseio.com",
+        projectId: "vidya-3a7b0",
+        storageBucket: "vidya-3a7b0.firebasestorage.app",
+        messagingSenderId: "259975629672",
+        appId: "1:259975629672:web:37f9ca31c7c70a971724dd"
+    };
+    
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    
+    console.log("Firebase initialized");
+    
+    // Rest of your existing code...
+    // All your event listeners and functions go here
+    // inside the DOMContentLoaded callba
 // DOM Elements
 const disclaimerModal = document.getElementById('disclaimer-modal');
 const closeModalBtn = document.getElementById('close-modal');
