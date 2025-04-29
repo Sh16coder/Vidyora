@@ -4,13 +4,13 @@ import { getDatabase, ref, set, get } from 'https://www.gstatic.com/firebasejs/9
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDnX17qdA2jHUhGuV1lwXDNd9qIlQkC7gg",
+  authDomain: "vidya-3a7b0.firebaseapp.com",
+  databaseURL: "https://vidya-3a7b0-default-rtdb.firebaseio.com",
+  projectId: "vidya-3a7b0",
+  storageBucket: "vidya-3a7b0.firebasestorage.app",
+  messagingSenderId: "259975629672",
+  appId: "1:259975629672:web:37f9ca31c7c70a971724dd"
 };
 
 // Initialize Firebase
