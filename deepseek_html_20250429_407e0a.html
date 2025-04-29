@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDYORA - Student Help Desk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Floating Stars Background -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <!-- Animated Gradient Background -->
+    <div class="gradient-bg"></div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header with 3D Effect -->
+        <header class="header-3d">
+            <div class="logo-container">
+                <div class="logo-inner">
+                    <img src="o.webp" alt="VIDYORA Logo" class="logo-spin">
+                    <div class="logo-glow"></div>
+                </div>
+                <h1 class="title-neon">VIDYORA</h1>
+                <div class="header-particles"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content-3d">
+            <section class="offer-section">
+                <h2 class="section-title">
+                    <span class="title-text">What We Offer</span>
+                    <span class="title-shadow"></span>
+                    <span class="title-light"></span>
+                </h2>
+                
+                <div class="options-grid">
+                    <a href="Notes.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-book-open card-icon"></i>
+                            <h3>Notes</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="mentorship.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-hands-helping card-icon"></i>
+                            <h3>Mentorship</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="syllabus.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-tasks card-icon"></i>
+                            <h3>Syllabus</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="lost.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-search card-icon"></i>
+                            <h3>Lost And Found</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="cj.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-comments card-icon"></i>
+                            <h3>Chat with Mates</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="help.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-question-circle card-icon"></i>
+                            <h3>Need Help?</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="topper.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-trophy card-icon"></i>
+                            <h3>Aspirant Ki Baat</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="st.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-feather-alt card-icon"></i>
+                            <h3>Send Your Story</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="mistakes.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-lightbulb card-icon"></i>
+                            <h3>Our Mistakes</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                    
+                    <a href="col.html" class="option-card holographic">
+                        <div class="card-content">
+                            <i class="fas fa-users card-icon"></i>
+                            <h3>Our Collaborators</h3>
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-reflect"></div>
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer-3d">
+            <p>&copy; 2025 VIDYORA Student Help Desk. All rights reserved.</p>
+            <div class="footer-wave"></div>
+        </footer>
+    </div>
+    
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Disclaimer</h2>
+                <div class="modal-close" id="close-modal">&times;</div>
+            </div>
+            <div class="modal-body">
+                <p>This website is not the official website of p.... Shahdol school. It is an independent initiative created by a student for educational purposes and my suggestion only.</p>
+                <p><strong>Please check out admin bolta hai and mentorship.</strong></p>
+            </div>
+            <button class="modal-button" id="accept-disclaimer">I Understand</button>
+        </div>
+    </div>
+    
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="modal welcome-modal">
+        <div class="modal-content">
+            <div class="welcome-animation">
+                <div class="welcome-circle"></div>
+                <div class="welcome-circle"></div>
+                <div class="welcome-circle"></div>
+            </div>
+            <h2 class="welcome-title">Welcome to VIDYORA!</h2>
+            <p class="welcome-text">We'd love to know your name to personalize your experience</p>
+            <input type="text" id="user-name" class="welcome-input" placeholder="Enter your name">
+            <div class="welcome-buttons">
+                <button id="submit-name" class="welcome-button">Submit</button>
+                <button id="skip-welcome" class="welcome-button skip">Skip</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Welcome Back Toast -->
+    <div id="welcome-back" class="toast">
+        <div class="toast-content">
+            <span id="welcome-message"></span>
+            <div class="toast-close">&times;</div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
+</body>
+</html>
