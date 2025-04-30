@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ THE PANTHEON | Legendary Collaborators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* === QUANTUM VARIABLES === */
+        :root {
+            /* Cosmic Color Spectrum - Dark Mode */
+            --void: #00010a;
+            --quantum: #00f0ff;
+            --plasma: #ff00f5;
+            --neon: #a2ff00;
+            --hologram: #c800ff;
+            --starlight: rgba(240, 248, 255, 0.95);
+            --matrix: #00ff41;
+            
+            /* UI Elements */
+            --bg-primary: rgba(5, 0, 15, 0.9);
+            --bg-secondary: rgba(10, 5, 25, 0.7);
+            --text-primary: rgba(240, 248, 255, 0.95);
+            --text-secondary: rgba(200, 220, 255, 0.8);
+            --card-bg: rgba(5, 0, 15, 0.4);
+            
+            /* Hyper Effects */
+            --hyper-glow: 
+                0 0 15px var(--quantum), 
+                0 0 30px var(--plasma), 
+                0 0 45px var(--hologram);
+            --matrix-fall: linear-gradient(
+                to bottom,
+                transparent,
+                var(--neon) 20%,
+                transparent 40%,
+                transparent 60%,
+                var(--quantum) 80%,
+                transparent
+            );
+            
+            /* Animation Speeds */
+            --slow: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --void: #f0f4ff;
+            --quantum: #0066ff;
+            --plasma: #ff0066;
+            --neon: #00cc88;
+            --hologram: #9900ff;
+            --starlight: #0a0a20;
+            --matrix: #00994d;
+            
+            --bg-primary: rgba(240, 245, 255, 0.95);
+            --bg-secondary: rgba(230, 235, 255, 0.9);
+            --text-primary: #0a0a20;
+            --text-secondary: #333366;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            
+            --hyper-glow: 
+                0 0 10px rgba(0, 102, 255, 0.5),
+                0 0 20px rgba(255, 0, 102, 0.4),
+                0 0 30px rgba(153, 0, 255, 0.3);
+        }
+
+        /* === UNIVERSAL RESET === */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        /* === QUANTUM BODY === */
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--void);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            perspective: 1000px;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 245, 0.03) 0%, transparent 30%);
+        }
+
+        [data-theme="light"] body {
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 102, 0.03) 0%, transparent 30%);
+        }
+
+        /* === QUANTUM BACKGROUND === */
+        .quantum-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.02) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 245, 0.02) 0%, transparent 25%);
+            animation: quantumPulse 16s infinite alternate;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        [data-theme="light"] .quantum-bg {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.02) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 102, 0.02) 0%, transparent 25%);
+            opacity: 0.3;
+        }
+
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -99;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridFlow 120s linear infinite;
+        }
+
+        [data-theme="light"] .neural-network {
+            background-image: 
+                linear-gradient(rgba(0, 102, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 255, 0.1) 1px, transparent 1px);
+            opacity: 0.1;
+        }
+
+        /* === MAIN CONTAINER === */
+        .pantheon-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        /* === THEME TOGGLE === */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--quantum);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: var(--slow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(30deg);
+            box-shadow: 0 0 30px var(--quantum);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: var(--fast);
+        }
+
+        [data-theme="light"] .theme-toggle i {
+            color: var(--hologram);
+        }
+
+        /* === HOLOGRAPHIC HEADER === */
+        .pantheon-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .title-matrix {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--quantum), var(--plasma), var(--neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--hyper-glow);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            animation: matrixRain 8s infinite;
+        }
+
+        .title-flicker {
+            animation: textFlicker 3s infinite alternate;
+        }
+
+        .subtitle-digital {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background-image: var(--matrix-fall);
+            background-size: 100% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: digitalScan 6s linear infinite;
+        }
+
+        .header-aura {
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+            filter: blur(20px);
+            z-index: -1;
+            animation: auraPulse 4s infinite alternate;
+        }
+
+        [data-theme="light"] .header-aura {
+            background: radial-gradient(ellipse at center, rgba(0, 102, 255, 0.3) 0%, transparent 70%);
+        }
+
+        /* === QUANTUM CONTROLS === */
+        .quantum-controls {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* AI Search Field */
+        .ai-search-container {
+            position: relative;
+            width: 500px;
+            max-width: 100%;
+        }
+
+        .ai-search-field {
+            width: 100%;
+            padding: 1.5rem 2rem 1.5rem 4rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--quantum);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                inset 0 0 10px rgba(0, 240, 255, 0.3),
+                0 0 20px rgba(0, 240, 255, 0.1);
+            transition: var(--slow);
+        }
+
+        [data-theme="light"] .ai-search-field {
+            box-shadow: 
+                inset 0 0 10px rgba(0, 102, 255, 0.2),
+                0 0 20px rgba(0, 102, 255, 0.1);
+        }
+
+        .ai-search-field:focus {
+            outline: none;
+            border-color: var(--plasma);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 0, 245, 0.5),
+                0 0 40px rgba(255, 0, 245, 0.3);
+        }
+
+        [data-theme="light"] .ai-search-field:focus {
+            box-shadow: 
+                inset 0 0 20px rgba(255, 0, 102, 0.3),
+                0 0 40px rgba(255, 0, 102, 0.2);
+        }
+
+        .ai-search-icon {
+            position: absolute;
+            left: 1.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--quantum);
+            font-size: 1.2rem;
+            transition: var(--fast);
+        }
+
+        .ai-search-field:focus ~ .ai-search-icon {
+            color: var(--plasma);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .search-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 240, 255, 0.2),
+                transparent
+            );
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .ai-search-field:focus ~ .search-pulse {
+            opacity: 1;
+            animation: searchScan 3s linear infinite;
+        }
+
+        /* Hologram Select */
+        .hologram-select {
+            position: relative;
+            min-width: 300px;
+        }
+
+        .quantum-dropdown {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--hologram);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            appearance: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                inset 0 0 10px rgba(200, 0, 255, 0.3),
+                0 0 20px rgba(200, 0, 255, 0.1);
+            cursor: pointer;
+            transition: var(--slow);
+        }
+
+        [data-theme="light"] .quantum-dropdown {
+            box-shadow: 
+                inset 0 0 10px rgba(153, 0, 255, 0.2),
+                0 0 20px rgba(153, 0, 255, 0.1);
+        }
+
+        .quantum-dropdown:focus {
+            outline: none;
+            border-color: var(--neon);
+            box-shadow: 
+                inset 0 0 20px rgba(162, 255, 0, 0.5),
+                0 0 40px rgba(162, 255, 0, 0.3);
+        }
+
+        [data-theme="light"] .quantum-dropdown:focus {
+            box-shadow: 
+                inset 0 0 20px rgba(0, 204, 136, 0.3),
+                0 0 40px rgba(0, 204, 136, 0.2);
+        }
+
+        .select-aura {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(200, 0, 255, 0.2),
+                transparent
+            );
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            z-index: -1;
+        }
+
+        .quantum-dropdown:focus ~ .select-aura {
+            opacity: 0.7;
+            animation: selectPulse 3s linear infinite;
+        }
+
+        /* === PANTHEON GRID === */
+        .pantheon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 8rem;
+        }
+
+        /* ARCHON CARD - Quantum Design */
+        .archon-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 240, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transition: var(--slow);
+            position: relative;
+            z-index: 1;
+        }
+
+        [data-theme="light"] .archon-card {
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 0 20px rgba(0, 102, 255, 0.05);
+        }
+
+        .archon-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--quantum), var(--plasma), var(--neon));
+            z-index: -2;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .archon-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 240, 255, 0.03) 0%,
+                rgba(255, 0, 245, 0.03) 50%,
+                rgba(162, 255, 0, 0.03) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .archon-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                var(--hyper-glow);
+        }
+
+        [data-theme="light"] .archon-card:hover {
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.2),
+                var(--hyper-glow);
+        }
+
+        .archon-card:hover::before {
+            opacity: 0.7;
+            animation: borderFlow 3s linear infinite;
+        }
+
+        .archon-card:hover::after {
+            opacity: 0.3;
+        }
+
+        .archon-image {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .archon-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+        }
+
+        [data-theme="light"] .archon-image::after {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+        }
+
+        .archon-name {
+            position: absolute;
+            bottom: 40px;
+            left: 30px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .archon-details {
+            padding: 2rem;
+        }
+
+        .archon-role {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(90deg, var(--quantum), var(--plasma));
+            color: white;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        [data-theme="light"] .archon-role {
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .archon-contribution {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .archon-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .archon-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--starlight);
+            font-size: 1.2rem;
+            transition: var(--slow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .archon-social a {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .archon-social a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--quantum), var(--plasma));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .archon-social a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4);
+            color: white;
+        }
+
+        [data-theme="light"] .archon-social a:hover {
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .archon-social a:hover::before {
+            opacity: 1;
+        }
+
+        .archon-social i {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === SINGULARITY CTA === */
+        .singularity-cta {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            z-index: 100;
+        }
+
+        .cta-portal {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 2.5rem;
+            background: linear-gradient(45deg, var(--quantum), var(--hologram));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 
+                0 10px 40px rgba(0, 240, 255, 0.3),
+                0 0 20px rgba(200, 0, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: var(--slow);
+            z-index: 1;
+        }
+
+        [data-theme="light"] .cta-portal {
+            box-shadow: 
+                0 10px 40px rgba(0, 102, 255, 0.3),
+                0 0 20px rgba(153, 0, 255, 0.3);
+        }
+
+        .cta-portal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .cta-portal:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 50px rgba(0, 240, 255, 0.5),
+                0 0 30px rgba(200, 0, 255, 0.5);
+        }
+
+        [data-theme="light"] .cta-portal:hover {
+            box-shadow: 
+                0 15px 50px rgba(0, 102, 255, 0.4),
+                0 0 30px rgba(153, 0, 255, 0.4);
+        }
+
+        .cta-portal:hover::before {
+            transform: translateX(100%);
+        }
+
+        .portal-effect {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 60px;
+            background: linear-gradient(45deg, var(--quantum), var(--plasma), var(--hologram));
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(20px);
+            animation: portalPulse 3s infinite;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes quantumPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes gridFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+        }
+
+        @keyframes textFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: var(--hyper-glow);
+            }
+            20%, 22%, 24%, 55% {
+                opacity: 0.8;
+                text-shadow: none;
+            }
+        }
+
+        @keyframes matrixRain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+
+        @keyframes digitalScan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        @keyframes auraPulse {
+            0% { opacity: 0.3; width: 300px; }
+            100% { opacity: 0.7; width: 400px; }
+        }
+
+        @keyframes searchScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes selectPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes borderFlow {
+            0% { filter: blur(2px); opacity: 0.7; }
+            50% { filter: blur(4px); opacity: 0.4; }
+            100% { filter: blur(2px); opacity: 0.7; }
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.95); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        @keyframes quantumFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(0) translateX(20px); }
+            75% { transform: translateY(20px) translateX(10px); }
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 1200px) {
+            .title-matrix {
+                font-size: 4rem;
+            }
+            
+            .pantheon-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pantheon-container {
+                padding: 3rem 1.5rem;
+            }
+            
+            .title-matrix {
+                font-size: 3rem;
+            }
+            
+            .subtitle-digital {
+                font-size: 1.4rem;
+            }
+            
+            .quantum-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+            
+            .ai-search-container, .hologram-select {
+                width: 100%;
+            }
+            
+            .archon-card {
+                max-width: 100%;
+            }
+            
+            .singularity-cta {
+                bottom: 2rem;
+                right: 2rem;
+            }
+            
+            .cta-portal {
+                padding: 1.2rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-matrix {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle-digital {
+                font-size: 1.2rem;
+            }
+            
+            .pantheon-header {
+                margin-bottom: 4rem;
+            }
+            
+            .archon-image {
+                height: 220px;
+            }
+            
+            .archon-name {
+                font-size: 1.5rem;
+                bottom: 30px;
+            }
+            
+            .archon-details {
+                padding: 1.5rem;
+            }
+            
+            .cta-portal {
+                padding: 1rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* === NO RESULTS STYLING === */
+        .no-archons {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px dashed var(--quantum);
+            opacity: 0.7;
+        }
+
+        .no-archons i {
+            font-size: 3rem;
+            color: var(--quantum);
+            margin-bottom: 1.5rem;
+        }
+
+        .no-archons p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <!-- Quantum Background Elements -->
+    <div class="quantum-bg"></div>
+    <div class="neural-network"></div>
+    
+    <!-- Main Container -->
+    <div class="pantheon-container">
+        <!-- Holographic Header -->
+        <header class="pantheon-header">
+            <h1 class="title-matrix">THE <span class="title-flicker">PANTHEON</span></h1>
+            <p class="subtitle-digital">Legends Who Shape Reality</p>
+            <div class="header-aura"></div>
+        </header>
+
+        <!-- AI-Powered Controls -->
+        <div class="quantum-controls">
+            <div class="ai-search-container">
+                <input type="text" id="searchInput" placeholder="Query the collective..." class="ai-search-field">
+                <i class="fas fa-search ai-search-icon"></i>
+                <div class="search-pulse"></div>
+            </div>
+            
+            <div class="hologram-select">
+                <select id="roleFilter" class="quantum-dropdown">
+                    <option value="all">ALL ARCHONS</option>
+                    <option value="admin">ADMIN</option>
+                    <option value="notes">NOTES SPECIALIST</option>
+                    <option value="mentor">MENTOR</option>
+                    <option value="blog">BLOG WRITERS</option>
+                </select>
+                <div class="select-aura"></div>
+            </div>
+        </div>
+
+        <!-- The Pantheon Grid -->
+        <div id="pantheonGrid" class="pantheon-grid">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Singularity CTA -->
+        <div class="singularity-cta">
+            <button class="cta-portal">
+                <span>ASCEND TO THE PANTHEON</span>
+                <div class="portal-effect"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-positive-interface-beep-218.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', () => {
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                
+                // Animate the toggle
+                gsap.to(themeToggle, {
+                    rotation: isDark ? 360 : -360,
+                    scale: 1.2,
+                    duration: 0.5,
+                    ease: "back.out(1.7)"
+                });
+                
+                setTimeout(() => {
+                    gsap.to(themeToggle, {
+                        rotation: 0,
+                        scale: 1,
+                        duration: 0.3
+                    });
+                }, 500);
+            });
+
+            // Initialize GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Create quantum particles background
+            createQuantumParticles();
+            
+            // Load collaborators data
+            const collaborators = [
+                {
+                    name: "Admin",
+                    role: "admin",
+                    roleDisplay: "CREATOR",
+                    contribution: "A Very Old Average kid of our school helping students from the problems i faced",
+                    image: "images/collaborators/admin.webp",
+                    social: {
+                        behance: "#",
+                        dribbble: "#",
+                        instagram: "#"
+                    }
+                },
+                {
+                    name: "Shaurya",
+                    role: "admin",
+                    roleDisplay: "Assembler",
+                    contribution: "Assembling avangers for admin . just eating 5 star and doing nothing",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,2",
+                    social: {
+                        github: "#",
+                        stackoverflow: "#",
+                        twitter: "#"
+                    }
+                },
+                {
+                    name: "Nova",
+                    role: "admin",
+                    roleDisplay: "Pro Assembler",
+                    contribution: "Nova ain't my real name ofcourse (Not from kv either), Helping many, Self a #12th grader too, helping admin and shaurya",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,3",
+                    social: {
+                        github: "#",
+                        codepen: "#",
+                        twitter: "#"
+                    }
+                },
+                {
+                    name: "Shivraj",
+                    role: "blog",
+                    roleDisplay: "Blog writer",
+                    contribution: "...(••)...",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
+                    social: {
+                        linkedin: "#",
+                        twitter: "#"
+                    }
+                },
+                {
+                    name: "Ayushi",
+                    role: "notes",
+                    roleDisplay: "Notes Master",
+                    contribution: "providing the notes that helped me to ace school exams.",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,4",
+                    social: {
+                        medium: "#",
+                        twitter: "#",
+                        website: "#"
+                    }
+                },
+                {
+                    name: "Jyotiraditya",
+                    role: "notes",
+                    roleDisplay: "Hindi Notes Master",
+                    contribution: "providing goated hindi notes.",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,5",
+                    social: {
+                        github: "#",
+                        twitter: "#"
+                    }
+                },
+                {
+                    name: "Yuvraj",
+                    role: "blog",
+                    roleDisplay: "The blog writer",
+                    contribution: "...(••)...",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
+                    social: {
+                        linkedin: "#",
+                        twitter: "#"
+                    }
+                },
+                {
+                    name: "Aditya",
+                    role: "mentor",
+                    roleDisplay: "The Astro",
+                    contribution: "CONQUER IT.. ✨️✨️, MENTOR.",
+                    image: "https://source.unsplash.com/random/600x600/?cyberpunk,portrait,6",
+                    social: {
+                        linkedin: "#",
+                        twitter: "#"
+                    }
+                }
+            ];
+               
+
+            // Render initial collaborators
+            renderPantheon(collaborators);
+            
+            // Set up search and filter functionality
+            const searchInput = document.getElementById('searchInput');
+            const roleFilter = document.getElementById('roleFilter');
+            
+            searchInput.addEventListener('input', debounce(filterPantheon, 300));
+            roleFilter.addEventListener('change', filterPantheon);
+            
+            // Initialize hover sounds
+            initHoverSounds();
+            
+            // Set up portal CTA
+            const portalCTA = document.querySelector('.cta-portal');
+            portalCTA.addEventListener('click', () => {
+                gsap.to(portalCTA, {
+                    scale: 1.1,
+                    boxShadow: "0 0 50px rgba(0, 240, 255, 0.8)",
+                    duration: 0.3,
+                    yoyo: true,
+                    repeat: 1
+                });
+                // Add your join team functionality here
+            });
+
+            // Function to create quantum particles
+            function createQuantumParticles() {
+                const bg = document.querySelector('.quantum-bg');
+                const particleCount = window.innerWidth < 768 ? 30 : 60;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'quantum-particle';
+                    
+                    // Random properties
+                    const size = Math.random() * 3 + 1;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const duration = Math.random() * 10 + 10;
+                    const delay = Math.random() * -20;
+                    const opacity = Math.random() * 0.5 + 0.1;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animation = `quantumFloat ${duration}s ${delay}s infinite`;
+                    
+                    // Random color
+                    const colors = ['#00f0ff', '#ff00f5', '#a2ff00', '#c800ff'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
+                    
+                    bg.appendChild(particle);
+                }
+            }
+            
+            // Function to render collaborators
+            function renderPantheon(collabs) {
+                const container = document.getElementById('pantheonGrid');
+                container.innerHTML = '';
+                
+                if (collabs.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-archons">
+                            <i class="fas fa-question"></i>
+                            <p>NO ARCHONS FOUND IN THIS DIMENSION</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                collabs.forEach((collab, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'archon-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    // Generate social icons
+                    let socialIcons = '';
+                    for (const [platform, url] of Object.entries(collab.social)) {
+                        let iconClass;
+                        switch(platform) {
+                            case 'twitter': iconClass = 'fab fa-twitter'; break;
+                            case 'github': iconClass = 'fab fa-github'; break;
+                            case 'linkedin': iconClass = 'fab fa-linkedin-in'; break;
+                            case 'dribbble': iconClass = 'fab fa-dribbble'; break;
+                            case 'behance': iconClass = 'fab fa-behance'; break;
+                            case 'instagram': iconClass = 'fab fa-instagram'; break;
+                            case 'medium': iconClass = 'fab fa-medium-m'; break;
+                            case 'stackoverflow': iconClass = 'fab fa-stack-overflow'; break;
+                            case 'codepen': iconClass = 'fab fa-codepen'; break;
+                            case 'website': iconClass = 'fas fa-globe'; break;
+                            default: iconClass = 'fas fa-link';
+                        }
+                        
+                        socialIcons += `
+                            <a href="${url}" target="_blank" rel="noopener noreferrer" 
+                               class="social-link" data-platform="${platform}">
+                                <i class="${iconClass}"></i>
+                            </a>
+                        `;
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="archon-image" style="background-image: url('${collab.image}')">
+                            <h3 class="archon-name">${collab.name}</h3>
+                        </div>
+                        <div class="archon-details">
+                            <span class="archon-role">${collab.roleDisplay}</span>
+                            <p class="archon-contribution">${collab.contribution}</p>
+                            <div class="archon-social">
+                                ${socialIcons}
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                    
+                    // GSAP animation for card entrance
+                    gsap.from(card, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        },
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.8,
+                        delay: index * 0.05,
+                        ease: "back.out(1.2)"
+                    });
+                });
+                
+                // Re-initialize hover sounds for new cards
+                initHoverSounds();
+            }
+            
+            // Function to filter collaborators
+            function filterPantheon() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedRole = roleFilter.value;
+                
+                const filtered = collaborators.filter(collab => {
+                    const matchesSearch = 
+                        collab.name.toLowerCase().includes(searchTerm) || 
+                        collab.roleDisplay.toLowerCase().includes(searchTerm) || 
+                        collab.contribution.toLowerCase().includes(searchTerm);
+                    
+                    const matchesRole = selectedRole === 'all' || collab.role === selectedRole;
+                    
+                    return matchesSearch && matchesRole;
+                });
+                
+                renderPantheon(filtered);
+            }
+            
+            // Function to initialize hover sounds
+            function initHoverSounds() {
+                const hoverSound = document.getElementById('hoverSound');
+                const hoverElements = document.querySelectorAll('.archon-card, .social-link, .quantum-dropdown, .ai-search-field, .cta-portal');
+                
+                hoverElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        hoverSound.currentTime = 0;
+                        hoverSound.play();
+                    });
+                });
+            }
+            
+            // Debounce function for search
+            function debounce(func, wait) {
+                let timeout;
+                return function() {
+                    const context = this, args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), wait);
+                };
+            }
+            
+            // Add floating animation to quantum particles
+            gsap.to('.quantum-particle', {
+                y: () => Math.random() * 40 - 20,
+                x: () => Math.random() * 40 - 20,
+                duration: () => Math.random() * 10 + 10,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+            
+            // Add parallax effect to header
+            gsap.to('.pantheon-header', {
+                scrollTrigger: {
+                    trigger: '.pantheon-container',
+                    start: "top top",
+                    end: "+=500",
+                    scrub: true
+                },
+                y: 100,
+                opacity: 0.5,
+                scale: 0.9
+            });
+        });
+    </script>
+</body>
+</html>
