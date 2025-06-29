@@ -3,30 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 11 Notes</title>
-    <link rel="stylesheet" href="style10.css">
+    <title>Teachers Portal | Vidyora</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --accent: #4cc9f0;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --error: #ef233c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(67, 97, 238, 0.1) 0%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 4px 6px rgba(67, 97, 238, 0.2));
+        }
+        
+        h1 {
+            color: var(--dark);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            font-size: 15px;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background: white;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 16px;
+            height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .error-message.show {
+            opacity: 1;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        
+        .shake {
+            animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+    </style>
 </head>
 <body>
-
-    <div class="container">
-        <div class="header">
-            <button class="back-btn" onclick="goBack()">⬅ Back</button>
-            <h1>Class - XI</h1>
+    <div class="login-container" id="loginContainer">
+        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="#4361ee"/>
+            <path d="M3 12L12 17L21 12" stroke="#4361ee" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 17L12 22L21 17" stroke="#4361ee" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        
+        <h1>Teachers Portal</h1>
+        <p class="subtitle">Enter your password to access exclusive content</p>
+        
+        <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Enter secure password" autocomplete="current-password">
+                <span class="password-toggle" id="togglePassword">👁️</span>
+            </div>
         </div>
-
-        <div class="subjects">
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/106CWsqbvEkq4X0IWYHClBhuG1GMk09n-')">Hindi</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-iZJOCX19COCc51FowwoTOnYiWKP4X-v')">Chemistry</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-oxG78HQgPo7ennQ8OmUQZy85VcYIQ6S')">English</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-MreQH8B-4uVLPapJrL6bOyjciyiBzi9')">Mathematics</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-kjBeWE3w_tq1e3C2H1PyHZCQugEx7fS')">physics</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-kjBeWE3w_tq1e3C2H1PyHZCQugEx7fS')">Biology</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-kjBeWE3w_tq1e3C2H1PyHZCQugEx7fS')">Yoga</button>
-            <button class="subject-btn" onclick="openFolder('https://drive.google.com/drive/folders/1-kjBeWE3w_tq1e3C2H1PyHZCQugEx7fS')">Previous Year Paper</button>
-        </div>
+        
+        <button class="btn" id="loginBtn">Continue</button>
+        
+        <div class="error-message" id="errorMessage"></div>
     </div>
 
-    <script src="script10.js"></script>
-
+    <script>
+        const password = "vidyaxvzr"; // Change this to your desired password
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginContainer = document.getElementById('loginContainer');
+        const togglePassword = document.getElementById('togglePassword');
+        
+        // Toggle password visibility
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🔒';
+        });
+        
+        // Handle login
+        function handleLogin() {
+            const input = passwordInput.value.trim();
+            
+            if (input === password) {
+                // Success - redirect to teachers page
+                window.location.href = "teachers.html";
+            } else {
+                // Error handling
+                errorMessage.textContent = "Incorrect password. Please try again.";
+                errorMessage.classList.add('show');
+                loginContainer.classList.add('shake');
+                
+                setTimeout(() => {
+                    loginContainer.classList.remove('shake');
+                }, 600);
+                
+                passwordInput.focus();
+            }
+        }
+        
+        // Login button click
+        loginBtn.addEventListener('click', handleLogin);
+        
+        // Enter key press
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+        
+        // Clear error on typing
+        passwordInput.addEventListener('input', () => {
+            errorMessage.classList.remove('show');
+        });
+    </script>
 </body>
 </html>
